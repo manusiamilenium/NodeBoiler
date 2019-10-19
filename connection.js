@@ -11,4 +11,4 @@ con.connect(function (err){
     if(err) throw err;
 });
 
-module.exports = mysql;
+module.exports = con;
