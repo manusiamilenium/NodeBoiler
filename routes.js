@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = function(app) {
-    var todoList = require('./connection');
+    var controller = require('./controller');
 
     app.route('/')
-        .get(todoList.index);
+        .get(controller.index);
 
     app.route('/users')
-        .get(todoList.users);
+        .get(controller.users);
 };
