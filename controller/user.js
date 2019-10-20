@@ -1,7 +1,6 @@
 'use strict';
 
-var response = require('../result');
-var connection = require('../connection');
+var response = require('../result'); 
 var model = require('../model/usermodel');
 
 exports.users = function (req, res) {
@@ -69,4 +68,26 @@ exports.deleteUsers = function (req, res) {
                 response.ok("Berhasil menghapus user!", res)
             }
         });
+};
+
+exports.login = function(req,res){
+    var jwt = require('jsonwebtoken');
+    var user_id = req.body.user_id;
+    model.getUser(user_id, function (error, rows, fields) {
+        if (error) {
+            console.log(error); 
+        } else {
+            console.log(rows[0]); 
+            const token = jwt.sign({rows}, global.config.secret, {expiresIn: global.config.tokenLife});
+            const refreshToken = jwt.sign({rows}, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife});
+            const tokenresponse = {
+                "status": "Logged in",
+                "token": token,
+                "refreshToken": refreshToken,
+            }
+            global.tokenList[refreshToken] = tokenresponse;
+            console.log(global.tokenList);
+            response.ok(token, res)
+        }
+    });
 };

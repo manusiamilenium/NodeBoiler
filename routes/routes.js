@@ -1,23 +1,28 @@
 'use strict';
-
+var tokenize = require('../services/TokenValidator');
+var refresh = require('../services/RefreshToken');
 module.exports = function (app) {
     var user = require('../controller/user');
 
     app.route('/')
-        .get(user.index);
+        .get(tokenize,user.index);
 
     app.route('/users')
-        .get(user.users);
+        .get(tokenize,user.users);
 
     app.route('/users/:user_id')
-        .get(user.findUsers);
+        .get(tokenize,user.findUsers);
 
     app.route('/users')
-        .post(user.createUsers);
+        .post(tokenize,user.createUsers);
 
     app.route('/users')
-        .put(user.updateUsers);
+        .put(tokenize,user.updateUsers);
 
     app.route('/users')
-        .delete(user.deleteUsers);
+        .delete(tokenize,user.deleteUsers);
+
+    app.route('/login')
+        .post(user.login);
+
 };
