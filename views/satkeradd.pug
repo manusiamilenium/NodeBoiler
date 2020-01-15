@@ -1,0 +1,23 @@
+extends masterdata.pug
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Satuan Kerja Kepolisian
+          .card-body
+            form(action='/satkers/'+ edit method='POST')
+              .row
+                .col-md-5.pr-1
+                  .form-group
+                    label Nama Satuan
+                    if edit!=""
+                        input.form-control(type='text' name="nama_satker" placeholder='Masukkan Nama Satuan' value=''+data["nama_satker"])
+                    else
+                        input.form-control(type='text' name="nama_satker" placeholder='Masukkan Nama Satuan' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')
+                     
+                  

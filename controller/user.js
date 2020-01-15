@@ -1,6 +1,6 @@
 'use strict';
 
-var response = require('../result'); 
+var response = require('../result');
 var model = require('../model/usermodel');
 
 exports.users = function (req, res) {
@@ -15,8 +15,12 @@ exports.users = function (req, res) {
 };
 
 exports.index = function (req, res) {
-    response.ok("Hello world!", res)
+    var notification = req.session.notification;
+    var nottype = req.session.notificationtype;
+    res.render('login',{ notification: notification, nottype: nottype});
+    delete req.session.notification;
 };
+
 
 exports.findUsers = function (req, res) {
     var user_id = req.params.user_id;
@@ -69,7 +73,7 @@ exports.deleteUsers = function (req, res) {
             }
         });
 };
-
+/*
 exports.login = function(req,res){
     var jwt = require('jsonwebtoken');
     var user_id = req.body.user_id;
@@ -90,4 +94,37 @@ exports.login = function(req,res){
             response.ok(token, res)
         }
     });
+};
+*/
+exports.login = function (req, res) {
+    var username = req.body.username,
+        password = req.body.password;
+    if (username != "" && password != "") {
+        model.getUser(username, function (error, rows, fields) {
+            if (error) {
+                res.redirect('/login');
+            } else {
+                try {
+                    
+                    if (password == rows[0].password) {
+                        req.session.user = rows;
+                        res.redirect('/');
+                    } else {
+                        res.redirect('/login');
+                    }
+                } catch (error) {
+                    req.session.notification = "Invalid Username and Password";
+                    req.session.notificationtype = "error";
+                     
+                    res.redirect('/login');
+                }
+            }
+        });
+    }
+    else {
+        req.session.notification = "Invalid Username and Password";
+        req.session.notificationtype = "error";
+        res.redirect('/login');
+    }
+
 };

@@ -1,28 +1,109 @@
 'use strict';
-var tokenize = require('../services/TokenValidator');
-var refresh = require('../services/RefreshToken');
+var tokenize = require('../services/TokenValidator'),
+    refresh = require('../services/RefreshToken'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session');
+
 module.exports = function (app) {
-    var user = require('../controller/user');
+    
+    var iku = require('../controller/iku');
+    var satwil = require('./satwil');
+    var satker = require('./satker');
+    var subdit = require('./subdit'); 
+    var users = require('./users'); 
+    var jenisintel = require('./jenisintel'); 
+    var produkintel = require('./produkintel'); 
+    var produkkeluar = require('./produkkeluar'); 
+    var indexkepuasan = require('./indexkepuasan'); 
+    var potensigangguan = require('./potensigangguan'); 
+    var dataprodukintel = require('./dataprodukintel'); 
+    var kejadianmenonjol = require('./kejadianmenonjol'); 
+    var dataprodukkeluar = require('./dataprodukkeluar'); 
+    
+    
+    // initialize cookie-parser to allow us access the cookies stored in the browser. 
+    app.use(cookieParser());
+    // initialize express-session to allow us track the logged-in user across sessions.
+    app.use(session({
+        key: 'user_id',
+        secret: 'bumiitubulat',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            expires: 600000
+        }
+    }));
+    // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+    // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+    app.use((req, res, next) => {
+        if (req.cookies.user_sid && !req.session.user) {
+            res.clearCookie('user_id');
+        }
+        next();
+    });
+    // middleware function to check for logged-in users
+    var sessionChecker = (req, res, next) => {
+        if (req.session.user && req.cookies.user_id) {
+            next();
+        } else {
+            res.redirect('/login');
+        }
+    };
+   
+    // route for user logout
+    app.get('/logout', (req, res) => {
+        if (req.session.user && req.cookies.user_sid) {
+            res.clearCookie('user_id');
+            res.redirect('/');
+        } else {
+            res.redirect('/login');
+        }
+    });
+    
 
-    app.route('/')
-        .get(tokenize,user.index);
+    
+    app.route('/ik1')
+        .get(sessionChecker, iku.ik1);
 
-    app.route('/users')
-        .get(tokenize,user.users);
+    app.route('/ik3')
+        .get(sessionChecker, iku.ik3);
+    app.route('/ik32')
+        .get(iku.ik32);
+    app.route('/ik33')
+        .get(iku.ik33);
+    app.route('/ik34')
+        .get(iku.ik34);
+    app.route('/ik35')
+        .get(iku.ik35);
+    app.route('/ik36')
+        .get(iku.ik36);
+    app.route('/ik4')
+        .get(iku.ik4);
+    app.route('/ik41')
+        .get(iku.ik41);
+    app.route('/ik42')
+        .get(iku.ik42);
+    app.route('/ik5')
+        .get(iku.ik5);
+    app.route('/ik6')
+        .get(iku.ik6);
+    app.route('/ik2')
+        .get(iku.ik2);
+    app.route('/ik11')
+        .get(iku.ik11);
 
-    app.route('/users/:user_id')
-        .get(tokenize,user.findUsers);
-
-    app.route('/users')
-        .post(tokenize,user.createUsers);
-
-    app.route('/users')
-        .put(tokenize,user.updateUsers);
-
-    app.route('/users')
-        .delete(tokenize,user.deleteUsers);
-
-    app.route('/login')
-        .post(user.login);
+    users(app,sessionChecker);
+    satwil(app,sessionChecker);
+    satker(app,sessionChecker);
+    subdit(app,sessionChecker);
+    jenisintel(app,sessionChecker);
+    produkintel(app,sessionChecker);
+    produkkeluar(app,sessionChecker);
+    indexkepuasan(app,sessionChecker);
+    potensigangguan(app,sessionChecker);
+    dataprodukintel(app,sessionChecker);
+    kejadianmenonjol(app,sessionChecker);
+    dataprodukkeluar(app,sessionChecker);
+ 
 
 };

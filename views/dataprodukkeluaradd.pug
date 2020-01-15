@@ -1,0 +1,103 @@
+extends dataprodukintelhome.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title #{title} Terdistribusi ke K/L (IKU3)
+          .card-body
+            form(action='/dataprodukkeluaradd/' + id_jenis_produk_keluar + edit method='POST')               
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Nomor #{title} 
+                    input.form-control(type='text' name="nomor_produk_keluar" placeholder='Masukkan Nomor' value='')
+                    input.form-control(type="hidden" id="id_jenis_produk_keluar" name="id_jenis_produk_keluar" value=""+id_jenis_produk_keluar)
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tanggal
+                    input.form-control(type='text' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value='2020-01-15')               
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Kepada
+                    input.form-control(type='text' name="kepada_produk_keluar" placeholder='Kepada' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Perihal
+                    input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value='')
+              .row
+                  .col-md-6.pr-1
+                    .form-group
+                      label Dasar Surat
+              .row
+                .col-md-4.pr-1
+                  .form-group
+                    br
+                    .btn-group.dropright
+                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          |    Jenis Produk
+                      .dropdown-menu
+                          each val, index in jenis
+                              a.dropdown-item(href='#' 
+                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
+                                  = val["nama_produk_intelijen"]
+                      <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
+                .col-md-4.px-1
+                  .form-group
+                    label Nomor Dokumen 
+                    input.form-control(type='text' placeholder='Nomor' value='')
+                .col-md-4.pl-1
+                  .form-group
+                    label Upload
+                    input.form-control(type='file' placeholder='' value='') 
+              .row
+                .col-md-4.pr-1
+                  .form-group
+                    br
+                    .btn-group.dropright
+                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          |    Jenis Produk
+                      .dropdown-menu
+                          each val, index in jenis
+                              a.dropdown-item(href='#' 
+                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
+                                  = val["nama_produk_intelijen"]
+                      <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
+                .col-md-4.px-1
+                  .form-group
+                    label Nomor Dokumen 
+                    input.form-control(type='text' placeholder='Nomor' value='')
+                .col-md-4.pl-1
+                  .form-group
+                    label Upload
+                    input.form-control(type='file' placeholder='' value='') 
+              .row
+                .col-md-4.pr-1
+                  .form-group
+                    br
+                    .btn-group.dropright
+                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          |    Jenis Produk
+                      .dropdown-menu
+                          each val, index in jenis
+                              a.dropdown-item(href='#' 
+                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_ref_produk_keluar[]']\").val("+val["id_produk_intelijen"]+");")
+                                  = val["nama_produk_intelijen"]
+                      <input type="hidden" id="jenis_ref_produk_keluar[]" name="jenis_ref_produk_keluar[]" value="">
+                .col-md-4.px-1
+                  .form-group
+                    label Nomor Dokumen 
+                    input.form-control(type='text' placeholder='Nomor' name="nomor_ref_produk_keluar[]"  value='')
+                .col-md-4.pl-1
+                  .form-group
+                    label Upload
+                    input.form-control(type='file' placeholder=''  name="attachment_ref_produk_keluar[]" value='') 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

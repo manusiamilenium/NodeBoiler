@@ -1,0 +1,40 @@
+extends masterdata.pug
+block content
+      .row
+        .col-md-12
+            .card
+                .card-header
+                    if notification
+                        .alert.alert-danger
+                            button.close(type='button' aria-hidden='true')
+                                i.now-ui-icons.ui-1_simple-remove
+                            span
+                                b  #{notification}
+                    h4.card-title  Master Data Direktorat / Subdit
+                    a.btn.btn-info.btn-round.card-title(href='/subdits/add' role='button')
+                        i.now-ui-icons.ui-1_simple-add
+                        |  Tambah
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Nama Direktorat / Subdit
+                                th
+                                    | Action
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_subdit"]
+                                        td
+                                            a.btn.btn-primary.btn-round(href='/subdits/'+ val["id_subdit"] role='button')
+                                                i.now-ui-icons.design-2_ruler-pencil
+                                                |  Edit
+                                            |  
+                                            a.btn.btn-danger.btn-round(href='/subdits/delete/'+ val["id_subdit"] role='button')
+                                                i.now-ui-icons.ui-1_simple-remove
+                                                |  Delete

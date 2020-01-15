@@ -1,0 +1,57 @@
+extends dataprodukintelhome.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Jumlah Produk Intelijen (IKU3)
+          .card-body
+            form(action='/dataprodukintel/'+ edit method='POST')
+              .row
+                .col-md-6.pr-1
+                  .form-group 
+                    .btn-group.dropright
+                        button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="subdit" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            |    Pilih Subdit
+                        .dropdown-menu
+                            each val, index in subdit
+                                a.dropdown-item(href='#' 
+                                    onCLick="$(\"button[name ='subdit']\").text($(this).text());$(\"input[name ='id_subdit']\").val("+val["id_subdit"]+");")
+                                    = val["nama_subdit"]
+                        <input type="hidden" id="id_subdit" name="id_subdit" value="">
+                                 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tahun
+                    input.form-control(type='text' name="tahun_data_produk_intelijen" placeholder='Masukkan Tahun' value='2020')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Bulan
+                    input.form-control(type='text' name="bulan_data_produk_intelijen" placeholder='Masukkan Bulan' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group 
+                    .btn-group.dropright
+                        button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            |    Jenis Produk
+                        .dropdown-menu
+                            each val, index in jenis
+                                a.dropdown-item(href='#' 
+                                    onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
+                                    = val["nama_produk_intelijen"]
+                        <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
+                             
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Jumlah
+                    input.form-control(type='text' name="jumlah_data_produk_intelijen" placeholder='Masukkan Jumlah Potensi' value='')
+               
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

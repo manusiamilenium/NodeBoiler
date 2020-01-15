@@ -1,0 +1,244 @@
+doctype html
+head
+  meta(charset='utf-8')
+  link(rel='apple-touch-icon' sizes='76x76' href='../assets/img/apple-icon.png')
+  link(rel='icon' type='image/png' href='../assets/img/favicon.png')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge,chrome=1')
+  title
+    | Now UI Dashboard by Creative Tim
+  meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport')
+  // Fonts and icons
+  link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700,200' rel='stylesheet')
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.1/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+  // CSS Files
+  link(href='../assets/css/bootstrap.min.css' rel='stylesheet')
+  link(href='../assets/css/now-ui-dashboard.css?v=1.3.0' rel='stylesheet')
+  // CSS Just for demo purpose, don't include it in your project
+  link(href='../assets/demo/demo.css' rel='stylesheet')
+.wrapper
+  .sidebar(data-color='orange')
+    //
+      Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    .logo
+      a.simple-text.logo-mini(href='http://www.creative-tim.com')
+        | BI
+      a.simple-text.logo-normal(href='http://www.creative-tim.com')
+        | IKU MANUAL
+    #sidebar-wrapper.sidebar-wrapper
+      ul.nav
+        li
+          a(href='./')
+            i.now-ui-icons.design_app
+            p Dashboard
+        //li
+          a(href='./icons.html')
+            i.now-ui-icons.education_atom
+            p Icons
+        //li
+          a(href='./map.html')
+            i.now-ui-icons.location_map-big
+            p Maps
+        //li
+          a(href='./notifications.html')
+            i.now-ui-icons.ui-1_bell-53
+            p Notifications
+        //li
+          a(href='./user.html')
+            i.now-ui-icons.users_single-02
+            p User Profile
+        li
+          a(href='./ik1')
+            i.now-ui-icons.design_bullet-list-67
+            p IK1
+        li
+          a(href='./ik2')
+            i.now-ui-icons.design_bullet-list-67
+            p IK2
+        li.active
+          a(href='./ik3')
+            i.now-ui-icons.design_bullet-list-67
+            p IK3 - Produk Intelijen
+        li
+          a(href='./ik32')
+            i.now-ui-icons.design_bullet-list-67
+            p IK3 - Surat Kepada K/L
+        li
+          a(href='./ik33')
+            i.now-ui-icons.design_bullet-list-67
+            p IK3 - Sarpen Kepada K/L
+        li
+          a(href='./ik34')
+            i.now-ui-icons.design_bullet-list-67
+            p IK3 - Bahan Pimpinan
+        li
+          a(href='./ik35')
+            i.now-ui-icons.design_bullet-list-67
+            p IK3 - Bahan Rapat Pimpinan
+        li
+          a(href='./ik36')
+            i.now-ui-icons.design_bullet-list-67
+            p IK3 - Pengiriman Prod. Intelijen
+
+        li
+          a(href='./ik4')
+            i.now-ui-icons.design_bullet-list-67
+            p IK4
+        li
+          a(href='./ik5')
+            i.now-ui-icons.design_bullet-list-67
+            p IK5
+        li
+          a(href='./ik6')
+            i.now-ui-icons.design_bullet-list-67
+            p IK6
+        li
+          a(href='./ik11')
+            i.now-ui-icons.design_bullet-list-67
+            p IK11
+  #main-panel.main-panel
+    // Navbar
+    nav.navbar.navbar-expand-lg.navbar-transparent.bg-primary.navbar-absolute
+      .container-fluid
+        .navbar-wrapper
+          .navbar-toggle
+            button.navbar-toggler(type='button')
+              span.navbar-toggler-bar.bar1
+              span.navbar-toggler-bar.bar2
+              span.navbar-toggler-bar.bar3
+          a.navbar-brand(href='#pablo') IKU : Persentase informasi Intelijen yang didistribusikan ke K/L dan lintas sektoral
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navigation' aria-controls='navigation-index' aria-expanded='false' aria-label='Toggle navigation')
+          span.navbar-toggler-bar.navbar-kebab
+          span.navbar-toggler-bar.navbar-kebab
+          span.navbar-toggler-bar.navbar-kebab
+        #navigation.collapse.navbar-collapse.justify-content-end
+          form
+            .input-group.no-border
+              input.form-control(type='text' value='' placeholder='Search...')
+              .input-group-append
+                .input-group-text
+                  i.now-ui-icons.ui-1_zoom-bold
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link(href='#pablo')
+                i.now-ui-icons.media-2_sound-wave
+                p
+                  span.d-lg-none.d-md-block Stats
+            li.nav-item.dropdown
+              a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                i.now-ui-icons.location_world
+                p
+                  span.d-lg-none.d-md-block Some Actions
+              .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+                a.dropdown-item(href='#') Action
+                a.dropdown-item(href='#') Another action
+                a.dropdown-item(href='#') Something else here
+            li.nav-item
+              a.nav-link(href='#pablo')
+                i.now-ui-icons.users_single-02
+                p
+                  span.d-lg-none.d-md-block Account
+    // End Navbar
+    .panel-header.panel-header-sm
+    .content            
+      .row
+        .col-md-8
+          .card
+            .card-header
+              h5.title Data Produk Intelijen
+            .card-body
+              form
+                .row
+                  .col-md-5.pr-1
+                    .form-group
+                      label Subdit
+                      select.form-control()
+                        option(value='') Politik
+                        option(value='') Ekonomi
+                        option(value='') SOSBUD
+                        option(value='') KAMNEG
+                        option(value='') KAMSUS
+
+                .row
+                  .col-md-5.pr-1
+                    .form-group
+                      label Tahun
+                      input.form-control(type='text' disabled='' placeholder='Tahun' value='2020')
+                .row
+                  .col-md-5.pr-1
+                    .form-group
+                      label Bulan
+                      input.form-control(type='text' disabled='' placeholder='Bulan' value='Januari')
+                .row
+                  .col-md-5.pr-1
+                    .form-group
+                      label Produk Intelijen
+                       select.form-control()
+                         option(value='') LAPORAN INFORMASI
+                         option(value='')                INFORMASI KHUSUS
+                         option(value='')                TELAAH INTELIJEN
+                          option(value='')               TELAAH INTELIJEN MINGGUAN
+                          option(value='')               TELAAH INTELIJEN BULANAN
+                          option(value='')               PERKIRAAN KEADAAN
+                          option(value='')               PERKIRAAN CEPAT
+                          option(value='')               PERKIRAAN SINGKAT
+                           option(value='')              PERKIRAAN KHUSUS
+                           option(value='')              PERKIRAAN MINGGUAN
+                           option(value='')              PERKIRAAN BULANAN
+                           option(value='')              PERKIRAAN KONTIJENSI
+                           option(value='')              NOTA INTELIJEN
+                           option(value='')              MEMO INTELIJEN
+                           option(value='')              INTEL DASAR
+                           option(value='')              LAPORAN HARIAN INTELIJEN
+                           option(value='')              LAPORAN HARIAN KHUSUS
+                           option(value='')              LAPORAN ATENSIA
+                           option(value='')              LAPORAN KHUSUS
+                           option(value='')              LAPORAN INTELIJEN
+                           option(value='')              LAPORAN PENUGASAN
+                .row
+                  .col-md-6.pr-1
+                    .form-group
+                      label Jumlah
+                      input.form-control(type='text' placeholder='Jumlah' value='')          
+                .row
+                  .col-md-12
+                    .form-group
+                      input.form-control(type='submit' placeholder='' value='Kirim Data')
+                 
+         
+    footer.footer
+      .container-fluid
+        nav
+          ul
+            li
+              a(href='https://www.creative-tim.com')
+                | Creative Tim
+            li
+              a(href='http://presentation.creative-tim.com')
+                | About Us
+            li
+              a(href='http://blog.creative-tim.com')
+                | Blog
+        #copyright.copyright
+          | &copy;
+          script.
+            document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+          | , Designed by
+          a(href='https://www.invisionapp.com' target='_blank') Invision
+          | . Coded by
+          a(href='https://www.creative-tim.com' target='_blank') Creative Tim
+          | .
+// Core JS Files
+script(src='../assets/js/core/jquery.min.js')
+script(src='../assets/js/core/popper.min.js')
+script(src='../assets/js/core/bootstrap.min.js')
+script(src='../assets/js/plugins/perfect-scrollbar.jquery.min.js')
+// Google Maps Plugin
+script(src='https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE')
+// Chart JS
+script(src='../assets/js/plugins/chartjs.min.js')
+// Notifications Plugin
+script(src='../assets/js/plugins/bootstrap-notify.js')
+// Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc
+script(src='../assets/js/now-ui-dashboard.min.js?v=1.3.0' type='text/javascript')
+// Now Ui Dashboard DEMO methods, don't include it in your project!
+script(src='../assets/demo/demo.js')

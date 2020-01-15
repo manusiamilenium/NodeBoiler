@@ -1,0 +1,40 @@
+extends masterdata.pug
+block content
+      .row
+        .col-md-12
+            .card
+                .card-header
+                    if notification
+                        .alert.alert-danger
+                            button.close(type='button' aria-hidden='true')
+                                i.now-ui-icons.ui-1_simple-remove
+                            span
+                                b  #{notification}
+                    h4.card-title  Master Data Jenis kegiatan intelijen
+                    a.btn.btn-info.btn-round.card-title(href='/jenis_kegiatan_intelijen/add' role='button')
+                        i.now-ui-icons.ui-1_simple-add
+                        |  Tambah
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Jenis kegiatan
+                                th
+                                    | Action
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_jenis"]
+                                        td
+                                            a.btn.btn-primary.btn-round(href='/jenis_kegiatan_intelijen/'+ val["id_jenis"] role='button')
+                                                i.now-ui-icons.design-2_ruler-pencil
+                                                |  Edit
+                                            |  
+                                            a.btn.btn-danger.btn-round(href='/jenis_kegiatan_intelijen/delete/'+ val["id_jenis"] role='button')
+                                                i.now-ui-icons.ui-1_simple-remove
+                                                |  Delete

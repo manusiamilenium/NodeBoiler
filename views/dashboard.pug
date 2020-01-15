@@ -1,0 +1,24 @@
+extends layout-sidemenu.pug
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Potensi Gangguan
+          .card-body
+            form
+              .row
+                .col-md-5.pr-1
+                  .form-group
+                    label Tahun
+                    input.form-control(type='text' disabled='' placeholder='Tahun' value='2020')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Jumlah
+                    input.form-control(type='text' placeholder='Jumlah Potensi' value='0')
+              .row
+                .col-md-12
+                  .form-group
+                    label Upload Dokumen
+                    input.form-control(type='file' placeholder='Dokumen' value='Potensi.doc')     

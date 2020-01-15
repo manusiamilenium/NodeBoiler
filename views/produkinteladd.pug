@@ -1,0 +1,23 @@
+extends masterdata.pug
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Produk Intelijen
+          .card-body
+            form(action='/produkintel/'+ edit method='POST')
+              .row
+                .col-md-5.pr-1
+                  .form-group
+                    label Nama Produk
+                    if edit!=""
+                        input.form-control(type='text' name="nama_produk_intelijen" placeholder='Masukkan Nama Produk' value=''+data["nama_produk_intelijen"])
+                    else
+                        input.form-control(type='text' name="nama_produk_intelijen" placeholder='Masukkan Nama Produk' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')
+                     
+                  

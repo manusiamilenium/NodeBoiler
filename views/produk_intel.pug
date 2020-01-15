@@ -1,0 +1,40 @@
+extends masterdata.pug
+block content
+      .row
+        .col-md-12
+            .card
+                .card-header
+                    if notification
+                        .alert.alert-danger
+                            button.close(type='button' aria-hidden='true')
+                                i.now-ui-icons.ui-1_simple-remove
+                            span
+                                b  #{notification}
+                    h4.card-title  Master Data Produk Intel
+                    a.btn.btn-info.btn-round.card-title(href='/produkintel/add' role='button')
+                        i.now-ui-icons.ui-1_simple-add
+                        |  Tambah
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Nama Produk
+                                th
+                                    | Action
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_produk_intelijen"]
+                                        td
+                                            a.btn.btn-primary.btn-round(href='/produkintel/'+ val["id_produk_intelijen"] role='button')
+                                                i.now-ui-icons.design-2_ruler-pencil
+                                                |  Edit
+                                            |  
+                                            a.btn.btn-danger.btn-round(href='/produkintel/delete/'+ val["id_produk_intelijen"] role='button')
+                                                i.now-ui-icons.ui-1_simple-remove
+                                                |  Delete

@@ -1,0 +1,25 @@
+extends indexkepuasanhome.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Index Kepuasan (IKU2)
+          .card-body
+            form(action='/indexkepuasan/'+ edit method='POST')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Index Kepuasan
+                    input.form-control(type='text' name="value_index_kepuasan" placeholder='Masukkan Index Kepuasan' value='')
+              .row
+                .col-md-12
+                  .form-group
+                    label Upload Dokumen
+                    input.btn.btn-info.btn-round(type='file' name="attachment_index_kepuasan" placeholder='Dokumen' value='Potensi.doc') 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

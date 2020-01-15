@@ -1,0 +1,99 @@
+extends potensigangguanhome.pug
+block content-header
+    .panel-header.panel-header-lg
+        canvas#bigDashboardChart
+        
+block content
+    .row
+        .col-md-12
+            .card.card-stats
+                .card-body
+                    .row
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.ui-2_like
+                                    h3.info-title #{iku}%
+                                    h6.stats-title Nilai IKU1
+
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.travel_info
+                                    h3.info-title #{totalpotensi}
+                                    h6.stats-title Total Potensi Gangguan
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.travel_info
+                                    h3.info-title #{totalkejadian}
+                                    h6.stats-title Total Kejadian Menonjol
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.ui-1_send
+                                    h3.info-title #{totalsend}
+                                    h6.stats-title Telah Mengirim
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.ui-2_chat-round
+                                    h3.info-title #{35-totalsend}
+                                    h6.stats-title Belum Mengirim
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.emoticons_satisfied
+                                    h3.info-title 25%
+                                    h6.stats-title Target
+    .row
+        .col-md-6
+            .card
+                .card-header
+                    h5.card-category List Satwil
+                    h4.card-title  Kejadian Terbanyak
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Satwil / Satker Pengirim
+                                th
+                                    | Jumlah Kejadian 
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_satwil"]
+                                        td= val["total"]
+        .col-md-6
+            .card
+                .card-header
+                    h5.card-category List Satwil
+                    h4.card-title  Potensi Terbanyak
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Satwil / Satker Pengirim
+                                th
+                                    | Potensi
+                                 
+                            tbody
+                                each val, index in potensipersatwil
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_satwil"]
+                                        td= val["total"]

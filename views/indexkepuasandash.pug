@@ -1,0 +1,61 @@
+extends indexkepuasanhome.pug
+block content-header
+    .panel-header.panel-header-sm
+        
+block content
+    .row
+        .col-md-12
+            .card.card-stats
+                .card-body
+                    .row
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.ui-2_like
+                                    h3.info-title #{indek}
+                                    h6.stats-title Nilai IKU2
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.arrows-1_cloud-upload-94
+                                    h3.info-title #{totalsend}
+                                    h6.stats-title Jumlah  Pengirim
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.travel_info
+                                    h3.info-title #{35-totalsend}
+                                    h6.stats-title Belum Mengirim
+                        .col-md-3
+                            .statistics
+                                .info
+                                    .icon.icon-primary
+                                        i.now-ui-icons.emoticons_satisfied
+                                    h3.info-title 81
+                                    h6.stats-title Target
+    .row
+        .col-md-6
+            .card
+                .card-header
+                    h5.card-category List Satwil
+                    h4.card-title  Index terbaik
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Satwil / Satker Pengirim
+                                th
+                                    | Index Kepuasan 
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_satwil"]
+                                        td= val["value_index_kepuasan"]

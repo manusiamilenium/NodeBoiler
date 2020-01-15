@@ -1,0 +1,23 @@
+extends masterdata.pug
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Satuan Kewilayahan
+          .card-body
+            form(action='/satwils/'+ edit method='POST')
+              .row
+                .col-md-5.pr-1
+                  .form-group
+                    label Nama Satuan
+                    if edit!=""
+                        input.form-control(type='text' name="nama_satwil" placeholder='Masukkan Nama Satuan' value=''+data["nama_satwil"])
+                    else
+                        input.form-control(type='text' name="nama_satwil" placeholder='Masukkan Nama Satuan' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')
+                     
+                  
