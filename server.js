@@ -22,4 +22,6 @@ app.use(express.static('public'));
 var routes = require('./routes/routes');
 routes(app);
 app.listen(config.port);
+
+
 console.log('server started on: ' + config.port);
