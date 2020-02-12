@@ -64,7 +64,7 @@ exports.create = function (req, res) {
         if (error) {
             console.log(error);
             
-        } else {
+        } else { 
             if(rows[0]){
                 console.log(rows[0]);
                 res.render('dataprodukkeluaradd',{data:rows[0],jenis:jenis,id_jenis_produk_keluar:id_jenis_produk_keluar,edit:"edit",title:title});
@@ -118,3 +118,32 @@ exports.delete = function (req, res) {
             }
         });
 }; 
+
+exports.pengiriman = function (req, res) { 
+    var jenis = [];
+    var id_produk_keluar = req.params.id_produk_keluar;
+    produkintelmodel.getAll(async function (error, rows, fields) {
+        if (error) {
+            console.log(error)
+        } else {
+            console.log(rows); 
+            jenis = await rows;
+        }
+    });
+    
+    model.getData([id_produk_keluar], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            
+        } else { 
+            if(rows[0]){
+                console.log(rows[0]);
+                res.render('pengirimanprodukintel',{data:rows[0],jenis:jenis,id_jenis_produk_keluar:id_jenis_produk_keluar,edit:"edit",title:title});
+            }else{
+                res.render('pengirimanprodukintel',{jenis:jenis});
+            }
+        }
+    });
+
+     
+};

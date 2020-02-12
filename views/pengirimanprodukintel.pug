@@ -1,0 +1,41 @@
+extends dataprodukintelhome.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header 
+            h5.title Pengiriman Produk Intelijen  (IKU3)
+          .card-body
+            form(action='/pengirimanproduk/' method='POST')               
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Nomor Surat
+                    input.form-control(type='text' name="nomor_produk_keluar" placeholder='Masukkan Nomor' value='') 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tanggal
+                    input.form-control(type='text' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value='2020-01-15')               
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Perihal
+                    input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    .btn-group.dropright
+                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          |    Jenis Produk
+                      .dropdown-menu
+                          each val, index in jenis
+                              a.dropdown-item(href='#' 
+                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
+                                  = val["nama_produk_intelijen"]
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

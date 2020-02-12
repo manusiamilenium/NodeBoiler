@@ -25,4 +25,6 @@ exports.edit = async function(fields,callback) {
 exports.delete  = async function(fields,callback) {
     await connection.query('DELETE FROM produk_keluar WHERE id_produk_keluar = ?',fields,callback);
 };
- 
+exports.add1= async function(fields,callback) {
+    await connection.query('INSERT INTO  produk_keluar (id_pengiriman_produk_intelijen,id_user,tanggal_pengiriman_produk_intelijen,perihal_pengiriman_produk_intelijen,jenis_pengiriman_produk_intelijen,nomor_produk_keluar) values (?,?,?,?,?,?)',fields,callback);
+};
