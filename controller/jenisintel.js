@@ -28,7 +28,7 @@ exports.createAction = function (req, res) {
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/jenis_kegiatan_intelijen');
-        }
+        } 
     });
 };
 exports.create = function (req, res) {
