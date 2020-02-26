@@ -17,15 +17,24 @@ append navbar
           #navigation.collapse.navbar-collapse.justify-content-end
             ul.navbar-nav
               li.nav-item
-                a.nav-link(href='/dataprodukintel') Produk Intel
-              li.nav-item
-                a.nav-link(href='/dataprodukkeluaradd/4') Surat
-              li.nav-item
-                a.nav-link(href='/dataprodukkeluaradd/1') Sarpen
-              li.nav-item
-                a.nav-link(href='/dataprodukkeluaradd/2') Bahan Pimpinan
-              li.nav-item
-                a.nav-link(href='/dataprodukkeluaradd/3') Bahan Rapat Pimpinan
+                a.nav-link(href='/dataprodukintel') Data Produk Intel
+              li.nav-item.dropdown
+                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                  p Data Produk Keluar ke K/L (IKU3)
+                    span.d-lg-none.d-md-block Account
+                .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+                   a.dropdown-item(href='/dataprodukkeluar/4') Surat
+                   a.dropdown-item(href='/dataprodukkeluar/1') Saran Pendapat
+                   a.dropdown-item(href='/dataprodukkeluar/2') Bahan Pimpinan
+                   a.dropdown-item(href='/dataprodukkeluar/3') Bahan Rapat Pimpinan
+              li.nav-item.dropdown
+                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                  p Data Produk Keluar ke Satuan Kepolisian (IKU4)
+                    span.d-lg-none.d-md-block Account
+                .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+                   a.dropdown-item(href='/dataprodukkeluar1/6') Surat / Nodin
+                   a.dropdown-item(href='/dataprodukkeluar1/7') Bahan Pimpinan
+                   a.dropdown-item(href='/dataprodukkeluar1/8') Bahan Rapat Pimpinan 
               li.nav-item
                 a.nav-link(href='/pengirimanproduk') Pengiriman Produk
 

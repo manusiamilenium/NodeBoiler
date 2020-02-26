@@ -25,16 +25,18 @@ block content
                     label Perihal
                     input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value='')
               .row
-                .col-md-6.pr-1
+                .col-md-6.pr-1 
                   .form-group
                     .btn-group.dropright
                       button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
                           |    Jenis Produk
+                      <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
                       .dropdown-menu
                           each val, index in jenis
                               a.dropdown-item(href='#' 
                                   onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
                                   = val["nama_produk_intelijen"]
+                              
               .row
                 .col-md-6.pr-1
                   .form-group

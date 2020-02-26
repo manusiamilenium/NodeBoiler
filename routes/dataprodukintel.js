@@ -1,5 +1,5 @@
 'use strict';
-
+ 
 module.exports = function (app, sessionChecker) {
     var dataprodukintel = require('../controller/dataprodukintel');
 

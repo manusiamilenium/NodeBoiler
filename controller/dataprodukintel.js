@@ -1,5 +1,5 @@
 'use strict';
-
+ 
 var response = require('../result');
 var model = require('../model/dataprodukintel');
 var uamodel = require('../model/useractivity');
