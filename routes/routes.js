@@ -19,7 +19,7 @@ module.exports = function (app) {
     var dataprodukintel = require('./dataprodukintel'); 
     var kejadianmenonjol = require('./kejadianmenonjol'); 
     var dataprodukkeluar = require('./dataprodukkeluar'); 
-    
+    var kegiatanintel = require('./kegiatanintel'); 
     
     // initialize cookie-parser to allow us access the cookies stored in the browser. 
     app.use(cookieParser());
@@ -104,6 +104,7 @@ module.exports = function (app) {
     dataprodukintel(app,sessionChecker);
     kejadianmenonjol(app,sessionChecker);
     dataprodukkeluar(app,sessionChecker);
+    kegiatanintel(app,sessionChecker);
  
 
 };

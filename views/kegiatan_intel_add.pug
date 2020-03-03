@@ -1,0 +1,53 @@
+extends kegiatan_intel_menu.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header 
+            h5.title Tambah Data Kegiatan Intelijen  (IKU5)
+          .card-body
+            form(action='/kegiatanintel/add/' method='POST')               
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Bulan
+                    input.form-control(type='text' name="bulan_kegiatan_intelijen" placeholder='Masukkan Bulan' value='') 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tahun
+                    input.form-control(type='text' name="tahun_kegiatan_intelijen" placeholder='Masukkan Tahun' value='2020')               
+              .row
+                .col-md-6.pr-1 
+                  .form-group
+                    .btn-group.dropright
+                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                          |    Jenis Kegiatan
+                      <input type="hidden" id="jenis_kegiatan_intelijen" name="jenis_kegiatan_intelijen" value="">
+                      .dropdown-menu
+                          each val, index in jenis
+                              a.dropdown-item(href='#' 
+                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_kegiatan_intelijen']\").val("+val["id_jenis"]+");")
+                                  = val["nama_jenis"]
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Total Kegiatan
+                    input.form-control(type='text' name="jumlah_kegiatan_intelijen" placeholder='Masukkan Total Kegiatan' value='')    
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Total Berhasil Mereduksi
+                    input.form-control(type='text' name="reduksi_kegiatan_intelijen" placeholder='Masukkan Total Berhasil Mereduksi' value='')                 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Uraian
+                    input.form-control(type='text' name="uraian_kegiatan_intelijen" placeholder='Masukkan uraian' value='')            
+                            
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

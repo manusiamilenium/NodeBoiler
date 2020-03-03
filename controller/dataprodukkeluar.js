@@ -12,7 +12,7 @@ exports.index = function (req, res) {
     pmodel.getData([id_jenis_produk_keluar],function (error, rows, fields) {
         title = rows[0]['nama_jenis_produk_keluar'];
     });
-var title = "";
+    var title = "";
     model.getAll([id_jenis_produk_keluar],function (error, rows, fields) {
         if (error) {
             console.log(error)

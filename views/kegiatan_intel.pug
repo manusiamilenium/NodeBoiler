@@ -1,0 +1,65 @@
+extends kegiatan_intel_menu.pug
+block content-header
+    .panel-header.panel-header-sm 
+block content
+      .row
+        .col-md-12
+            .card
+                .card-header
+                    if notification
+                        .alert.alert-danger
+                            button.close(type='button' aria-hidden='true')
+                                i.now-ui-icons.ui-1_simple-remove
+                            span
+                                b  #{notification}
+                    h4.card-title  Data Kegiatan Intelijen
+                    a.btn.btn-info.btn-round.card-title(href='/kegiatanintel/add' role='button')
+                        i.now-ui-icons.ui-1_simple-add
+                        |  Tambah      
+                    // Example single danger button
+                    .btn-group
+                        button.btn.btn-info.btn-round.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            |    Pilih Filter Satwil
+                        .dropdown-menu
+                            a.dropdown-item(href='#') Action
+                            a.dropdown-item(href='#') Another action
+                            a.dropdown-item(href='#') Something else here
+                            .dropdown-divider
+                            a.dropdown-item(href='#') Separated link
+
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Satwil / Satker 
+                                th
+                                    | Bulan/Tahun
+                                th
+                                    | Jenis 
+                                th
+                                    | Total 
+                                th
+                                    | Total Mereduksi
+                                th
+                                    | Action
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["nama_satwil"]
+                                        td= val["bulan_kegiatan_intelijen"] + "/" + val["tahun_kegiatan_intelijen"]
+                                        td= val["nama_jenis"]
+                                        td= val["jumlah_kegiatan_intelijen"]
+                                        td= val["reduksi_kegiatan_intelijen"]
+                                        td
+                                            a.btn.btn-primary.btn-round(href='/kegiatanintel/edit/'+ val["id_kegiatan_intelijen"] role='button')
+                                                i.now-ui-icons.design-2_ruler-pencil
+                                                |  Edit
+                                            |  
+                                            a.btn.btn-danger.btn-round(href='/kegiatanintel/delete/'+ val["id_kegiatan_intelijen"] role='button')
+                                                i.now-ui-icons.ui-1_simple-remove
+                                                |  Delete
