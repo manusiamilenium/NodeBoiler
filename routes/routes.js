@@ -20,7 +20,7 @@ module.exports = function (app) {
     var kejadianmenonjol = require('./kejadianmenonjol'); 
     var dataprodukkeluar = require('./dataprodukkeluar'); 
     var kegiatanintel = require('./kegiatanintel'); 
-    
+    var alsus = require('./alsus'); 
     // initialize cookie-parser to allow us access the cookies stored in the browser. 
     app.use(cookieParser());
     // initialize express-session to allow us track the logged-in user across sessions.
@@ -65,24 +65,7 @@ module.exports = function (app) {
     app.route('/ik1')
         .get(sessionChecker, iku.ik1);
 
-    app.route('/ik3')
-        .get(sessionChecker, iku.ik3);
-    app.route('/ik32')
-        .get(iku.ik32);
-    app.route('/ik33')
-        .get(iku.ik33);
-    app.route('/ik34')
-        .get(iku.ik34);
-    app.route('/ik35')
-        .get(iku.ik35);
-    app.route('/ik36')
-        .get(iku.ik36);
-    app.route('/ik4')
-        .get(iku.ik4);
-    app.route('/ik41')
-        .get(iku.ik41);
-    app.route('/ik42')
-        .get(iku.ik42);
+     
     app.route('/ik5')
         .get(iku.ik5);
     app.route('/ik6')
@@ -105,6 +88,6 @@ module.exports = function (app) {
     kejadianmenonjol(app,sessionChecker);
     dataprodukkeluar(app,sessionChecker);
     kegiatanintel(app,sessionChecker);
- 
+    alsus(app,sessionChecker);
 
 };

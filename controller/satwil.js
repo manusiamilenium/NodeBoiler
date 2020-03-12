@@ -28,7 +28,7 @@ exports.createAction = function (req, res) {
             req.session.notificationtype = "success";
             res.redirect('/satwils');
         }
-    });
+    }); 
 };
 exports.create = function (req, res) {
     var id_satwil = req.params.id_satwil;

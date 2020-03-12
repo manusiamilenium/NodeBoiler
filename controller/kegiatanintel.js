@@ -33,7 +33,7 @@ exports.create = function (req, res) {
         }
     });
 
-    model.getData(id_kegiatan_intelijen, function (error, rows, fields) {
+    model.getData([id_kegiatan_intelijen], function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.render('kegiatan_intel_add',{jenis:jenis,edit:""});

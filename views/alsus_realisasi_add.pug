@@ -1,0 +1,35 @@
+extends alsus_menu.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Data Realisasi  Alat Intelijen
+          .card-body
+            form(action='/alsus/realisasiadd/'+ edit method='POST')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tahun
+                    input.form-control(type='text' name="tahun_realisasi_alsus" placeholder='Masukkan Tahun' value='2020')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Bulan
+                    input.form-control(type='text' name="bulan_realisasi_alsus" placeholder='Masukkan Bulan' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Jumlah Realisasi Alsus
+                    input.form-control(type='text' name="jumlah_realisasi_alsus" placeholder='Masukkan Jumlah' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Uraian
+                    input.form-control(type='text' name="uraian_realisasi_alsus" placeholder='Masukkan Uraian' value='')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

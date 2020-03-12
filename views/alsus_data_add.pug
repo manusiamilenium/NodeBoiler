@@ -1,0 +1,30 @@
+extends alsus_menu.pug
+block content-header
+    .panel-header.panel-header-sm
+block content
+    .row
+      .col-md-8
+        .card
+          .card-header
+            h5.title Data Alat Intelijen
+          .card-body
+            form(action='/alsus/add/'+ edit method='POST')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tahun
+                    input.form-control(type='text' name="tahun_penggunaan_alsus" placeholder='Masukkan Tahun' value='2020')
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Jumlah Alsus
+                    input.form-control(type='text' name="jumlah_penggunaan_alsus" placeholder='Masukkan Jumlah Alsus' value='')
+              .row
+                .col-md-12
+                  .form-group
+                    label Upload Dokumen
+                    input.btn.btn-info.btn-round(type='file' name="attachment_potensi_gangguan" placeholder='Dokumen Pendukung' value='') 
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    

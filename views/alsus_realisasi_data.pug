@@ -1,0 +1,59 @@
+extends alsus_menu.pug
+block content-header
+    .panel-header.panel-header-sm 
+block content
+      .row
+        .col-md-12
+            .card
+                .card-header
+                    if notification
+                        .alert.alert-danger
+                            button.close(type='button' aria-hidden='true')
+                                i.now-ui-icons.ui-1_simple-remove
+                            span
+                                b  #{notification}
+                    h4.card-title  Data Realisasi Alsus Intelijen
+                    a.btn.btn-info.btn-round.card-title(href='/alsus/realisasiadd' role='button')
+                        i.now-ui-icons.ui-1_simple-add
+                        |  Tambah      
+                    // Example single danger button
+                    .btn-group
+                        button.btn.btn-info.btn-round.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            |    Pilih Filter Satwil
+                        .dropdown-menu
+                            a.dropdown-item(href='#') Action
+                            a.dropdown-item(href='#') Another action
+                            a.dropdown-item(href='#') Something else here
+                            .dropdown-divider
+                            a.dropdown-item(href='#') Separated link
+
+                .card-body
+                    .table-responsive
+                        table.table
+                            thead.text-primary
+                                th
+                                    | No
+                                th
+                                    | Bulan / Tahun
+                                th
+                                    | Jumlah Realisasi Alsus
+                                th
+                                    | Uraian
+                                th
+                                    | Action
+                                 
+                            tbody
+                                each val, index in data
+                                    tr
+                                        td= index+1 
+                                        td= val["bulan_realisasi_alsus"]+"/"+val["tahun_realisasi_alsus"]
+                                        td= val["jumlah_realisasi_alsus"] 
+                                        td= val["uraian_realisasi_alsus"]
+                                        td
+                                            a.btn.btn-primary.btn-round(href='/alsus/realisasi/edit/'+ val["id_realisasi_alsus"] role='button')
+                                                i.now-ui-icons.design-2_ruler-pencil
+                                                |  Edit
+                                            |  
+                                            a.btn.btn-danger.btn-round(href='/alsus/realisasidelete/'+ val["id_realisasi_alsus"] role='button')
+                                                i.now-ui-icons.ui-1_simple-remove
+                                                |  Delete
