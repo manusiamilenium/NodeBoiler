@@ -1,0 +1,19 @@
+if notification
+    if nottype == "error"
+        .alert.alert-danger   
+            button.close(type='button' aria-hidden='true')
+                i.now-ui-icons.ui-1_simple-remove
+            span
+                b  #{notification}
+    else if nottype == "success"  
+        .alert.alert-success  
+            button.close(type='button' aria-hidden='true')
+                i.now-ui-icons.ui-1_simple-remove
+            span
+                b  #{notification}
+    else if nottype == "warning"  
+        .alert.alert-warning  
+            button.close(type='button' aria-hidden='true')
+                i.now-ui-icons.ui-1_simple-remove
+            span
+                b  #{notification}

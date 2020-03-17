@@ -1,4 +1,4 @@
-extends alsus_menu.pug
+extends topmenu/alsus_menu.pug
 block content-header
     .panel-header.panel-header-sm
 block content
@@ -10,11 +10,16 @@ block content
           .card-body
             form(action='/alsus/realisasiadd/'+ edit method='POST')
               .row
+                .col-md-6.pr-1 
+                  .form-group 
+                    .btn-group.dropright
+                      include monthdropdown.pug
+              .row
                 .col-md-6.pr-1
                   .form-group
                     label Tahun
                     input.form-control(type='text' name="tahun_realisasi_alsus" placeholder='Masukkan Tahun' value='2020')
-              .row
+              //.row
                 .col-md-6.pr-1
                   .form-group
                     label Bulan

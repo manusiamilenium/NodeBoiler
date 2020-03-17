@@ -115,7 +115,7 @@ exports.createAlsusRealisasi = function (req, res) {
 exports.createAlsusRealisasiAction = function (req, res) {
     var id_user = req.session.user[0].id_user;  
     var tahun_realisasi_alsus = req.body.tahun_realisasi_alsus;
-    var bulan_realisasi_alsus = req.body.bulan_realisasi_alsus;
+    var bulan_realisasi_alsus = req.body.bulan;
     var jumlah_realisasi_alsus = req.body.jumlah_realisasi_alsus;
     var uraian_realisasi_alsus = req.body.uraian_realisasi_alsus;
      

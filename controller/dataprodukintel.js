@@ -24,7 +24,7 @@ exports.createAction = function (req, res) {
     var id_user = req.session.user[0].id_user; 
     var id_subdit = req.body.id_subdit;
     var tahun_data_produk_intelijen = req.body.tahun_data_produk_intelijen;
-    var bulan_data_produk_intelijen = req.body.bulan_data_produk_intelijen;
+    var bulan_data_produk_intelijen = req.body.bulan;
     var jenis_produk_intelijen = req.body.jenis_produk_intelijen;
     var jumlah_data_produk_intelijen = req.body.jumlah_data_produk_intelijen;
 
@@ -86,7 +86,7 @@ exports.updateAction = function (req, res) {
     var id_user = req.session.user[0].id_user; 
     var id_subdit = req.body.id_subdit;
     var tahun_data_produk_intelijen = req.body.tahun_data_produk_intelijen;
-    var bulan_data_produk_intelijen = req.body.bulan_data_produk_intelijen;
+    var bulan_data_produk_intelijen = req.body.bulan;
     var jenis_produk_intelijen = req.body.jenis_produk_intelijen;
     var jumlah_data_produk_intelijen = req.body.jumlah_data_produk_intelijen;
 

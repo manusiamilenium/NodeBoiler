@@ -108,7 +108,13 @@ exports.login = function (req, res) {
                     
                     if (password == rows[0].password) {
                         req.session.user = rows;
-                        res.redirect('/');
+                        if(req.session.user[0].role==1){
+                            res.redirect('/');
+                        }
+                        else{
+                            res.redirect('/indexkepuasan');
+                        }
+                        
                     } else {
                         res.redirect('/login');
                     }

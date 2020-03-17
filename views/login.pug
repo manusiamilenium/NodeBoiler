@@ -42,12 +42,7 @@ body.login-page
               .logo-container
                 img(src='../../assets/img/logo.png' alt='')
             .card-body
-              if notification
-                .alert.alert-danger
-                  button.close(type='button' aria-hidden='true')
-                    i.now-ui-icons.ui-1_simple-remove
-                  span
-                    b  #{notification}
+              include notification.pug
               .input-group.no-border.form-control-lg
                 span.input-group-prepend
                   .input-group-text

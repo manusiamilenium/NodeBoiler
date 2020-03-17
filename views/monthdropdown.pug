@@ -1,0 +1,29 @@
+.btn-group.dropright
+  button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="bulan" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+    |    Pilih Bulan
+  .dropdown-menu
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(1);")
+      | Januari
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(2);")
+      | Februari
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(3);")
+      | Maret
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(4);")
+      | April
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(5);")
+      | Mei
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(6);")
+      | Juni
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(7);")
+      | Juli
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(8);")
+      | Agustus
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(9);")
+      | September
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(10);")
+      | Oktober
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(11);")
+      | November
+    a.dropdown-item(href='#' onCLick="$(\"button[name ='bulan']\").text($(this).text());$(\"input[name ='bulan']\").val(12);")
+      | Desember
+  <input type="hidden" id="bulan" name="bulan" value="">

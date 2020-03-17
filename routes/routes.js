@@ -60,6 +60,11 @@ module.exports = function (app) {
         }
     });
     
+    app.use((req, res, next) => {
+        res.locals.session = req.session
+        next()
+      })
+
 
     
     app.route('/ik1')
@@ -90,4 +95,5 @@ module.exports = function (app) {
     kegiatanintel(app,sessionChecker);
     alsus(app,sessionChecker);
 
+    
 };

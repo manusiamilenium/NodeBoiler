@@ -20,10 +20,10 @@ exports.index = function (req, res) {
     });
 };
 exports.createAction = function (req, res) {
-    var id_user = req.session.user[0].id_user; 
+    var id_user = req.session.user[0].id_user;  
     var id_subdit = req.body.id_subdit;
     var tahun_kejadian_menonjol = req.body.tahun_kejadian_menonjol;
-    var bulan_kejadian_menonjol = req.body.bulan_kejadian_menonjol;
+    var bulan_kejadian_menonjol = req.body.bulan;
     var uraian_kejadian_menonjol = req.body.uraian_kejadian_menonjol;
     var jumlah_kejadian_menonjol = req.body.jumlah_kejadian_menonjol;
     model.add([id_user,id_subdit,tahun_kejadian_menonjol,bulan_kejadian_menonjol,jumlah_kejadian_menonjol,uraian_kejadian_menonjol], function (error, rows, fields) {
@@ -76,7 +76,7 @@ exports.updateAction = function (req, res) {
     var id_user = req.session.user[0].id_user; 
     var id_subdit = req.body.id_subdit;
     var tahun_kejadian_menonjol = req.body.tahun_kejadian_menonjol;
-    var bulan_kejadian_menonjol = req.body.bulan_kejadian_menonjol;
+    var bulan_kejadian_menonjol = req.body.bulan;
     var uraian_kejadian_menonjol = req.body.uraian_kejadian_menonjol;
     var id_kejadian_menonjol = req.params.id_kejadian_menonjol;
     var jumlah_kejadian_menonjol = req.body.jumlah_kejadian_menonjol;

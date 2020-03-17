@@ -1,4 +1,4 @@
-extends potensigangguanhome.pug
+extends topmenu/potensigangguanhome.pug
 block content-header
     .panel-header.panel-header-sm
 block content
@@ -21,17 +21,17 @@ block content
                                     onCLick="$(\"button[name ='subdit']\").text($(this).text());$(\"input[name ='id_subdit']\").val("+val["id_subdit"]+");")
                                     = val["nama_subdit"]
                         <input type="hidden" id="id_subdit" name="id_subdit" value="">
+              .row
+                .col-md-6.pr-1 
+                  .form-group 
+                    .btn-group.dropright
+                      include monthdropdown.pug
                                  
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Tahun
-                    input.form-control(type='text' name="tahun_kejadian_menonjol" placeholder='Masukkan Tahun' value='2020')
-              .row
-                .col-md-6.pr-1
-                  .form-group
-                    label Bulan
-                    input.form-control(type='text' name="bulan_kejadian_menonjol" placeholder='Masukkan Bulan' value='')               
+                    input.form-control(type='text' name="tahun_kejadian_menonjol" placeholder='Masukkan Tahun' value='2020')         
               .row
                 .col-md-6.pr-1
                   .form-group

@@ -9,10 +9,11 @@ block sidebar
                 | IKU MANUAL
         #sidebar-wrapper.sidebar-wrapper
             ul.nav 
-                li
-                    a(href='/satwils')
-                        i.now-ui-icons.business_globe
-                        p Master Data
+                if session.user[0].role == 1
+                    li
+                        a(href='/satwils')
+                            i.now-ui-icons.business_globe
+                            p Master Data
                  
                 li
                     a(href='/indexkepuasan')
@@ -34,11 +35,3 @@ block sidebar
                     a(href='/alsus')
                         i.now-ui-icons.business_briefcase-24
                         p Alsus Intelijen
-                li
-                    a(href='/ik6')
-                        i.now-ui-icons.design_bullet-list-67
-                        p IK6
-                li
-                    a(href='/ik11')
-                        i.now-ui-icons.design_bullet-list-67
-                        p IK11

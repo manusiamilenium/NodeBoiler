@@ -1,4 +1,4 @@
-extends kegiatan_intel_menu.pug
+extends topmenu/kegiatan_intel_menu.pug
 block content-header
     .panel-header.panel-header-sm
 block content
@@ -9,7 +9,7 @@ block content
             h5.title Tambah Data Kegiatan Intelijen  (IKU5)
           .card-body
             form(action='/kegiatanintel/add/' method='POST')               
-              .row
+              //.row
                 .col-md-6.pr-1
                   .form-group
                     label Bulan
@@ -19,6 +19,11 @@ block content
                   .form-group
                     label Tahun
                     input.form-control(type='text' name="tahun_kegiatan_intelijen" placeholder='Masukkan Tahun' value='2020')               
+              .row
+                .col-md-6.pr-1 
+                  .form-group 
+                    .btn-group.dropright
+                      include monthdropdown.pug
               .row
                 .col-md-6.pr-1 
                   .form-group

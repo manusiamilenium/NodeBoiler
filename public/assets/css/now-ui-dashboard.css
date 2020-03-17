@@ -1927,10 +1927,10 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
     left: auto !important; }
   .dropdown-menu .dropdown-item,
   .bootstrap-select .dropdown-menu.inner li a {
-    font-size: 0.8571em;
-    padding-top: .6rem;
-    padding-bottom: .6rem;
-    margin-top: 5px;
+    font-size: 0.80000em;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-top: 0px;
     transition: all 150ms linear; }
     .dropdown-menu .dropdown-item:hover, .dropdown-menu .dropdown-item:focus,
     .bootstrap-select .dropdown-menu.inner li a:hover,

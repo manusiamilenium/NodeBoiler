@@ -52,7 +52,7 @@ exports.create = function (req, res) {
 
 exports.createAction = function (req, res) {
     var id_user = req.session.user[0].id_user;  
-    var bulan_kegiatan_intelijen = req.body.bulan_kegiatan_intelijen;
+    var bulan_kegiatan_intelijen = req.body.bulan;
     var tahun_kegiatan_intelijen = req.body.tahun_kegiatan_intelijen;
     var jenis_kegiatan_intelijen = req.body.jenis_kegiatan_intelijen;
     var jumlah_kegiatan_intelijen = req.body.jumlah_kegiatan_intelijen;

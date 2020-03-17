@@ -13,7 +13,7 @@ exports.index = function (req, res) {
             delete req.session.notification; 
             delete req.session.notificationtype;
             res.render('satwil',{data:rows,notification: notification, nottype: nottype});
-            delete req.session.notification;
+             
         }
     });
 };

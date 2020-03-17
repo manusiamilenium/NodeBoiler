@@ -1,0 +1,8 @@
+ul.navbar-nav 
+    li.nav-item.dropdown
+        a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+            i.now-ui-icons.users_single-02
+            p
+                span.d-lg-none.d-md-block Account   
+        .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink')
+            a.dropdown-item(href='/logout') Logout #{session.user[0].username}    

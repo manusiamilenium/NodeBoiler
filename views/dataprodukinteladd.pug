@@ -1,4 +1,4 @@
-extends dataprodukintelhome.pug
+extends topmenu/dataprodukintelhome.pug
 block content-header
     .panel-header.panel-header-sm
 block content
@@ -22,18 +22,13 @@ block content
                                     = val["nama_subdit"]
                         <input type="hidden" id="id_subdit" name="id_subdit" value="">
                                  
-              .row
-                .col-md-6.pr-1
-                  .form-group
-                    label Tahun
-                    input.form-control(type='text' name="tahun_data_produk_intelijen" placeholder='Masukkan Tahun' value='2020')
-              .row
+              //.row
                 .col-md-6.pr-1
                   .form-group
                     label Bulan
                     input.form-control(type='text' name="bulan_data_produk_intelijen" placeholder='Masukkan Bulan' value='')
               .row
-                .col-md-6.pr-1
+                .col-md-6.pr-1 
                   .form-group 
                     .btn-group.dropright
                         button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
@@ -44,6 +39,16 @@ block content
                                     onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
                                     = val["nama_produk_intelijen"]
                         <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
+              .row
+                .col-md-6.pr-1 
+                  .form-group 
+                    .btn-group.dropright
+                      include monthdropdown.pug
+              .row
+                .col-md-6.pr-1
+                  .form-group
+                    label Tahun
+                    input.form-control(type='text' name="tahun_data_produk_intelijen" placeholder='Masukkan Tahun' value='2020')
                              
               .row
                 .col-md-6.pr-1
