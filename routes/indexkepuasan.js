@@ -14,6 +14,8 @@ module.exports = function (app, sessionChecker) {
         .post(sessionChecker, indexkepuasan.updateAction);
     app.route('/indexkepuasan/delete/:id_index_kepuasan')
         .get(sessionChecker, indexkepuasan.delete);
+    app.route('/indexkepuasan/file/:id_index_kepuasan')
+        .get(sessionChecker, indexkepuasan.fileDownload);
     app.route('/indexkepuasandash')
         .get(sessionChecker, indexkepuasan.dash)
 

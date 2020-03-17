@@ -50,13 +50,9 @@ block content
                                         td= val["tahun_potensi_gangguan"]
                                         td= val["jumlah_potensi_gangguan"]
                                         td
-                                            a.btn.btn-primary.btn-round(href='./potensigangguan/'+ val["id_potensi_gangguan"] role='button')
+                                            a.btn.btn-primary.btn-round(href='./potensigangguan/file/'+ val["id_potensi_gangguan"] role='button')
                                                 i.now-ui-icons.files_paper
                                                 |  Lihat File
-                                            | 
-                                            a.btn.btn-primary.btn-round(href='./potensigangguan/'+ val["id_potensi_gangguan"] role='button')
-                                                i.now-ui-icons.design-2_ruler-pencil
-                                                |  Edit
                                             |  
                                             a.btn.btn-danger.btn-round(href='./potensigangguan/delete/'+ val["id_potensi_gangguan"] role='button')
                                                 i.now-ui-icons.ui-1_simple-remove

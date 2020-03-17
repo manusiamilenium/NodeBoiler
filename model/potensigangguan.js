@@ -1,7 +1,7 @@
 "use strict";
 
 var connection = require('../connection');
-
+ 
 exports.getAll = async function (callback) {
     await connection.query('SELECT id_potensi_gangguan,nama_satwil,jumlah_potensi_gangguan,tahun_potensi_gangguan FROM potensi_gangguan '+ 
                             'INNER JOIN user on potensi_gangguan.id_user = user.id_user '+

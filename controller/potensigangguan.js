@@ -5,7 +5,7 @@ var model = require('../model/potensigangguan');
 var kjmodel = require('../model/kejadianmenonjol');
 var uamodel = require('../model/useractivity');
 exports.index = function (req, res) {
-    model.getAll(function (error, rows, fields) {
+    model.getAll(function (error, rows, fields) { 
         if (error) {
             console.log(error)
         } else {

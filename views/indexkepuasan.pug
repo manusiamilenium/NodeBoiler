@@ -47,14 +47,11 @@ block content
                                         td= val["nama_satwil"]
                                         td= val["value_index_kepuasan"]
                                         td
-                                            a.btn.btn-primary.btn-round(href='/indexkepuasan/'+ val["id_index_kepuasan"] role='button')
+                                            a.btn.btn-primary.btn-round(href='/indexkepuasan/file/'+ val["id_index_kepuasan"] role='button')
                                                 i.now-ui-icons.files_paper
                                                 |  Lihat File
                                             | 
-                                            a.btn.btn-primary.btn-round(href='/indexkepuasan/'+ val["id_index_kepuasan"] role='button')
-                                                i.now-ui-icons.design-2_ruler-pencil
-                                                |  Edit
-                                            |  
+                                             
                                             a.btn.btn-danger.btn-round(href='/indexkepuasan/delete/'+ val["id_index_kepuasan"] role='button')
                                                 i.now-ui-icons.ui-1_simple-remove
                                                 |  Delete

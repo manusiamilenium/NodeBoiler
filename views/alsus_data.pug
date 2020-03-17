@@ -47,10 +47,10 @@ block content
                                         td= val["tahun_penggunaan_alsus"]
                                         td= val["jumlah_penggunaan_alsus"] 
                                         td
-                                            a.btn.btn-primary.btn-round(href='/alsus/edit/'+ val["id_penggunaan_alsus"] role='button')
-                                                i.now-ui-icons.design-2_ruler-pencil
-                                                |  Edit
-                                            |  
+                                            a.btn.btn-primary.btn-round(href='/alsus/file/'+ val["id_penggunaan_alsus"] role='button')
+                                                i.now-ui-icons.files_paper
+                                                |  Lihat File
+                                            | 
                                             a.btn.btn-danger.btn-round(href='/alsus/delete/'+ val["id_penggunaan_alsus"] role='button')
                                                 i.now-ui-icons.ui-1_simple-remove
                                                 |  Delete

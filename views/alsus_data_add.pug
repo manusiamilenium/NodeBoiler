@@ -8,7 +8,7 @@ block content
           .card-header
             h5.title Data Alat Intelijen
           .card-body
-            form(action='/alsus/add/'+ edit method='POST')
+            form(action='/alsus/add/'+ edit method='POST' enctype="multipart/form-data")
               .row
                 .col-md-6.pr-1
                   .form-group
@@ -23,8 +23,8 @@ block content
                 .col-md-12
                   .form-group
                     label Upload Dokumen
-                    input.btn.btn-info.btn-round(type='file' name="attachment_potensi_gangguan" placeholder='Dokumen Pendukung' value='') 
+                    input.btn.btn-info.btn-round(type='file' name="attachment" placeholder='Dokumen Pendukung' value='') 
               .row
                 .col-md-6.pr-1
                   .form-group
-                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')    
+                    input.btn.btn-info.btn-round(type='submit' placeholder='' value='Submit')     

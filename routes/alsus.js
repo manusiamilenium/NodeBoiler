@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; 
 
 module.exports = function (app, sessionChecker) {
     var alsus = require('../controller/alsus');
@@ -10,6 +10,8 @@ module.exports = function (app, sessionChecker) {
         .post(sessionChecker, alsus.createAlsusAction);
     app.route('/alsus/delete/:id_penggunaan_alsus')
         .get(sessionChecker, alsus.deleteAlsus);
+    app.route('/alsus/file/:id_penggunaan_alsus')
+        .get(sessionChecker, alsus.fileAlsus);
     app.route('/alsus/realisasi')
         .get(sessionChecker, alsus.indexRealisasi);
     app.route('/alsus/realisasiadd')

@@ -8,7 +8,7 @@ block content
           .card-header
             h5.title Potensi Gangguan (IKU1)
           .card-body
-            form(action='/potensigangguan/'+ edit method='POST')
+            form(action='/potensigangguan/'+ edit method='POST' enctype="multipart/form-data")
               .row
                 .col-md-6.pr-1
                   .form-group
@@ -23,7 +23,7 @@ block content
                 .col-md-12
                   .form-group
                     label Upload Dokumen
-                    input.btn.btn-info.btn-round(type='file' name="attachment_potensi_gangguan" placeholder='Dokumen' value='Potensi.doc') 
+                    input.btn.btn-info.btn-round(type='file' name="attachment" placeholder='Dokumen' value='Potensi.doc') 
               .row
                 .col-md-6.pr-1
                   .form-group
