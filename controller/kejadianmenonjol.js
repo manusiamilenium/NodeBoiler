@@ -58,7 +58,9 @@ exports.create = function (req, res) {
     model.getData([id_kejadian_menonjol,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
-            
+            req.session.notification = "Kesalahan Pengisian";
+            req.session.notificationtype = "Error";
+            res.redirect('/kejadianmenonjol/add');
         } else {
             
             if(rows[0]){

@@ -64,6 +64,9 @@ exports.createAction = function (req, res) {
     model.add([id_user,tahun_kegiatan_intelijen,bulan_kegiatan_intelijen,jenis_kegiatan_intelijen,jumlah_kegiatan_intelijen,reduksi_kegiatan_intelijen,uraian_kegiatan_intelijen], function (error, rows, fields) {
         if (error) {
             console.log(error)
+            req.session.notification = "Kesalahan Pengisian";
+            req.session.notificationtype = "error";
+            res.redirect('/kegiatanintel/add');
         } else {
             uamodel.add([id_user,"Mengisi Data Produk Keluar"], function (error, rows, fields) { 
                 if (error) {

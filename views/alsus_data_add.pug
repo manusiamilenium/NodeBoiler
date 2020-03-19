@@ -6,6 +6,7 @@ block content
       .col-md-8
         .card
           .card-header
+            include notification.pug
             h5.title Data Alat Intelijen
           .card-body
             form(action='/alsus/add/'+ edit method='POST' enctype="multipart/form-data")
@@ -23,7 +24,7 @@ block content
                 .col-md-12
                   .form-group
                     label Upload Dokumen
-                    input.btn.btn-info.btn-round(type='file' name="attachment" placeholder='Dokumen Pendukung' value='') 
+                    input.btn.btn-info(type='file' name="attachment" placeholder='Dokumen Pendukung' value='') 
               .row
                 .col-md-6.pr-1
                   .form-group
