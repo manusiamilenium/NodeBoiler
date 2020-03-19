@@ -3,30 +3,20 @@
 var connection = require('../connection');
 
 exports.getAll = async function (callback) {
-    await connection.query('SELECT id_data_produk_intelijen,nama_satwil,nama_produk_intelijen,tahun_data_produk_intelijen,'+
-                            'bulan_data_produk_intelijen,jumlah_data_produk_intelijen FROM data_produk_intelijen '+ 
-                            'INNER JOIN produk_intelijen on data_produk_intelijen.jenis_produk_intelijen = produk_intelijen.id_produk_intelijen '+
-                            'INNER JOIN user on data_produk_intelijen.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ', callback);
+    await connection.query('SELECT * FROM ref_produk_keluar INNER JOIN produk_keluar ON ref_produk_keluar.id_produk_keluar = produk_keluar.id_produk_keluar INNER JOIN user on produk_keluar.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  ', callback);
 };
 exports.getData = async function(fields,callback) {
-    
-    await connection.query('SELECT id_data_produk_intelijen,nama_subdit,nama_produk_intelijen,tahun_data_produk_intelijen,'+
-                            'bulan_data_produk_intelijen,jumlah_data_produk_intelijen FROM data_produk_intelijen '+ 
-                            'INNER JOIN produk_intelijen on data_produk_intelijen.jenis_produk_intelijen = produk_intelijen.id_produk_intelijen '+
-                            'INNER JOIN user on data_produk_intelijen.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil '+
-                            'INNER JOIN subdit ON subdit.id_subdit = data_produk_intelijen.id_subdit WHERE id_data_produk_intelijen = ? ',fields, callback);
+    await connection.query('SELECT *  FROM ref_produk_keluar INNER JOIN produk_keluar ON ref_produk_keluar.id_produk_keluar = produk_keluar.id_produk_keluar INNER JOIN user on produk_keluar.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE ref_produk_keluar.id_ref_produk_keluar = ?',fields, callback);
 };
 exports.add= async function(fields,callback) {
-    await connection.query('INSERT INTO  data_produk_intelijen ( '
-                            +'id_user,id_subdit,tahun_data_produk_intelijen,bulan_data_produk_intelijen, '+
-                            'jenis_produk_intelijen,jumlah_data_produk_intelijen) values (?,?,?,?,?,?)',fields,callback);
+    await connection.query('INSERT INTO `ref_produk_keluar` (`id_produk_keluar`, `nomor_ref_produk_keluar`, `jenis_ref_produk_keluar`, `attachment_ref_produk_keluar`) VALUES (?,?,?,?);',fields,callback);
 };
 exports.edit = async function(fields,callback) {
-    await connection.query('UPDATE  data_produk_intelijen SET id_user = ?,id_subdit = ?,tahun_data_produk_intelijen = ?,bulan_data_produk_intelijen = ?,'+
-                            ' jenis_produk_intelijen = ?,jumlah_data_produk_intelijen = ? WHERE id_data_produk_intelijen = ?',fields,callback);
+    await connection.query('UPDATE  ref_produk_keluar SET id_produk_keluar = ? , nomor_ref_produk_keluar = ? , jenis_ref_produk_keluar = ? , attachment_ref_produk_keluar = ? WHERE id_ref_produk_keluar = ?',fields,callback);
 };
 exports.delete  = async function(fields,callback) {
-    await connection.query('DELETE FROM data_produk_intelijen WHERE id_data_produk_intelijen = ?',fields,callback);
+    await connection.query('DELETE FROM ref_produk_keluar WHERE id_ref_produk_keluar = ?',fields,callback);
+};
+exports.deleteAll  = async function(fields,callback) {
+    await connection.query('DELETE FROM ref_produk_keluar WHERE id_produk_keluar = ?',fields,callback);
 };

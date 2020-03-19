@@ -8,7 +8,7 @@ block content
           .card-header
             h5.title #{title} Terdistribusi ke Satuan Kepolisian Lain (IKU4)
           .card-body
-            form(action='/dataprodukkeluaradd/' + id_jenis_produk_keluar + edit method='POST')               
+            form(action='/dataprodukkeluaradd1/' + id_jenis_produk_keluar + edit method='POST' enctype='multipart/form-data')               
               .row
                 .col-md-6.pr-1
                   .form-group
@@ -19,7 +19,7 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Tanggal
-                    input.form-control(type='text' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value='2020-01-15')               
+                    input.form-control(type='date' name="tanggal_produk_keluar" placeholder='Masukkan Tanggal' value='2020-01-15')               
               .row
                 .col-md-6.pr-1
                   .form-group
@@ -34,69 +34,30 @@ block content
                   .col-md-6.pr-1
                     .form-group
                       label Dasar Surat
-              .row
-                .col-md-4.pr-1
-                  .form-group
-                    br
-                    .btn-group.dropright
-                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          |    Jenis Produk
-                      .dropdown-menu
-                          each val, index in jenis
-                              a.dropdown-item(href='#' 
-                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
-                                  = val["nama_produk_intelijen"]
-                      <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
-                .col-md-4.px-1
-                  .form-group
-                    label Nomor Dokumen 
-                    input.form-control(type='text' placeholder='Nomor' value='')
-                .col-md-4.pl-1
-                  .form-group
-                    label Upload
-                    input.form-control(type='file' placeholder='' value='') 
-              .row
-                .col-md-4.pr-1
-                  .form-group
-                    br
-                    .btn-group.dropright
-                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          |    Jenis Produk
-                      .dropdown-menu
-                          each val, index in jenis
-                              a.dropdown-item(href='#' 
-                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_produk_intelijen']\").val("+val["id_produk_intelijen"]+");")
-                                  = val["nama_produk_intelijen"]
-                      <input type="hidden" id="jenis_produk_intelijen" name="jenis_produk_intelijen" value="">
-                .col-md-4.px-1
-                  .form-group
-                    label Nomor Dokumen 
-                    input.form-control(type='text' placeholder='Nomor' value='')
-                .col-md-4.pl-1
-                  .form-group
-                    label Upload
-                    input.form-control(type='file' placeholder='' value='') 
-              .row
-                .col-md-4.pr-1
-                  .form-group
-                    br
-                    .btn-group.dropright
-                      button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          |    Jenis Produk
-                      .dropdown-menu
-                          each val, index in jenis
-                              a.dropdown-item(href='#' 
-                                  onCLick="$(\"button[name ='jenisproduk']\").text($(this).text());$(\"input[name ='jenis_ref_produk_keluar[]']\").val("+val["id_produk_intelijen"]+");")
-                                  = val["nama_produk_intelijen"]
-                      <input type="hidden" id="jenis_ref_produk_keluar[]" name="jenis_ref_produk_keluar[]" value="">
-                .col-md-4.px-1
-                  .form-group
-                    label Nomor Dokumen 
-                    input.form-control(type='text' placeholder='Nomor' name="nomor_ref_produk_keluar[]"  value='')
-                .col-md-4.pl-1
-                  .form-group
-                    label Upload
-                    input.form-control(type='file' placeholder=''  name="attachment_ref_produk_keluar[]" value='') 
+              - var n = 0;
+              while n < 5
+                .row
+                  .col-md-4.pr-1
+                    .form-group
+                      br
+                      .btn-group.dropright
+                        button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name='jenisproduk[' + n +']' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                            |    Jenis Produk
+                        .dropdown-menu
+                            each val, index in jenis
+                                a.dropdown-item( 
+                                    onCLick="$(\"button[name ='jenisproduk["+ n + "]']\").text($(this).text());$(\"input[name ='input["+ n + "][jenis_produk_intelijen]']\").val("+val["id_produk_intelijen"]+");")
+                                    = val["nama_produk_intelijen"]
+                            input(type="hidden" id='jenis_produk_intelijen[' + n + ']' name='input['+ n + '][jenis_produk_intelijen]' value='')
+                  .col-md-4.px-1
+                    .form-group
+                      label Nomor Dokumen 
+                      input.form-control(type='text' name='input[' + n + '][nomor_ref_produk_keluar]' placeholder='Nomor' value='')
+                  .col-md-4.pl-1
+                    .form-group
+                      label Upload
+                      input.form-control(type='file' placeholder='' name='input[' + n + '][attachment]'  value='')  
+                - n++;
               .row
                 .col-md-6.pr-1
                   .form-group

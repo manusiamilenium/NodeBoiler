@@ -14,6 +14,8 @@ module.exports = function (app, sessionChecker) {
         .post(sessionChecker, potensigangguan.updateAction);
     app.route('/potensigangguan/delete/:id_potensi_gangguan')
         .get(sessionChecker, potensigangguan.delete);
+        app.route('/potensigangguan/file/:id_potensi_gangguan')
+        .get(sessionChecker, potensigangguan.fileDownload);
     app.route('/potensigangguandash')
         .get(sessionChecker, potensigangguan.dash)
 

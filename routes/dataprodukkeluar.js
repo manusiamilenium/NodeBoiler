@@ -9,7 +9,9 @@ module.exports = function (app, sessionChecker) {
     app.route('/dataprodukkeluaradd/:id_jenis_produk_keluar')
         .get(sessionChecker, dataprodukkeluar.create)
         .post(sessionChecker, dataprodukkeluar.createAction);
-    
+    app.route('/dataprodukkeluardelete/:id_jenis_produk_keluar/:id_produk_keluar')
+        .get(sessionChecker, dataprodukkeluar.delete);
+
     app.route('/pengirimanproduk')
         .get(sessionChecker, dataprodukkeluar.pengiriman)
         .post(sessionChecker, dataprodukkeluar.pengirimanAction);
@@ -20,5 +22,5 @@ module.exports = function (app, sessionChecker) {
     app.route('/dataprodukkeluaradd1/:id_jenis_produk_keluar')
         .get(sessionChecker, dataprodukkeluar.create1)
         .post(sessionChecker, dataprodukkeluar.createAction1);
-
+ 
 };

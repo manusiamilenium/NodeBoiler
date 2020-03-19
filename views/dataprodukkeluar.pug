@@ -53,14 +53,7 @@ block content
                                         td= val["kepada_produk_keluar"]
                                         td= val["perihal_produk_keluar"] 
                                         td
-                                            a.btn.btn-primary.btn-round(href='./dataprodukintel/'+ val["id_potensi_gangguan"] role='button')
-                                                i.now-ui-icons.files_paper
-                                                |  Detail
-                                            | 
-                                            a.btn.btn-primary.btn-round(href='./dataprodukintel/'+ val["id_data_produk_intelijen"] role='button')
-                                                i.now-ui-icons.design-2_ruler-pencil
-                                                |  Edit
-                                            |  
-                                            a.btn.btn-danger.btn-round(href='./dataprodukintel/delete/'+ val["id_data_produk_intelijen"] role='button')
+                                             
+                                            a.btn.btn-danger.btn-round(href='/dataprodukkeluardelete/'+ val["id_jenis_produk_keluar"] +'/' + val["id_produk_keluar"] role='button')
                                                 i.now-ui-icons.ui-1_simple-remove
                                                 |  Delete

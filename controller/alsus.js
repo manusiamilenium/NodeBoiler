@@ -113,8 +113,6 @@ exports.createAlsusAction = function (req, res) {
             var tahun_penggunaan_alsus = req.body.tahun_penggunaan_alsus;
             var jumlah_penggunaan_alsus = req.body.jumlah_penggunaan_alsus;
             
-           
-            console.log(buff);
             model.add([id_user, tahun_penggunaan_alsus, jumlah_penggunaan_alsus,buff], function (error, rows, fields) {
                 if (error) {
                     console.log(error)
