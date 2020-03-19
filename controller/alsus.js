@@ -6,7 +6,8 @@ var rmodel = require('../model/alsusrealisasi');
 
 exports.indexAlsus = function (req, res) {
     var title = "";
-    model.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getAll([id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -21,7 +22,8 @@ exports.indexAlsus = function (req, res) {
 };
 exports.indexRealisasi = function (req, res) {
     var title = "";
-    rmodel.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    rmodel.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -38,8 +40,8 @@ exports.indexRealisasi = function (req, res) {
 exports.createAlsus = function (req, res) {
     var id_penggunaan_alsus = "";
     id_penggunaan_alsus = req.params.id_penggunaan_alsus;
-
-    model.getData([id_penggunaan_alsus], function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getData([id_penggunaan_alsus,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.render('alsus_data_add', { edit: "" });
@@ -160,7 +162,7 @@ exports.fileAlsus = function (req, res) {
     var id_penggunaan_alsus = req.params.id_penggunaan_alsus;
 
 
-    model.getData([id_penggunaan_alsus], function (error, rows, fields) {
+    model.getData([id_penggunaan_alsus,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {

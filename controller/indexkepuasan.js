@@ -4,7 +4,8 @@ var response = require('../result');
 var model = require('../model/indexkepuasan');
 var uamodel = require('../model/useractivity');
 exports.index = function (req, res) {
-    model.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -95,7 +96,7 @@ exports.createAction = function (req, res) {
 exports.fileDownload = function (req, res) {
     var id_user = req.session.user[0].id_user;
     var id_index_kepuasan = req.params.id_index_kepuasan;
-    model.getData([id_index_kepuasan],
+    model.getData([id_index_kepuasan,id_user],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
@@ -123,9 +124,9 @@ exports.fileDownload = function (req, res) {
 };
 exports.create = function (req, res) {
 
-
+    var id_user = req.session.user[0].id_user;
     var id_index_kepuasan = req.params.id_index_kepuasan;
-    model.getData(id_index_kepuasan, function (error, rows, fields) {
+    model.getData([id_index_kepuasan,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
 
@@ -181,13 +182,18 @@ exports.delete = function (req, res) {
 exports.dash = function (req, res) {
     var indek = 0;
     var totalsend = 0;
+    var id_user = req.session.user[0].id_user;
     model.getIndexes(function (error, rows, fields) {
         indek = (rows[0]['indek']) / 35;
     });
     model.getTotalsend(function (error, rows, fields) {
-        totalsend = rows[0]['totalsend'];
+        if (error) {
+            console.log(error)
+        } else {
+            totalsend = rows[0]['totalsend'];
+        }
     });
-    model.getAll(function (error, rows, fields) {
+    model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {

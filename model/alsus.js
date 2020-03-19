@@ -2,11 +2,11 @@
 
 var connection = require('../connection');
  
-exports.getAll = async function (callback) {
-    await connection.query('SELECT * FROM penggunaan_alsus INNER JOIN user on penggunaan_alsus.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  ', callback);
+exports.getAll = async function (fields,callback) {
+    await connection.query('SELECT * FROM penggunaan_alsus INNER JOIN user on penggunaan_alsus.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil WHERE user.id_user = ? ',fields, callback);
 };
 exports.getData = async function(fields,callback) {
-    await connection.query('SELECT * FROM penggunaan_alsus INNER JOIN user on penggunaan_alsus.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE penggunaan_alsus.id_penggunaan_alsus = ?',fields, callback);
+    await connection.query('SELECT * FROM penggunaan_alsus INNER JOIN user on penggunaan_alsus.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE penggunaan_alsus.id_penggunaan_alsus = ? AND user.id_user = ? ',fields, callback);
 };
 exports.add= async function(fields,callback) {
     await connection.query('INSERT INTO penggunaan_alsus (id_user, tahun_penggunaan_alsus, jumlah_penggunaan_alsus, attachment_penggunaan_alsus) VALUES (?,?,?,?);',fields,callback);

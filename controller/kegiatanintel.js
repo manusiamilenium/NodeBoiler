@@ -7,7 +7,8 @@ var moment = require('moment');
 
 exports.index = function (req, res) {
     var title = "";
-    model.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -24,6 +25,7 @@ exports.create = function (req, res) {
     var jenis = [];
     var id_kegiatan_intelijen ="";
     id_kegiatan_intelijen = req.params.id_kegiatan_intelijen;
+    var id_user = req.session.user[0].id_user;
     jmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
@@ -33,7 +35,7 @@ exports.create = function (req, res) {
         }
     });
 
-    model.getData([id_kegiatan_intelijen], function (error, rows, fields) {
+    model.getData([id_kegiatan_intelijen,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
             res.render('kegiatan_intel_add',{jenis:jenis,edit:""});

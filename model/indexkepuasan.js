@@ -2,17 +2,17 @@
 
 var connection = require('../connection');
  
-exports.getAll = async function (callback) {
+exports.getAll = async function (fields,callback) {
     await connection.query('SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan FROM index_kepuasan '+ 
                             'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ', callback);
+                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE user.id_user = ? ',fields, callback);
 };
 
 exports.getData = async function(fields,callback) {
     
     await connection.query('SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan,attachment_index_kepuasan FROM index_kepuasan '+ 
                             'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil where id_index_kepuasan = ?',fields, callback);
+                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil where id_index_kepuasan = ? AND user.id_user = ? ',fields, callback);
 };
 exports.add= async function(fields,callback) {
     await connection.query('INSERT INTO  index_kepuasan (id_user,value_index_kepuasan,attachment_index_kepuasan) values (?,?,?)',fields,callback);

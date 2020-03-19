@@ -5,7 +5,8 @@ var model = require('../model/potensigangguan');
 var kjmodel = require('../model/kejadianmenonjol');
 var uamodel = require('../model/useractivity');
 exports.index = function (req, res) {
-    model.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -98,7 +99,8 @@ exports.createAction = function (req, res) {
 };
 exports.create = function (req, res) {
     var id_potensi_gangguan = req.params.id_potensi_gangguan;
-    model.getData(id_potensi_gangguan, function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getData([id_potensi_gangguan,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
 
@@ -117,7 +119,8 @@ exports.create = function (req, res) {
 exports.fileDownload = function (req, res) {
     var id_user = req.session.user[0].id_user;
     var id_potensi_gangguan = req.params.id_potensi_gangguan;
-    model.getData([id_potensi_gangguan],
+    var id_user = req.session.user[0].id_user;
+    model.getData([id_potensi_gangguan,id_user],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)

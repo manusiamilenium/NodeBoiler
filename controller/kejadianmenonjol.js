@@ -5,7 +5,8 @@ var model = require('../model/kejadianmenonjol');
 var uamodel = require('../model/useractivity');
 var subditmodel = require('../model/subditmodel'); 
 exports.index = function (req, res) {
-    model.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -44,6 +45,7 @@ exports.createAction = function (req, res) {
 exports.create = function (req, res) {
     var id_kejadian_menonjol = req.params.id_kejadian_menonjol;
     var subdits = []; 
+    var id_user = req.session.user[0].id_user;
     subditmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
@@ -53,7 +55,7 @@ exports.create = function (req, res) {
         }
     });
      
-    model.getData([id_kejadian_menonjol], function (error, rows, fields) {
+    model.getData([id_kejadian_menonjol,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
             

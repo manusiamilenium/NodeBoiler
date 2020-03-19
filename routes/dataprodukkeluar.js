@@ -13,9 +13,13 @@ module.exports = function (app, sessionChecker) {
         .get(sessionChecker, dataprodukkeluar.delete);
 
     app.route('/pengirimanproduk')
+        .get(sessionChecker, dataprodukkeluar.indexpengiriman);
+    app.route('/pengirimanproduk/add')
         .get(sessionChecker, dataprodukkeluar.pengiriman)
         .post(sessionChecker, dataprodukkeluar.pengirimanAction);
-
+    app.route('/pengirimanprodukdelete/:id_produk_keluar')
+        .get(sessionChecker, dataprodukkeluar.deletepengiriman);
+         
     app.route('/dataprodukkeluar1/:id_jenis_produk_keluar')
         .get(sessionChecker, dataprodukkeluar.index1);
     

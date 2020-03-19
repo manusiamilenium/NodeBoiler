@@ -8,7 +8,7 @@ block content
           .card-header 
             h5.title Pengiriman Produk Intelijen  (IKU3)
           .card-body
-            form(action='/pengirimanproduk/' method='POST')               
+            form(action='/pengirimanproduk/add' method='POST')               
               .row
                 .col-md-6.pr-1
                   .form-group
@@ -18,7 +18,7 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Tanggal
-                    input.form-control(type='text' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value='2020-01-15')               
+                    input.form-control(type='date' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value='2020-01-15')               
               .row
                 .col-md-6.pr-1
                   .form-group

@@ -6,7 +6,8 @@ var uamodel = require('../model/useractivity');
 var subditmodel = require('../model/subditmodel');
 var produkintelmodel = require('../model/produkintel');
 exports.index = function (req, res) {
-    model.getAll(function (error, rows, fields) {
+    var id_user = req.session.user[0].id_user;
+    model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -47,6 +48,7 @@ exports.create = function (req, res) {
     var id_data_produk_intelijen = req.params.id_data_produk_intelijen;
     var subdits = [];
     var jenis = [];
+    var id_user = req.session.user[0].id_user; 
     subditmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
@@ -63,7 +65,7 @@ exports.create = function (req, res) {
             jenis = await rows;
         }
     });
-    model.getData([id_data_produk_intelijen], function (error, rows, fields) {
+    model.getData([id_data_produk_intelijen,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
             
