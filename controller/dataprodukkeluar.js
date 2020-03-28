@@ -298,6 +298,37 @@ exports.pengirimanAction = function (req, res) {
 
 //////////
 
+exports.delete1 = function (req, res) {
+    var id_user = req.session.user[0].id_user;
+    var id_produk_keluar = req.params.id_produk_keluar;
+    var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
+    refprodukkeluar.deleteAll([id_produk_keluar],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                model.delete([id_produk_keluar],
+                    function (error, rows, fields) {
+                        if (error) {
+                            console.log(error)
+                        } else {
+                            uamodel.add([id_user, "Menghapus Data Produk Keluar Intelijen"], function (error, rows, fields) {
+                                if (error) {
+                                    console.log(error)
+                                }
+                            });
+                            req.session.notification = "Berhasil Dihapus";
+                            req.session.notificationtype = "success";
+                            res.redirect('/dataprodukkeluar/'+id_jenis_produk_keluar);
+            
+                        }
+                    });
+
+            }
+        });
+
+    
+};
 
 exports.index1 = function (req, res) {
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
