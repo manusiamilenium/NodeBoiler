@@ -1,19 +1,19 @@
-if session.notification
-    if session.nottype == "error"
-        .alert.alert-danger   
-            button.close(type='button' aria-hidden='true')
+if session.notification!=""
+    if session.notificationtype == "error"
+        .alert.alert-danger.alert-dismissible   
+            button.close(type='button' aria-hidden='true' data-dismiss='alert')
                 i.now-ui-icons.ui-1_simple-remove
             span
                 b  #{session.notification}
-    else if session.nottype == "success"  
-        .alert.alert-success  
-            button.close(type='button' aria-hidden='true')
+    else if session.notificationtype == "success"  
+        .alert.alert-success.alert-dismissible  
+            button.close(type='button' aria-hidden='true' data-dismiss='alert' )
                 i.now-ui-icons.ui-1_simple-remove
             span
                 b  #{session.notification}
-    else if session.nottype == "warning"  
-        .alert.alert-warning  
-            button.close(type='button' aria-hidden='true')
+    else if session.notificationtype == "warning"  
+        .alert.alert-warning.alert-dismissible  
+            button.close(type='button' aria-hidden='true' data-dismiss='alert')
                 i.now-ui-icons.ui-1_simple-remove
             span
                 b  #{session.notification}

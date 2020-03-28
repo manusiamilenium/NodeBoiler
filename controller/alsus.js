@@ -11,7 +11,6 @@ exports.indexAlsus = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            console.log(rows);
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification;
@@ -27,7 +26,6 @@ exports.indexRealisasi = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            console.log(rows);
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification;
@@ -47,7 +45,6 @@ exports.createAlsus = function (req, res) {
             res.render('alsus_data_add', { edit: "" });
         } else {
             if (rows[0]) {
-                console.log(rows[0]);
                 res.render('alsus_data_add', { data: rows[0], edit: "edit" });
             } else {
                 res.render('alsus_data_add', { edit: "" });
@@ -177,7 +174,7 @@ exports.fileAlsus = function (req, res) {
                 if(err) {
                     console.log(err);
                 }else{
-                    console.log('file saved');
+                    
                     fs.readFile('attachment_penggunaan_alsus.pdf', (err, data) => {
                         res.contentType("application/pdf");
                         res.send(data);//
@@ -198,7 +195,6 @@ exports.createAlsusRealisasi = function (req, res) {
             res.render('alsus_realisasi_add', { edit: "" });
         } else {
             if (rows[0]) {
-                console.log(rows[0]);
                 res.render('alsus_realisasi_add', { data: rows[0], edit: "edit" });
             } else {
                 res.render('alsus_realisasi_add', { edit: "" });

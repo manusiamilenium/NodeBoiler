@@ -35,14 +35,14 @@ body.login-page
   // End Navbar
   .content
     .container
-      .col-md-4.ml-auto.mr-auto
+      .col-md-6.ml-auto.mr-auto
         form.form(method='POST' action='/login')
           .card.card-login.card-plain
             .card-header
               .logo-container
                 img(src='../../assets/img/logo.png' alt='')
-            .card-body
               include notification.pug
+            .card-body
               .input-group.no-border.form-control-lg
                 span.input-group-prepend
                   .input-group-text

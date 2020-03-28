@@ -7,8 +7,7 @@ exports.index = function (req, res) {
     model.getAll(function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows); 
+        } else { 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification; 
@@ -38,8 +37,7 @@ exports.create = function (req, res) {
             console.log(error);
             
         } else {
-            if(rows[0]){
-                console.log(rows[0]);
+            if(rows[0]){ 
                 res.render('jenis_kegiatan_intelijenadd',{data:rows[0],edit:"edit"});
             }else{
                 res.render('jenis_kegiatan_intelijenadd',{edit:""});

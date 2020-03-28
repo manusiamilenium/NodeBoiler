@@ -11,7 +11,6 @@ exports.index = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            console.log(rows); 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification; 
@@ -52,8 +51,7 @@ exports.create = function (req, res) {
     subditmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows); 
+        } else { 
              subdits = await rows;
         }
     });
@@ -61,7 +59,6 @@ exports.create = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            console.log(rows); 
             jenis = await rows;
         }
     });
@@ -70,9 +67,7 @@ exports.create = function (req, res) {
             console.log(error);
             
         } else {
-            
-            if(rows[0]){
-                console.log(rows[0]);
+            if(rows[0]){ 
                 res.render('dataprodukinteladd',{data:rows[0],subdit:subdits,jenis:jenis,edit:"edit"});
             }else{
                 res.render('dataprodukinteladd',{subdit:subdits,jenis:jenis,edit:""});

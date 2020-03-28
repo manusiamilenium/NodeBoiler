@@ -9,8 +9,7 @@ exports.index = function (req, res) {
     model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows); 
+        } else { 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification; 
@@ -49,8 +48,7 @@ exports.create = function (req, res) {
     subditmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows); 
+        } else { 
              subdits = await rows;
         }
     });
@@ -63,8 +61,7 @@ exports.create = function (req, res) {
             res.redirect('/kejadianmenonjol/add');
         } else {
             
-            if(rows[0]){
-                console.log(rows[0]);
+            if(rows[0]){ 
                 res.render('kejadianmenonjoladd',{data:rows[0],subdit:subdits,edit:"edit"});
             }else{
                 res.render('kejadianmenonjoladd',{subdit:subdits,edit:""});

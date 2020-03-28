@@ -11,8 +11,7 @@ exports.index = function (req, res) {
     model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows); 
+        } else { 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification; 
@@ -29,8 +28,7 @@ exports.create = function (req, res) {
     jmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows); 
+        } else { 
             jenis = await rows;
         }
     });
@@ -40,8 +38,7 @@ exports.create = function (req, res) {
             console.log(error);
             res.render('kegiatan_intel_add',{jenis:jenis,edit:""});
         } else {
-            if(rows[0]){
-                console.log(rows[0]);
+            if(rows[0]){ 
                 res.render('kegiatan_intel_add',{data:rows[0],edit:"edit",jenis:jenis});
             }else{
                 res.render('kegiatan_intel_add',{jenis:jenis,edit:""});

@@ -19,8 +19,7 @@ exports.index = function (req, res) {
     model.getAll([id_jenis_produk_keluar,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows);
+        } else { 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification;
@@ -127,8 +126,7 @@ exports.create = function (req, res) {
     produkintelmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows);
+        } else { 
             jenis = await rows;
         }
     });
@@ -140,8 +138,7 @@ exports.create = function (req, res) {
             console.log(error);
 
         } else {
-            if (rows[0]) {
-                console.log(rows[0]);
+            if (rows[0]) { 
                 res.render('dataprodukkeluaradd', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
             } else {
                 res.render('dataprodukkeluaradd', { jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title });
@@ -212,8 +209,7 @@ exports.indexpengiriman = function (req, res) {
     pengirimanproduk.getAll([id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows);
+        } else { 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification;
@@ -230,8 +226,7 @@ exports.pengiriman = function (req, res) {
     produkintelmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows);
+        } else { 
             jenis = await rows;
         }
     });
@@ -241,8 +236,7 @@ exports.pengiriman = function (req, res) {
             console.log(error);
 
         } else {
-            if (rows[0]) {
-                console.log(rows[0]);
+            if (rows[0]) { 
                 res.render('pengirimanprodukintel', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
             } else {
                 res.render('pengirimanprodukintel', { jenis: jenis });
@@ -341,8 +335,7 @@ exports.index1 = function (req, res) {
     model.getAll([id_jenis_produk_keluar,id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows);
+        } else { 
             var notification = req.session.notification;
             var nottype = req.session.notificationtype;
             delete req.session.notification;
@@ -361,8 +354,7 @@ exports.create1 = function (req, res) {
     produkintelmodel.getAll(async function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else {
-            console.log(rows);
+        } else { 
             jenis = await rows;
         }
     });
@@ -374,8 +366,7 @@ exports.create1 = function (req, res) {
             console.log(error);
 
         } else {
-            if (rows[0]) {
-                console.log(rows[0]);
+            if (rows[0]) { 
                 res.render('dataprodukkeluaradd1', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
             } else {
                 res.render('dataprodukkeluaradd1', { jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title });

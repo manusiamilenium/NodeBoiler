@@ -37,8 +37,7 @@ exports.create = function (req, res) {
             console.log(error);
             
         } else {
-            if(rows[0]){
-                console.log(rows[0]);
+            if(rows[0]){ 
                 res.render('satwiladd',{data:rows[0],edit:"edit"});
             }else{
                 res.render('satwiladd',{edit:""});
