@@ -39,7 +39,6 @@ exports.login = function (req, res) {
     else {
         req.session.notification = "Username dan Password tidak boleh kosong";
         req.session.notificationtype = "error";
-      
         res.redirect('/login');
     }
 
