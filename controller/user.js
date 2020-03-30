@@ -1,16 +1,16 @@
 'use strict';
 
-var response = require('../result');
+
 var model = require('../model/usermodel');
 
 
 exports.index = function (req, res) {
    
-    global.helper.renderer('login',req,res);
+    global.helper.render('login',req,res);
 
 };
 exports.changep = function (req, res) {
-    global.helper.renderer('userchangepassword',req,res);
+    global.helper.render('userchangepassword',req,res);
 };
 exports.changepaction = function (req, res) {
     var password_old = req.body.password_old,
@@ -22,7 +22,8 @@ exports.changepaction = function (req, res) {
         if (password_new == repassword_new ) {
             model.getUser([username], function (error, rows, fields) {
                 if (error) {
-                    res.render('userchangepassword');
+                    global.helper.render('userchangepassword',req,res);
+                    //res.render('userchangepassword');
                 } else {
                     if ((rows.length > 0) && (password_old == rows[0].password)) {
                         
@@ -30,12 +31,12 @@ exports.changepaction = function (req, res) {
                             if (error) {
                                 req.session.notification = "Penggantian password tidak berhasil ";
                                 req.session.notificationtype = "error";
-                                res.render('userchangepassword');
+                                global.helper.render('userchangepassword',req,res);
                             } else {
                                 console.log('this.sql', this.sql); 
                                 req.session.notification = "Penggantian password berhasil ";
                                 req.session.notificationtype = "success";
-                                res.render('userchangepassword');
+                                global.helper.render('userchangepassword',req,res);
                             }
                         });
                         
@@ -43,19 +44,19 @@ exports.changepaction = function (req, res) {
                     } else {
                         req.session.notification = "Password lama tidak cocok";
                         req.session.notificationtype = "error";
-                        res.render('userchangepassword');
+                        global.helper.render('userchangepassword',req,res);
                     }
                 }
             });
         }else{
             req.session.notification = "Password dan Ulangi Password Tidak Cocok.";
             req.session.notificationtype = "error";
-            res.render('userchangepassword');
+            global.helper.render('userchangepassword',req,res);
         }
     }else{
         req.session.notification = "Password tidak boleh kosong.";
         req.session.notificationtype = "error";
-        res.render('userchangepassword');
+        global.helper.render('userchangepassword',req,res);
     }
 };
 exports.login = function (req, res) {
@@ -66,7 +67,7 @@ exports.login = function (req, res) {
             if (error) {
                 req.session.notification = error;
                 req.session.notificationtype = "error";
-                res.render('login');
+                global.helper.render('login',req,res);
             } else {
                 if ((rows.length > 0) && (password == rows[0].password)) {
                     req.session.user = rows;
@@ -79,7 +80,7 @@ exports.login = function (req, res) {
                 } else {
                     req.session.notification = "Username dan Password Salah.";
                     req.session.notificationtype = "error";
-                    res.render('login');
+                    global.helper.render('login',req,res);
                 }
             }
         });
@@ -87,7 +88,7 @@ exports.login = function (req, res) {
     else {
         req.session.notification = "Username dan Password tidak boleh kosong";
         req.session.notificationtype = "error";
-        res.render('login');
+        global.helper.render('login',req,res);
     }
 
 };

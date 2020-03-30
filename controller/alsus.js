@@ -11,11 +11,7 @@ exports.indexAlsus = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-            res.render('alsus_data', { data: rows, notification: notification, nottype: nottype, title: title });
+            global.helper.render('alsus_data',req,res, { data: rows,title: title });
         }
     });
 };
@@ -26,11 +22,7 @@ exports.indexRealisasi = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-            res.render('alsus_realisasi_data', { data: rows, notification: notification, nottype: nottype, title: title });
+            global.helper.render('alsus_realisasi_data',req,res, { data: rows,title: title }); 
         }
     });
 };
@@ -41,13 +33,12 @@ exports.createAlsus = function (req, res) {
     var id_user = req.session.user[0].id_user;
     model.getData([id_penggunaan_alsus,id_user], function (error, rows, fields) {
         if (error) {
-            console.log(error);
-            res.render('alsus_data_add', { edit: "" });
+            global.helper.render('alsus_data_add', req,res,  { edit: "" });  
         } else {
             if (rows[0]) {
-                res.render('alsus_data_add', { data: rows[0], edit: "edit" });
+                global.helper.render('alsus_data_add', req,res,  { data: rows[0], edit: "edit" });   
             } else {
-                res.render('alsus_data_add', { edit: "" });
+                global.helper.render('alsus_data_add', req,res,  { edit: "" });  
             }
         }
     });
