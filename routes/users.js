@@ -6,6 +6,9 @@ module.exports = function (app,sessionChecker) {
     app.route('/login')
         .get(user.index)
         .post(user.login);
+     app.route('/user/changep')
+        .get(sessionChecker,user.changep)
+        .post(sessionChecker,user.changepaction);
     /*
     app.route('/users')
         .get(tokenize, user.users);

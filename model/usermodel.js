@@ -17,3 +17,6 @@ exports.editUser = async function(fields,callback) {
 exports.deleteUser = async function(fields,callback) {
     await connection.query('DELETE user person WHERE id_user = ?',fields,callback);
 };
+exports.editPassword = async function(fields,callback) {
+    await connection.query('UPDATE user SET password = ? WHERE id_user = ?',fields,callback);
+};

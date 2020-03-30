@@ -1,0 +1,24 @@
+extends ../layout-sidemenu.pug   
+            
+append navbar       
+    nav.navbar.navbar-expand-lg.navbar-transparent.bg-primary.navbar-absolute
+        .container-fluid
+          .navbar-wrapper
+            .navbar-toggle
+              button.navbar-toggler(type='button')
+                span.navbar-toggler-bar.bar1
+                span.navbar-toggler-bar.bar2
+                span.navbar-toggler-bar.bar3
+            a.navbar-brand(href='#pablo') My Profile
+          button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navigation' aria-controls='navigation-index' aria-expanded='false' aria-label='Toggle navigation')
+            span.navbar-toggler-bar.navbar-kebab
+            span.navbar-toggler-bar.navbar-kebab
+            span.navbar-toggler-bar.navbar-kebab
+          #navigation.collapse.navbar-collapse.justify-content-end
+            //ul.navbar-nav
+              li.nav-item
+                a.nav-link(href='/indexkepuasan') Data Index Kepuasan
+              li.nav-item
+                a.nav-link(href='/indexkepuasandash') Dashboard
+               
+            include ../usermenu.pug         

@@ -1,16 +1,15 @@
 //var routes = require('./routes/index');
 var express = require('express'),
-    app = express(),
-    port = process.env.PORT || 3000,
-    bodyParser = require('body-parser'),
-    config =  require('./config'),
+    app = express(), 
+    bodyParser = require('body-parser'), 
     compression = require('compression');
 const path = require('path');
 global.config = require('./config');
+global.helper = require('./controller/helper');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(compression())
-global.tokenList = {}
+global.tokenList = {} 
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
