@@ -9,13 +9,7 @@ exports.index = function (req, res) {
         if (error) {
             console.log(error)
         } else { 
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-
-            res.render('indexkepuasan', { data: rows, notification: notification, nottype: nottype });
-
+            global.helper.render('indexkepuasan', req, res, { data: rows }); 
         }
     });
 };

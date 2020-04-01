@@ -9,7 +9,7 @@ block content
             h5.title Data Realisasi  Alat Intelijen
             include notification.pug
           .card-body
-            form(action='/alsus/realisasiadd/'+ edit method='POST')
+            form(action='/alsus/realisasiadd'+ edit method='POST')
               .row
                 .col-md-6.pr-1 
                   .form-group 
@@ -19,7 +19,7 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Tahun
-                    input.form-control(type='text' name="tahun_realisasi_alsus" placeholder='Masukkan Tahun' value='2020')
+                    input.form-control(type='text' name="tahun_realisasi_alsus" placeholder='Masukkan Tahun' value=''+ (data['tahun_realisasi_alsus']=== undefined ?'': data['tahun_realisasi_alsus']))
               //.row
                 .col-md-6.pr-1
                   .form-group
@@ -29,12 +29,12 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Jumlah Realisasi Alsus
-                    input.form-control(type='text' name="jumlah_realisasi_alsus" placeholder='Masukkan Jumlah' value='')
+                    input.form-control(type='text' name="jumlah_realisasi_alsus" placeholder='Masukkan Jumlah' value=''+ (data['jumlah_realisasi_alsus']=== undefined ?'': data['jumlah_realisasi_alsus']))
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Uraian
-                    input.form-control(type='text' name="uraian_realisasi_alsus" placeholder='Masukkan Uraian' value='')
+                    input.form-control(type='text' name="uraian_realisasi_alsus" placeholder='Masukkan Uraian' value=''+ (data['uraian_realisasi_alsus']=== undefined ?'': data['uraian_realisasi_alsus']))
               .row
                 .col-md-6.pr-1
                   .form-group

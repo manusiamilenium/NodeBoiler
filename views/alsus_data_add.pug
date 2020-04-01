@@ -9,17 +9,17 @@ block content
             include notification.pug
             h5.title Data Alat Intelijen
           .card-body
-            form(action='/alsus/add/'+ edit method='POST' enctype="multipart/form-data")
+            form(action='/alsus/add'+ edit method='POST' enctype="multipart/form-data")
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Tahun
-                    input.form-control(type='text' name="tahun_penggunaan_alsus" placeholder='Masukkan Tahun' value='2020')
+                    input.form-control(type='text' name="tahun_penggunaan_alsus" placeholder='Masukkan Tahun' value=''+ (data['tahun_penggunaan_alsus']=== undefined ?'': data['tahun_penggunaan_alsus']))
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Jumlah Alsus
-                    input.form-control(type='text' name="jumlah_penggunaan_alsus" placeholder='Masukkan Jumlah Alsus' value='')
+                    input.form-control(type='text' name="jumlah_penggunaan_alsus" placeholder='Masukkan Jumlah Alsus' value=''+ (data['jumlah_penggunaan_alsus']=== undefined ?'': data['jumlah_penggunaan_alsus']))
               .row
                 .col-md-12
                   .form-group
