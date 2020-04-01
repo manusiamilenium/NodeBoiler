@@ -7,23 +7,24 @@ block content
         .card
           .card-header 
             h5.title Pengiriman Produk Intelijen  (IKU3)
+            include notification.pug
           .card-body
             form(action='/pengirimanproduk/add' method='POST')               
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Nomor Surat
-                    input.form-control(type='text' name="nomor_produk_keluar" placeholder='Masukkan Nomor' value='') 
+                    input.form-control(type='text' name="nomor_produk_keluar" placeholder='Masukkan Nomor' value=''+ (data['nomor_produk_keluar']=== undefined ?'': data['nomor_produk_keluar'])) 
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Tanggal
-                    input.form-control(type='date' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value='2020-01-15')               
+                    input.form-control(type='date' name="tanggal_produk_keluar" placeholder='Masukkan Bulan' value=''+ (data['tanggal_produk_keluar']=== undefined ?'': data['tanggal_produk_keluar']))               
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Perihal
-                    input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value='')
+                    input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value=''+ (data['perihal_produk_keluar']=== undefined ?'': data['perihal_produk_keluar']))
               .row
                 .col-md-6.pr-1 
                   .form-group

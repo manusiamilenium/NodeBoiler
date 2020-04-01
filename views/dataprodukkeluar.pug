@@ -6,26 +6,11 @@ block content
         .col-md-12
             .card
                 .card-header
-                    if notification
-                        .alert.alert-danger
-                            button.close(type='button' aria-hidden='true')
-                                i.now-ui-icons.ui-1_simple-remove
-                            span
-                                b  #{notification}
-                    h4.card-title  #{title} Terdistribusi ke K/L (IKU3)
+                    h4.card-title  #{title} 
+                    include notification.pug
                     a.btn.btn-info.btn-round.card-title(href='/dataprodukkeluaradd/'+id_jenis_produk_keluar  role='button')
                         i.now-ui-icons.ui-1_simple-add
-                        |  Tambah      
-                    // Example single danger button
-                    //.btn-group
-                        button.btn.btn-info.btn-round.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                            |    Pilih Filter Satwil
-                        .dropdown-menu
-                            a.dropdown-item(href='#') Action
-                            a.dropdown-item(href='#') Another action
-                            a.dropdown-item(href='#') Something else here
-                            .dropdown-divider
-                            a.dropdown-item(href='#') Separated link
+                        |  Tambah    
 
                 .card-body
                     .table-responsive

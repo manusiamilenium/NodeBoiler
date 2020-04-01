@@ -28,9 +28,9 @@ exports.createAction = function (req, res) {
     if (id_subdit == "" || tahun_data_produk_intelijen == "" || bulan_data_produk_intelijen == "" || jenis_produk_intelijen == "" || jumlah_data_produk_intelijen == "") {
         req.session.notification = 'Mohon lengkapi isian';
         req.session.notificationtype = "error";
-        getData(subditmodel,function (error, rows) {
+        global.helper.getRefference(subditmodel,function (error, rows) {
             subdits = rows;
-            getData(produkintelmodel,function (error, rows) {
+            global.helper.getRefference(produkintelmodel,function (error, rows) {
                 jenis = rows;
                 global.helper.render('dataprodukinteladd', req, res, { subdit: subdits, jenis: jenis, edit: "", data: req.body});
             });
@@ -54,24 +54,15 @@ exports.createAction = function (req, res) {
         });
     }
 };
-function getData(model,callback){
-    model.getAll(function (error, rows, fields) {
-        if (error) {
-            callback(error);
-        } else {
-            //console.log(rows);
-            callback(null,rows);
-        }
-    });
-}
+ 
 exports.create = async function (req, res) {
     var id_data_produk_intelijen = req.params.id_data_produk_intelijen;
     var subdits = [];
     var jenis = [];
     var id_user = req.session.user[0].id_user;
-    getData(subditmodel,function (error, rows) {
+    global.helper.getRefference(subditmodel,function (error, rows) {
         subdits = rows;
-        getData(produkintelmodel,function (error, rows) {
+        global.helper.getRefference(produkintelmodel,function (error, rows) {
             jenis = rows;
             model.getData([id_data_produk_intelijen, id_user], function (error, rows, fields) {
                 if (error) {

@@ -13,20 +13,21 @@ exports.index = function (req, res) {
     var title = "";
     var id_user = req.session.user[0].id_user;
     pmodel.getData([id_jenis_produk_keluar], function (error, rows, fields) {
+        var id = rows[0]['id_jenis_produk_keluar']
         title = rows[0]['nama_jenis_produk_keluar'];
-    });
-    var title = "";
-    model.getAll([id_jenis_produk_keluar,id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-            res.render('dataprodukkeluar', { moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, notification: notification, nottype: nottype, title: title });
-
+        if (id < 5) {
+            title += " Terdistribusi ke K/L (IKU3)";
+        } else {
+            title += " Terdistribusi ke Satuan Kepolisian lain (IKU4)";
         }
+
+        model.getAll([id_jenis_produk_keluar, id_user], function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                global.helper.render('dataprodukkeluar', req, res, { moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, title: title });
+            }
+        });
     });
 };
 exports.createAction = function (req, res) {
@@ -73,43 +74,49 @@ exports.createAction = function (req, res) {
         var kepada_produk_keluar = req.body.kepada_produk_keluar;
         var satker_produk_keluar = req.body.satker_produk_keluar;
         var perihal_produk_keluar = req.body.perihal_produk_keluar;
-        model.add([id_user, id_jenis_produk_keluar, nomor_produk_keluar, tanggal_produk_keluar, kepada_produk_keluar, satker_produk_keluar, perihal_produk_keluar], function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
+        var title = req.body.title;
+        if (nomor_produk_keluar == "" || tanggal_produk_keluar == "" || kepada_produk_keluar == "" || satker_produk_keluar == "" || perihal_produk_keluar == "") {
+            req.session.notification = 'Mohon lengkapi isian';
+            req.session.notificationtype = "error";
+            global.helper.getRefference(produkintelmodel, function (error, rows) {
+                global.helper.render('dataprodukkeluaradd', req, res, { jenis: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title,data:req.body });
+            }); 
+        }else{
+            model.add([id_user, id_jenis_produk_keluar, nomor_produk_keluar, tanggal_produk_keluar, kepada_produk_keluar, satker_produk_keluar, perihal_produk_keluar], function (error, rows, fields) {
+                if (error) {
+                    console.log(error)
+                } else {
 
-                var insertid = rows.insertId;
-                for (let index = 0; index < req.files.length; index++) {
-                    const file = req.files[index];
-                    var nomor_ref_produk_keluar = req.body.input[index].nomor_ref_produk_keluar;
-                    var jenis_ref_produk_keluar = req.body.input[index].jenis_produk_intelijen;
-                    const fs = require('fs');
-                    var img = fs.readFileSync(file.path);
-                    var encode_image = img.toString('base64');
-                    var buff = new Buffer(encode_image, 'base64')
-                    refprodukkeluar.add([insertid, nomor_ref_produk_keluar, jenis_ref_produk_keluar, buff], function (error, rows, fields) {
-                        if (error) {
-                            console.log(error)
-                        } else {
-                            if (index == req.files.length - 1) {
-                                uamodel.add([id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
-                                    if (error) {
-                                        console.log(error)
-                                    }
-                                });
-                                req.session.notification = "Berhasil Ditambah";
-                                req.session.notificationtype = "success";
-                                res.redirect('/dataprodukkeluar/' + id_jenis_produk_keluar);
+                    var insertid = rows.insertId;
+                    for (let index = 0; index < req.files.length; index++) {
+                        const file = req.files[index];
+                        var nomor_ref_produk_keluar = req.body.input[index].nomor_ref_produk_keluar;
+                        var jenis_ref_produk_keluar = req.body.input[index].jenis_produk_intelijen;
+                        const fs = require('fs');
+                        var img = fs.readFileSync(file.path);
+                        var encode_image = img.toString('base64');
+                        var buff = new Buffer(encode_image, 'base64')
+                        refprodukkeluar.add([insertid, nomor_ref_produk_keluar, jenis_ref_produk_keluar, buff], function (error, rows, fields) {
+                            if (error) {
+                                console.log(error)
+                            } else {
+                                if (index == req.files.length - 1) {
+                                    uamodel.add([id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
+                                        if (error) {
+                                            console.log(error)
+                                        }
+                                    });
+                                    req.session.notification = "Berhasil Ditambah";
+                                    req.session.notificationtype = "success";
+                                    res.redirect('/dataprodukkeluar/' + id_jenis_produk_keluar);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+
                 }
-
-
-
-
-            }
-        });
+            });
+        }
 
 
 
@@ -123,28 +130,37 @@ exports.create = function (req, res) {
     var title = "";
     var jenis = [];
     var id_user = req.session.user[0].id_user;
-    produkintelmodel.getAll(async function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-            jenis = await rows;
-        }
-    });
-    pmodel.getData([id_jenis_produk_keluar,id_user], function (error, rows, fields) {
-        title = rows[0]['nama_jenis_produk_keluar'];
-    });
-    model.getData([id_produk_keluar,id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error);
-
-        } else {
-            if (rows[0]) { 
-                res.render('dataprodukkeluaradd', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
+    global.helper.getRefference(produkintelmodel, function (error, rows) {
+        jenis = rows;
+        pmodel.getData([id_jenis_produk_keluar, id_user], function (error, rows, fields) {
+            var id = rows[0]['id_jenis_produk_keluar']
+            title = rows[0]['nama_jenis_produk_keluar'];
+            if (id < 5) {
+                title += " Terdistribusi ke K/L (IKU3)";
             } else {
-                res.render('dataprodukkeluaradd', { jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title });
+                title += " Terdistribusi ke Satuan Kepolisian lain (IKU4)";
             }
-        }
+            model.getData([id_produk_keluar, id_user], function (error, rows, fields) {
+                if (error) {
+                    console.log(error);
+        
+                } else {
+                    if (rows[0]) {
+                        res.render('dataprodukkeluaradd', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
+                    } else {
+                        global.helper.render('dataprodukkeluaradd', req, res, { jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title ,data:{}});
+                        //res.render('dataprodukkeluaradd', { jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title });
+                    }
+                }
+            });
+
+        });
     });
+
+
+
+
+    
 
 
 };
@@ -191,58 +207,51 @@ exports.delete = function (req, res) {
                             });
                             req.session.notification = "Berhasil Dihapus";
                             req.session.notificationtype = "success";
-                            res.redirect('/dataprodukkeluar/'+id_jenis_produk_keluar);
-            
+                            res.redirect('/dataprodukkeluar/' + id_jenis_produk_keluar);
+
                         }
                     });
 
             }
         });
 
-    
+
 };
 exports.indexpengiriman = function (req, res) {
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
     var title = "";
     var id_user = req.session.user[0].id_user;
-    
+
     pengirimanproduk.getAll([id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else { 
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-            res.render('pengirimanproduk', { moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, notification: notification, nottype: nottype, });
-
+        } else {
+            global.helper.render('pengirimanproduk', req, res, {moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar,});
         }
     });
 };
 exports.pengiriman = function (req, res) {
-    var jenis = [];
+     
     var id_produk_keluar = req.params.id_produk_keluar;
     var id_user = req.session.user[0].id_user;
-    produkintelmodel.getAll(async function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-            jenis = await rows;
-        }
-    });
-
-    pengirimanproduk.getData([id_produk_keluar,id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error);
-
-        } else {
-            if (rows[0]) { 
-                res.render('pengirimanprodukintel', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
+     
+    global.helper.getRefference(produkintelmodel, function (error, reffs) {
+        pengirimanproduk.getData([id_produk_keluar, id_user], function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+    
             } else {
-                res.render('pengirimanprodukintel', { jenis: jenis });
+                if (rows[0]) {
+                    res.render('pengirimanprodukintel', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
+                } else {
+                    global.helper.render('pengirimanprodukintel', req, res, { jenis: reffs,data:{} });
+                    //res.render('pengirimanprodukintel', { jenis: jenis });
+                }
             }
-        }
-    });
+        });
+    }); 
+
+    
 };
 exports.deletepengiriman = function (req, res) {
     var id_user = req.session.user[0].id_user;
@@ -273,191 +282,27 @@ exports.pengirimanAction = function (req, res) {
     var nomor_produk_keluar = req.body.nomor_produk_keluar;
     var tanggal_produk_keluar = req.body.tanggal_produk_keluar;
     var perihal_produk_keluar = req.body.perihal_produk_keluar;
-    //console.log(req.body);
-    pengirimanproduk.add([id_user, tanggal_produk_keluar, perihal_produk_keluar, jenis_produk_intelijen, nomor_produk_keluar,], function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else {
-            uamodel.add([id_user, "Mengisi Data Produk Intelijen Keluar"], function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                }
-            });
-            req.session.notification = "Berhasil Ditambah";
-            req.session.notificationtype = "success";
-            res.redirect('/pengirimanproduk/');
-        }
-    });
-};
-
-//////////
-
-exports.delete1 = function (req, res) {
-    var id_user = req.session.user[0].id_user;
-    var id_produk_keluar = req.params.id_produk_keluar;
-    var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
-    refprodukkeluar.deleteAll([id_produk_keluar],
-        function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
-                model.delete([id_produk_keluar],
-                    function (error, rows, fields) {
-                        if (error) {
-                            console.log(error)
-                        } else {
-                            uamodel.add([id_user, "Menghapus Data Produk Keluar Intelijen"], function (error, rows, fields) {
-                                if (error) {
-                                    console.log(error)
-                                }
-                            });
-                            req.session.notification = "Berhasil Dihapus";
-                            req.session.notificationtype = "success";
-                            res.redirect('/dataprodukkeluar/'+id_jenis_produk_keluar);
-            
-                        }
-                    });
-
-            }
-        });
-
-    
-};
-
-exports.index1 = function (req, res) {
-    var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
-    var title = "";
-    var id_user = req.session.user[0].id_user;
-    pmodel.getData([id_jenis_produk_keluar], function (error, rows, fields) {
-        title = rows[0]['nama_jenis_produk_keluar'];
-    });
-    var title = "";
-    model.getAll([id_jenis_produk_keluar,id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-            res.render('dataprodukkeluar1', { moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, notification: notification, nottype: nottype, title: title });
-
-        }
-    });
-};
-exports.create1 = function (req, res) {
-    var id_produk_keluar = req.params.id_produk_keluar;
-    var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
-    var title = "";
-    var jenis = [];
-    var id_user = req.session.user[0].id_user;
-    produkintelmodel.getAll(async function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-            jenis = await rows;
-        }
-    });
-    pmodel.getData([id_jenis_produk_keluar], function (error, rows, fields) {
-        title = rows[0]['nama_jenis_produk_keluar'];
-    });
-    model.getData([id_produk_keluar,id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error);
-
-        } else {
-            if (rows[0]) { 
-                res.render('dataprodukkeluaradd1', { data: rows[0], jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "edit", title: title });
-            } else {
-                res.render('dataprodukkeluaradd1', { jenis: jenis, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title });
-            }
-        }
-    });
-
-
-};
-exports.createAction1 = function (req, res) {
-    
-    var multer = require('multer');
-    var path = require('path');
-    const storage = multer.diskStorage({
-        destination: path.join(__dirname + './../public/img/'),
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + '-' + Date.now() +
-                path.extname(file.originalname));
-        }
-    });
-    const fileFilter = function (req, file, cb) {
-        // Accept images only
-        if (!file.originalname.match(/\.(pdf|PDF|jpg|JPG|jpeg|JPEG|PNG|png)$/)) {
-            req.fileValidationError = 'Only pdf,png and jpg files are allowed!';
-            return cb(new Error('Only pdf, png and jpg  files are allowed!'), false);
-        }
-        cb(null, true);
-    };
-    let upload = multer({ storage: storage, fileFilter: fileFilter }).any();
-    upload(req, res, function (err) {
+    if (nomor_produk_keluar == "" || tanggal_produk_keluar == "" || perihal_produk_keluar == "") {
+        req.session.notification = 'Mohon lengkapi isian';
         req.session.notificationtype = "error";
-        if (req.fileValidationError) {
-            req.session.notification = req.fileValidationError;
-        }
-        else if (!req.file) {
-            req.session.notification = 'Please select an file to upload';
-        }
-        else if (err instanceof multer.MulterError) {
-            req.session.notification = 'Please select an file to upload';
-        }
-        else if (err) {
-            req.session.notification = 'Please select an file to upload';
-        }
-
-
-        var id_user = req.session.user[0].id_user;
-        var id_jenis_produk_keluar = req.body.id_jenis_produk_keluar;
-        var nomor_produk_keluar = req.body.nomor_produk_keluar;
-        var tanggal_produk_keluar = req.body.tanggal_produk_keluar;
-        var kepada_produk_keluar = req.body.kepada_produk_keluar;
-        var satker_produk_keluar = req.body.satker_produk_keluar;
-        var perihal_produk_keluar = req.body.perihal_produk_keluar;
-        model.add([id_user, id_jenis_produk_keluar, nomor_produk_keluar, tanggal_produk_keluar, kepada_produk_keluar, satker_produk_keluar, perihal_produk_keluar], function (error, rows, fields) {
+        global.helper.getRefference(produkintelmodel, function (error, reffs) {
+            global.helper.render('pengirimanprodukintel', req, res, { jenis: reffs,data:req.body});
+        });
+    } else {
+        //console.log(req.body);
+        pengirimanproduk.add([id_user, tanggal_produk_keluar, perihal_produk_keluar, jenis_produk_intelijen, nomor_produk_keluar,], function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-
-                var insertid = rows.insertId;
-                for (let index = 0; index < req.files.length; index++) {
-                    const file = req.files[index];
-                    var nomor_ref_produk_keluar = req.body.input[index].nomor_ref_produk_keluar;
-                    var jenis_ref_produk_keluar = req.body.input[index].jenis_produk_intelijen;
-                    const fs = require('fs');
-                    var img = fs.readFileSync(file.path);
-                    var encode_image = img.toString('base64');
-                    var buff = new Buffer(encode_image, 'base64')
-                    refprodukkeluar.add([insertid, nomor_ref_produk_keluar, jenis_ref_produk_keluar, buff], function (error, rows, fields) {
-                        if (error) {
-                            console.log(error)
-                        } else {
-                            if (index == req.files.length - 1) {
-                                uamodel.add([id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
-                                    if (error) {
-                                        console.log(error)
-                                    }
-                                });
-                                req.session.notification = "Berhasil Ditambah";
-                                req.session.notificationtype = "success";
-                                res.redirect('/dataprodukkeluar1/' + id_jenis_produk_keluar);
-                            }
-                        }
-                    });
-                }
-
-
-
-
+                uamodel.add([id_user, "Mengisi Data Produk Intelijen Keluar"], function (error, rows, fields) {
+                    if (error) {
+                        console.log(error)
+                    }
+                });
+                req.session.notification = "Berhasil Ditambah";
+                req.session.notificationtype = "success";
+                res.redirect('/pengirimanproduk/');
             }
         });
-
-
-
-    });
+    }
 };

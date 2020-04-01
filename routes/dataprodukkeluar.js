@@ -19,15 +19,5 @@ module.exports = function (app, sessionChecker) {
         .post(sessionChecker, dataprodukkeluar.pengirimanAction);
     app.route('/pengirimanprodukdelete/:id_produk_keluar')
         .get(sessionChecker, dataprodukkeluar.deletepengiriman);
-         
-    app.route('/dataprodukkeluar1/:id_jenis_produk_keluar')
-        .get(sessionChecker, dataprodukkeluar.index1);
-    
-    app.route('/dataprodukkeluaradd1/:id_jenis_produk_keluar')
-        .get(sessionChecker, dataprodukkeluar.create1)
-        .post(sessionChecker, dataprodukkeluar.createAction1);
-
-    app.route('/dataprodukkeluar1delete/:id_jenis_produk_keluar/:id_produk_keluar')
-        .get(sessionChecker, dataprodukkeluar.delete1);
- 
+     
 };

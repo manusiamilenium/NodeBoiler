@@ -6,32 +6,34 @@ block content
       .col-md-8
         .card
           .card-header
-            h5.title #{title} Terdistribusi ke K/L (IKU3)
+            h5.title #{title}
+            include notification.pug
           .card-body
             form(action='/dataprodukkeluaradd/' + id_jenis_produk_keluar + edit method='POST' enctype='multipart/form-data'  )               
               .row
-                .col-md-6.pr-1
+                .col-md-9.pr-1
                   .form-group
                     label Nomor #{title} 
-                    input.form-control(type='text' name="nomor_produk_keluar" placeholder='Masukkan Nomor' value='')
+                    input.form-control(type='text' name="nomor_produk_keluar" placeholder='Masukkan Nomor' value=''+ (data['nomor_produk_keluar']=== undefined ?'': data['nomor_produk_keluar']))
                     input.form-control(type="hidden" id="id_jenis_produk_keluar" name="id_jenis_produk_keluar" value=""+id_jenis_produk_keluar)
+                    input.form-control(type="hidden" id="title" name="title" value=""+title)
               .row
-                .col-md-6.pr-1
+                .col-md-9.pr-1
                   .form-group
                     label Tanggal
-                    input.form-control(type='date' name="tanggal_produk_keluar" placeholder='Masukkan Tanggal' value='2020-01-15')               
+                    input.form-control(type='date' name="tanggal_produk_keluar" placeholder='Masukkan Tanggal' value=''+ (data['tanggal_produk_keluar']=== undefined ?'': data['tanggal_produk_keluar']))               
               .row
-                .col-md-6.pr-1
+                .col-md-9.pr-1
                   .form-group
                     label Kepada
-                    input.form-control(type='text' name="kepada_produk_keluar" placeholder='Kepada' value='')
+                    input.form-control(type='text' name="kepada_produk_keluar" placeholder='Kepada' value=''+ (data['kepada_produk_keluar']=== undefined ?'': data['kepada_produk_keluar']))
               .row
-                .col-md-6.pr-1
+                .col-md-9.pr-1
                   .form-group
                     label Perihal
-                    input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value='')
+                    input.form-control(type='text' name="perihal_produk_keluar" placeholder='Perihal' value=''+ (data['perihal_produk_keluar']=== undefined ?'': data['perihal_produk_keluar']))
               .row
-                  .col-md-6.pr-1
+                  .col-md-9.pr-1
                     .form-group
                       label Dasar Surat
               - var n = 0;
