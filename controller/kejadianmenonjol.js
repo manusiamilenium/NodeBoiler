@@ -9,13 +9,8 @@ exports.index = function (req, res) {
     model.getAll([id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
-        } else { 
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification; 
-            delete req.session.notificationtype;
-            res.render('kejadianmenonjol',{data:rows,notification: notification, nottype: nottype});
-            
+        } else {  
+            global.helper.render('kejadianmenonjol', req, res,{data:rows});
         }
     });
 };
@@ -26,50 +21,54 @@ exports.createAction = function (req, res) {
     var bulan_kejadian_menonjol = req.body.bulan;
     var uraian_kejadian_menonjol = req.body.uraian_kejadian_menonjol;
     var jumlah_kejadian_menonjol = req.body.jumlah_kejadian_menonjol;
-    model.add([id_user,id_subdit,tahun_kejadian_menonjol,bulan_kejadian_menonjol,jumlah_kejadian_menonjol,uraian_kejadian_menonjol], function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else {
-            uamodel.add([id_user,"Mengisi Data Kejadian Menonjol"], function (error, rows, fields) { 
-                if (error) {
-                    console.log(error)
-                }
-            });
-            req.session.notification = "Berhasil Ditambah";
-            req.session.notificationtype = "success";
-            res.redirect('/kejadianmenonjol');
-        }
-    });
+    if (tahun_kejadian_menonjol == "" || bulan_kejadian_menonjol == "" || uraian_kejadian_menonjol == "" || jumlah_kejadian_menonjol == "" ) {
+        req.session.notification = 'Mohon lengkapi isian';
+        req.session.notificationtype = "error";
+        global.helper.getRefference(subditmodel,function (error, rows) {
+            global.helper.render('kejadianmenonjoladd', req, res,{data:req.body,subdit:rows});
+        }); 
+    } else {
+        model.add([id_user, id_subdit, tahun_kejadian_menonjol, bulan_kejadian_menonjol, jumlah_kejadian_menonjol, uraian_kejadian_menonjol], function (error, rows, fields) {
+            if (error) {
+                console.log(error)
+            } else {
+                uamodel.add([id_user, "Mengisi Data Kejadian Menonjol"], function (error, rows, fields) {
+                    if (error) {
+                        console.log(error)
+                    }
+                });
+                req.session.notification = "Berhasil Ditambah";
+                req.session.notificationtype = "success";
+                res.redirect('/kejadianmenonjol');
+            }
+        });
+    }
 };
 exports.create = function (req, res) {
     var id_kejadian_menonjol = req.params.id_kejadian_menonjol;
     var subdits = []; 
     var id_user = req.session.user[0].id_user;
-    subditmodel.getAll(async function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-             subdits = await rows;
-        }
-    });
-     
-    model.getData([id_kejadian_menonjol,id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error);
-            req.session.notification = "Kesalahan Pengisian";
-            req.session.notificationtype = "Error";
-            res.redirect('/kejadianmenonjol/add');
-        } else {
-            
-            if(rows[0]){ 
-                res.render('kejadianmenonjoladd',{data:rows[0],subdit:subdits,edit:"edit"});
-            }else{
-                res.render('kejadianmenonjoladd',{subdit:subdits,edit:""});
+    global.helper.getRefference(subditmodel,function (error, rows) {
+        subdits = rows;
+        model.getData([id_kejadian_menonjol,id_user], function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+                req.session.notification = "Kesalahan Pengisian";
+                req.session.notificationtype = "Error";
+                res.redirect('/kejadianmenonjol/add');
+            } else {
+                
+                if(rows[0]){ 
+                    res.render('kejadianmenonjoladd',{data:rows[0],subdit:subdits,edit:"edit"});
+                }else{
+                    //res.render('kejadianmenonjoladd',{subdit:subdits,edit:""});
+                    global.helper.render('kejadianmenonjoladd', req, res,{data:{},subdit:subdits});
+                }
             }
-        }
+        });
+         
     });
-
-     
+   
 };
 
 exports.updateAction = function (req, res) {

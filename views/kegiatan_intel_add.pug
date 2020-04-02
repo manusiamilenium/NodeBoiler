@@ -7,8 +7,9 @@ block content
         .card
           .card-header 
             h5.title Tambah Data Kegiatan Intelijen  (IKU5)
+            include notification.pug
           .card-body
-            form(action='/kegiatanintel/add/' method='POST')               
+            form(action='/kegiatanintel/add' method='POST')               
               //.row
                 .col-md-6.pr-1
                   .form-group
@@ -18,7 +19,7 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Tahun
-                    input.form-control(type='text' name="tahun_kegiatan_intelijen" placeholder='Masukkan Tahun' value='2020')               
+                    input.form-control(type='text' name="tahun_kegiatan_intelijen" placeholder='Masukkan Tahun' value=''+ (data['tahun_kegiatan_intelijen']=== undefined ?'': data['tahun_kegiatan_intelijen']))               
               .row
                 .col-md-6.pr-1 
                   .form-group 
@@ -29,8 +30,8 @@ block content
                   .form-group
                     .btn-group.dropright
                       button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name="jenisproduk" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                          |    Jenis Kegiatan
-                      <input type="hidden" id="jenis_kegiatan_intelijen" name="jenis_kegiatan_intelijen" value="">
+                          |    Jenis Kegiatan 
+                      input.form-control(type="hidden" id="jenis_kegiatan_intelijen" name="jenis_kegiatan_intelijen"  value=''+ (data['jenis_kegiatan_intelijen']=== undefined ?'': data['jenis_kegiatan_intelijen']))
                       .dropdown-menu
                           each val, index in jenis
                               a.dropdown-item(href='#' 
@@ -40,17 +41,17 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Total Kegiatan
-                    input.form-control(type='text' name="jumlah_kegiatan_intelijen" placeholder='Masukkan Total Kegiatan' value='')    
+                    input.form-control(type='text' name="jumlah_kegiatan_intelijen" placeholder='Masukkan Total Kegiatan' value=''+ (data['jumlah_kegiatan_intelijen']=== undefined ?'': data['jumlah_kegiatan_intelijen']))    
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Total Berhasil Mereduksi
-                    input.form-control(type='text' name="reduksi_kegiatan_intelijen" placeholder='Masukkan Total Berhasil Mereduksi' value='')                 
+                    input.form-control(type='text' name="reduksi_kegiatan_intelijen" placeholder='Masukkan Total Berhasil Mereduksi' value=''+ (data['reduksi_kegiatan_intelijen']=== undefined ?'': data['reduksi_kegiatan_intelijen']))                 
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Uraian
-                    input.form-control(type='text' name="uraian_kegiatan_intelijen" placeholder='Masukkan uraian' value='')            
+                    input.form-control(type='text' name="uraian_kegiatan_intelijen" placeholder='Masukkan uraian' value=''+ (data['uraian_kegiatan_intelijen']=== undefined ?'': data['uraian_kegiatan_intelijen']))            
                             
               .row
                 .col-md-6.pr-1

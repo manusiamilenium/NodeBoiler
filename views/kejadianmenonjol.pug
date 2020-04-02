@@ -6,12 +6,7 @@ block content
         .col-md-12
             .card
                 .card-header
-                    if notification
-                        .alert.alert-danger
-                            button.close(type='button' aria-hidden='true')
-                                i.now-ui-icons.ui-1_simple-remove
-                            span
-                                b  #{notification}
+                    include notification.pug
                     h4.card-title  Kejadian Menonjol
                     a.btn.btn-info.btn-round.card-title(href='/kejadianmenonjol/add' role='button')
                         i.now-ui-icons.ui-1_simple-add

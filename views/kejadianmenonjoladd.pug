@@ -7,8 +7,9 @@ block content
         .card
           .card-header
             h5.title Kejadian Menonjol (IKU1)
+            include notification.pug
           .card-body
-            form(action='/kejadianmenonjol/'+ edit method='POST')
+            form(action='/kejadianmenonjol' method='POST')
               .row
                 .col-md-6.pr-1
                   .form-group 
@@ -20,7 +21,7 @@ block content
                                 a.dropdown-item(href='#' 
                                     onCLick="$(\"button[name ='subdit']\").text($(this).text());$(\"input[name ='id_subdit']\").val("+val["id_subdit"]+");")
                                     = val["nama_subdit"]
-                        <input type="hidden" id="id_subdit" name="id_subdit" value="">
+                        input.form-control(type="hidden" id="id_subdit" name="id_subdit" value=''+ (data['id_subdit']=== undefined ?'': data['id_subdit']))
               .row
                 .col-md-6.pr-1 
                   .form-group 
@@ -31,17 +32,17 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Tahun
-                    input.form-control(type='text' name="tahun_kejadian_menonjol" placeholder='Masukkan Tahun' value='2020')         
+                    input.form-control(type='text' name="tahun_kejadian_menonjol" placeholder='Masukkan Tahun' value=''+ (data['tahun_kejadian_menonjol']=== undefined ?'': data['tahun_kejadian_menonjol']))         
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Jumlah
-                    input.form-control(type='text' name="jumlah_kejadian_menonjol" placeholder='Masukkan Jumlah' value='')
+                    input.form-control(type='text' name="jumlah_kejadian_menonjol" placeholder='Masukkan Jumlah' value=''+ (data['jumlah_kejadian_menonjol']=== undefined ?'': data['jumlah_kejadian_menonjol']))
               .row
                 .col-md-6.pr-1
                   .form-group
                     label Uraian
-                    input.form-control(type='text' name="uraian_kejadian_menonjol" placeholder='Masukkan Uraian' value='')
+                    input.form-control(type='text' name="uraian_kejadian_menonjol" placeholder='Masukkan Uraian' value=''+ (data['uraian_kejadian_menonjol']=== undefined ?'': data['uraian_kejadian_menonjol']))
                
               .row
                 .col-md-6.pr-1

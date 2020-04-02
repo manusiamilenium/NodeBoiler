@@ -10,64 +10,31 @@ exports.index = function (req, res) {
         if (error) {
             console.log(error)
         } else { 
-            var notification = req.session.notification;
-            var nottype = req.session.notificationtype;
-            delete req.session.notification;
-            delete req.session.notificationtype;
-            res.render('potensigangguan', { data: rows, notification: notification, nottype: nottype });
-            delete req.session.notification;
+            global.helper.render('potensigangguan', req, res, { data: rows,});
         }
     });
 };
 exports.createAction = function (req, res) {
     var multer = require('multer');
     var path = require('path');
-
-    const storage = multer.diskStorage({
-        destination: path.join(__dirname + './../public/img/'),
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + '-' + Date.now() +
-                path.extname(file.originalname));
-        }
-    });
-    const fileFilter = function (req, file, cb) {
-        // Accept images only
-        if (!file.originalname.match(/\.(pdf|PDF|jpg|JPG|jpeg|JPEG|PNG|png)$/)) {
-            req.fileValidationError = 'Only pdf,png and jpg files are allowed!';
-            return cb(new Error('Only pdf, png and jpg  files are allowed!'), false);
-        }
-        cb(null, true);
-    };
-    let upload = multer({ storage: storage, fileFilter: fileFilter }).single('attachment');
-
-    upload(req, res, function (err) {
-        // req.file contains information of uploaded file
-        // req.body contains information of text fields, if there were any
-        //console.log(req.file);
-
+    let upload = multer({ storage: global.helper.getUploadStorage(multer,path), fileFilter: global.helper.getFileFilter }).single('attachment');
+    upload(req, res, function (err) { 
+        req.session.notificationtype = "error";
         if (req.fileValidationError) {
-            req.session.notification = req.fileValidationError;
-            req.session.notificationtype = "error";
-            res.redirect('/potensigangguan/add');
-            //return res.send(req.fileValidationError);
+            req.session.notification = req.fileValidationError; 
+            global.helper.render('potensigangguanadd', req, res, { data: req.body,});
         }
         else if (!req.file) {
-            req.session.notification = 'Please select an file to upload';
-            req.session.notificationtype = "error";
-            res.redirect('/potensigangguan/add');
-            //return res.send('Please select an file to upload');
+            req.session.notification = 'Please select an file to upload'; 
+            global.helper.render('potensigangguanadd', req, res, { data: req.body,});
         }
         else if (err instanceof multer.MulterError) {
-            req.session.notification = 'Please select an file to upload';
-            req.session.notificationtype = "error";
-            res.redirect('/potensigangguan/add');
-            // return res.send(err);
+            req.session.notification = 'Please select an file to upload'; 
+            global.helper.render('potensigangguanadd', req, res, { data: req.body,});
         }
         else if (err) {
-            req.session.notification = 'Please select an file to upload';
-            req.session.notificationtype = "error";
-            res.redirect('/potensigangguan/add');
-            //return res.send(err);
+            req.session.notification = 'Please select an file to upload'; 
+            global.helper.render('potensigangguanadd', req, res, { data: req.body,});
         } else {
             const fs = require('fs');
             var img = fs.readFileSync(req.file.path);
@@ -107,7 +74,7 @@ exports.create = function (req, res) {
             if (rows[0]) { 
                 res.render('potensigangguanadd', { data: rows[0], edit: "edit" });
             } else {
-                res.render('potensigangguanadd', { edit: "" });
+                global.helper.render('potensigangguanadd', req, res, { data: {},});
             }
         }
     });
