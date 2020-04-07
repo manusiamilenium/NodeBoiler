@@ -8,7 +8,7 @@ module.exports = {
         });
     },
 
-    getRefference: function (model, callback) {
+    getRefference:  (model, callback) => {
         model.getAll(function (error, rows, fields) {
             if (error) {
                 callback(error);
@@ -19,23 +19,40 @@ module.exports = {
         });
     },
 
-    getUploadStorage: function (multer,path) {
+    getUploadStorage: (multer,path) => {
         return multer.diskStorage({
             destination: path.join(__dirname + './../public/img/'),
-            filename: function (req, file, cb) {
-                cb(null, file.fieldname + '-' + Date.now() +
+            filename: function (req, file, callback) {
+                callback(null, file.fieldname + '-' + Date.now() +
                     path.extname(file.originalname));
             }
         });
     },
 
-    getFileFilter : function (req, file, cb) {
+    getFileFilter : (req, file, callback) => {
         // Accept images only
         if (!file.originalname.match(/\.(pdf|PDF|jpg|JPG|jpeg|JPEG|PNG|png)$/)) {
             req.fileValidationError = 'Only pdf,png and jpg files are allowed!';
-            return cb(new Error('Only pdf, png and jpg  files are allowed!'), false);
+            return callback(new Error('Only pdf, png and jpg  files are allowed!'), false);
         }
-        cb(null, true);
+        callback(null, true);
+    },
+
+    multerValidate : (req,multer,err) => {
+        let valid = true;
+        if (req.fileValidationError) {
+            valid=!valid;
+        }
+        else if (!req.file) {
+            valid=!valid;
+        }
+        else if (err instanceof multer.MulterError) {
+            valid=!valid;
+        }
+        else if (err) {
+            valid=!valid;
+        } 
+        return valid;
     },
 
 

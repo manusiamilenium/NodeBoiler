@@ -15,7 +15,6 @@ var options = {
 var sessionStore = new MySQLStore(options);
 module.exports = function (app) {
 
-    var iku = require('../controller/iku');
     var satwil = require('./satwil');
     var satker = require('./satker');
     var subdit = require('./subdit');
@@ -30,6 +29,7 @@ module.exports = function (app) {
     var dataprodukkeluar = require('./dataprodukkeluar');
     var kegiatanintel = require('./kegiatanintel');
     var alsus = require('./alsus');
+
     // initialize cookie-parser to allow us access the cookies stored in the browser. 
     app.use(cookieParser());
     // initialize express-session to allow us track the logged-in user across sessions.
@@ -76,20 +76,6 @@ module.exports = function (app) {
     })
 
 
-
-    app.route('/ik1')
-        .get(sessionChecker, iku.ik1);
-
-
-    app.route('/ik5')
-        .get(iku.ik5);
-    app.route('/ik6')
-        .get(iku.ik6);
-    app.route('/ik2')
-        .get(iku.ik2);
-    app.route('/ik11')
-        .get(iku.ik11);
-
     users(app, sessionChecker);
     satwil(app, sessionChecker);
     satker(app, sessionChecker);
@@ -103,6 +89,7 @@ module.exports = function (app) {
     kejadianmenonjol(app, sessionChecker);
     dataprodukkeluar(app, sessionChecker);
     kegiatanintel(app, sessionChecker);
+    
     alsus(app, sessionChecker);
 
 

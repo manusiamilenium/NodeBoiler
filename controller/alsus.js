@@ -50,6 +50,7 @@ exports.createAlsusAction = function (req, res) {
     var path = require('path');
 
     let upload = multer({ storage: global.helper.getUploadStorage(multer,path), fileFilter: global.helper.getFileFilter}).single('attachment');
+
     upload(req, res, function (err) {
         // req.file contains information of uploaded file
         // req.body contains information of text fields, if there were any
@@ -61,33 +62,15 @@ exports.createAlsusAction = function (req, res) {
             req.session.notification = 'Mohon lengkapi isian';
             req.session.notificationtype = "error";
             global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
-            //res.render('alsus_data_add', { edit: "", data: req.body });
+             
         } else {
-
-            if (req.fileValidationError) {
-                req.session.notification = req.fileValidationError;
+             
+            if(!global.helper.multerValidate(req,multer,err)){
+                req.session.notification = 'Mohon lengkapi upload dokumen ';
                 req.session.notificationtype = "error";
                 global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
-                //return res.send(req.fileValidationError);
             }
-            else if (!req.file) {
-                req.session.notification = 'Mohon lengkapi upload dokumen';
-                req.session.notificationtype = "error";
-                global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
-                //return res.send('Please select an file to upload');
-            }
-            else if (err instanceof multer.MulterError) {
-                req.session.notification = 'Please select an file to upload';
-                req.session.notificationtype = "error";
-                global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
-                // return res.send(err);
-            }
-            else if (err) {
-                req.session.notification = 'Please select an file to upload';
-                req.session.notificationtype = "error";
-                global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
-                //return res.send(err);
-            } else {
+            else {
                 const fs = require('fs');
                 var img = fs.readFileSync(req.file.path);
                 var encode_image = img.toString('base64');

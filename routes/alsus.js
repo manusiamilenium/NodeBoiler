@@ -1,5 +1,5 @@
 'use strict'; 
-
+const { validationRules, validate } = require('../validator/alsus.js')
 module.exports = function (app, sessionChecker) {
     var alsus = require('../controller/alsus');
 
@@ -7,7 +7,7 @@ module.exports = function (app, sessionChecker) {
         .get(sessionChecker, alsus.indexAlsus);
     app.route('/alsus/add')
         .get(sessionChecker, alsus.createAlsus)
-        .post(sessionChecker, alsus.createAlsusAction);
+        .post(sessionChecker, validationRules(), validate,  alsus.createAlsusAction);
     app.route('/alsus/delete/:id_penggunaan_alsus')
         .get(sessionChecker, alsus.deleteAlsus);
     app.route('/alsus/file/:id_penggunaan_alsus')
