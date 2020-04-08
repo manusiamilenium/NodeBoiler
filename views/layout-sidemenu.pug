@@ -9,7 +9,7 @@ block sidebar
                 | IKU MANUAL
         #sidebar-wrapper.sidebar-wrapper
             ul.nav 
-                if session.user[0].role == 1
+                if session.user.role == 1
                     li
                         a(href='/satwils')
                             i.now-ui-icons.business_globe

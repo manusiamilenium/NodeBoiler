@@ -4,9 +4,8 @@ var response = require('../result');
 var model = require('../model/potensigangguan');
 var kjmodel = require('../model/kejadianmenonjol');
 var uamodel = require('../model/useractivity');
-exports.index = function (req, res) {
-    var id_user = req.session.user[0].id_user;
-    model.getAll([id_user],function (error, rows, fields) {
+exports.index = function (req, res) { 
+    model.getAll([req.session.user.id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else { 
@@ -39,18 +38,16 @@ exports.createAction = function (req, res) {
             const fs = require('fs');
             var img = fs.readFileSync(req.file.path);
             var encode_image = img.toString('base64');
-            var buff = new Buffer(encode_image, 'base64')
-
-            var id_user = req.session.user[0].id_user;
+            var buff = new Buffer(encode_image, 'base64') 
             var jumlah_potensi_gangguan = req.body.jumlah_potensi_gangguan;
             var tahun_potensi_gangguan = req.body.tahun_potensi_gangguan;
             var attachment_potensi_gangguan = buff;
 
-            model.add([id_user, jumlah_potensi_gangguan, tahun_potensi_gangguan, attachment_potensi_gangguan], function (error, rows, fields) {
+            model.add([req.session.user.id_user, jumlah_potensi_gangguan, tahun_potensi_gangguan, attachment_potensi_gangguan], function (error, rows, fields) {
                 if (error) {
                     console.log(error)
                 } else {
-                    uamodel.add([id_user, "Mengisi Potensi Gangguan"], function (error, rows, fields) {
+                    uamodel.add([req.session.user.id_user, "Mengisi Potensi Gangguan"], function (error, rows, fields) {
                         if (error) {
                             console.log(error)
                         }
@@ -64,12 +61,10 @@ exports.createAction = function (req, res) {
     });
 };
 exports.create = function (req, res) {
-    var id_potensi_gangguan = req.params.id_potensi_gangguan;
-    var id_user = req.session.user[0].id_user;
-    model.getData([id_potensi_gangguan,id_user], function (error, rows, fields) {
+    var id_potensi_gangguan = req.params.id_potensi_gangguan; 
+    model.getData([id_potensi_gangguan,req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error);
-
         } else {
             if (rows[0]) { 
                 res.render('potensigangguanadd', { data: rows[0], edit: "edit" });
@@ -81,16 +76,14 @@ exports.create = function (req, res) {
 
 
 };
-exports.fileDownload = function (req, res) {
-    var id_user = req.session.user[0].id_user;
-    var id_potensi_gangguan = req.params.id_potensi_gangguan;
-    var id_user = req.session.user[0].id_user;
-    model.getData([id_potensi_gangguan,id_user],
+exports.fileDownload = function (req, res) { 
+    var id_potensi_gangguan = req.params.id_potensi_gangguan; 
+    model.getData([id_potensi_gangguan,req.session.user.id_user],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([id_user, "Mendownload file Potensi Gangguan"], function (error, rows, fields) {
+                uamodel.add([req.session.user.id_user, "Mendownload file Potensi Gangguan"], function (error, rows, fields) {
                     if (error) {
                         console.log(error)
                     }
@@ -116,17 +109,16 @@ exports.fileDownload = function (req, res) {
 };
 
 exports.updateAction = function (req, res) {
-    var id_potensi_gangguan = req.params.id_potensi_gangguan;
-    var id_user = req.session.user[0].id_user;
+    var id_potensi_gangguan = req.params.id_potensi_gangguan; 
     var jumlah_potensi_gangguan = req.body.jumlah_potensi_gangguan;
     var tahun_potensi_gangguan = req.body.tahun_potensi_gangguan;
     var attachment_potensi_gangguan = req.body.attachment_potensi_gangguan;
 
-    model.edit([id_user, jumlah_potensi_gangguan, tahun_potensi_gangguan, attachment_potensi_gangguan, id_potensi_gangguan], function (error, rows, fields) {
+    model.edit([req.session.user.id_user, jumlah_potensi_gangguan, tahun_potensi_gangguan, attachment_potensi_gangguan, id_potensi_gangguan], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add(["Mengedit Potensi Gangguan"], function (error, rows, fields) { });
+            uamodel.add([req.session.user.id_user,"Mengedit Potensi Gangguan"], function (error, rows, fields) { });
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/potensigangguan');
@@ -134,15 +126,14 @@ exports.updateAction = function (req, res) {
         }
     });
 };
-exports.delete = function (req, res) {
-    var id_user = req.session.user[0].id_user;
+exports.delete = function (req, res) { 
     var id_potensi_gangguan = req.params.id_potensi_gangguan;
     model.delete([id_potensi_gangguan],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([id_user, "Menghapus Potensi Gangguan"], function (error, rows, fields) {
+                uamodel.add([req.session.user.id_user, "Menghapus Potensi Gangguan"], function (error, rows, fields) {
                     if (error) {
                         console.log(error)
                     }

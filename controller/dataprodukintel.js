@@ -6,8 +6,7 @@ var uamodel = require('../model/useractivity');
 var subditmodel = require('../model/subditmodel');
 var produkintelmodel = require('../model/produkintel');
 exports.index = function (req, res) {
-    var id_user = req.session.user[0].id_user;
-    model.getAll([id_user], function (error, rows, fields) {
+    model.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -16,8 +15,7 @@ exports.index = function (req, res) {
         }
     });
 };
-exports.createAction = function (req, res) {
-    var id_user = req.session.user[0].id_user;
+exports.createAction = function (req, res) { 
     var id_subdit = req.body.id_subdit;
     var tahun_data_produk_intelijen = req.body.tahun_data_produk_intelijen;
     var bulan_data_produk_intelijen = req.body.bulan;
@@ -38,11 +36,11 @@ exports.createAction = function (req, res) {
         
         //res.render('dataprodukinteladd', { data: rows[0], subdit: subdits, jenis: jenis, edit: "edit" });
     } else {
-        model.add([id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
+        model.add([req.session.user.id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([id_user, "Mengisi Data Produk Intelijen"], function (error, rows, fields) {
+                uamodel.add([req.session.user.id_user, "Mengisi Data Produk Intelijen"], function (error, rows, fields) {
                     if (error) {
                         console.log(error)
                     }
@@ -59,12 +57,11 @@ exports.create = async function (req, res) {
     var id_data_produk_intelijen = req.params.id_data_produk_intelijen;
     var subdits = [];
     var jenis = [];
-    var id_user = req.session.user[0].id_user;
     global.helper.getRefference(subditmodel,function (error, rows) {
         subdits = rows;
         global.helper.getRefference(produkintelmodel,function (error, rows) {
             jenis = rows;
-            model.getData([id_data_produk_intelijen, id_user], function (error, rows, fields) {
+            model.getData([id_data_produk_intelijen, req.session.user.id_user], function (error, rows, fields) {
                 if (error) {
                     console.log(error);
         
@@ -86,18 +83,18 @@ exports.create = async function (req, res) {
 
 exports.updateAction = function (req, res) {
 
-    var id_user = req.session.user[0].id_user;
+   
     var id_subdit = req.body.id_subdit;
     var tahun_data_produk_intelijen = req.body.tahun_data_produk_intelijen;
     var bulan_data_produk_intelijen = req.body.bulan;
     var jenis_produk_intelijen = req.body.jenis_produk_intelijen;
     var jumlah_data_produk_intelijen = req.body.jumlah_data_produk_intelijen;
 
-    model.edit([id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
+    model.edit([req.session.user.id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add(["Mengedit Data Intelijen"], function (error, rows, fields) { });
+            uamodel.add([req.session.user.id_user,"Mengedit Data Intelijen"], function (error, rows, fields) { });
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/dataprodukintel');
@@ -106,14 +103,14 @@ exports.updateAction = function (req, res) {
     });
 };
 exports.delete = function (req, res) {
-    var id_user = req.session.user[0].id_user;
+     
     var id_data_produk_intelijen = req.params.id_data_produk_intelijen;
     model.delete([id_data_produk_intelijen],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([id_user, "Menghapus Data Produk Intelijen"], function (error, rows, fields) {
+                uamodel.add([req.session.user.id_user, "Menghapus Data Produk Intelijen"], function (error, rows, fields) {
                     if (error) {
                         console.log(error)
                     }

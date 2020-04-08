@@ -10,8 +10,7 @@ var pengirimanproduk = require('../model/pengirimanproduk');
 var moment = require('moment');
 exports.index = function (req, res) {
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
-    var title = "";
-    var id_user = req.session.user[0].id_user;
+    var title = ""; 
     pmodel.getData([id_jenis_produk_keluar], function (error, rows, fields) {
         var id = rows[0]['id_jenis_produk_keluar']
         title = rows[0]['nama_jenis_produk_keluar'];
@@ -21,7 +20,7 @@ exports.index = function (req, res) {
             title += " Terdistribusi ke Satuan Kepolisian lain (IKU4)";
         }
 
-        model.getAll([id_jenis_produk_keluar, id_user], function (error, rows, fields) {
+        model.getAll([id_jenis_produk_keluar, req.session.user.id_user], function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
@@ -51,9 +50,6 @@ exports.createAction = function (req, res) {
         else if (err) {
             req.session.notification = 'Please select an file to upload';
         }
-
-
-        var id_user = req.session.user[0].id_user;
         var id_jenis_produk_keluar = req.body.id_jenis_produk_keluar;
         var nomor_produk_keluar = req.body.nomor_produk_keluar;
         var tanggal_produk_keluar = req.body.tanggal_produk_keluar;
@@ -68,7 +64,7 @@ exports.createAction = function (req, res) {
                 global.helper.render('dataprodukkeluaradd', req, res, { jenis: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title,data:req.body });
             }); 
         }else{
-            model.add([id_user, id_jenis_produk_keluar, nomor_produk_keluar, tanggal_produk_keluar, kepada_produk_keluar, satker_produk_keluar, perihal_produk_keluar], function (error, rows, fields) {
+            model.add([req.session.user.id_user, id_jenis_produk_keluar, nomor_produk_keluar, tanggal_produk_keluar, kepada_produk_keluar, satker_produk_keluar, perihal_produk_keluar], function (error, rows, fields) {
                 if (error) {
                     console.log(error)
                 } else {
@@ -87,7 +83,7 @@ exports.createAction = function (req, res) {
                                 console.log(error)
                             } else {
                                 if (index == req.files.length - 1) {
-                                    uamodel.add([id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
+                                    uamodel.add([req.session.user.id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
                                         if (error) {
                                             console.log(error)
                                         }
@@ -115,10 +111,9 @@ exports.create = function (req, res) {
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
     var title = "";
     var jenis = [];
-    var id_user = req.session.user[0].id_user;
     global.helper.getRefference(produkintelmodel, function (error, rows) {
         jenis = rows;
-        pmodel.getData([id_jenis_produk_keluar, id_user], function (error, rows, fields) {
+        pmodel.getData([id_jenis_produk_keluar, req.session.user.id_user], function (error, rows, fields) {
             var id = rows[0]['id_jenis_produk_keluar']
             title = rows[0]['nama_jenis_produk_keluar'];
             if (id < 5) {
@@ -126,7 +121,7 @@ exports.create = function (req, res) {
             } else {
                 title += " Terdistribusi ke Satuan Kepolisian lain (IKU4)";
             }
-            model.getData([id_produk_keluar, id_user], function (error, rows, fields) {
+            model.getData([id_produk_keluar, req.session.user.id_user], function (error, rows, fields) {
                 if (error) {
                     console.log(error);
         
@@ -143,28 +138,21 @@ exports.create = function (req, res) {
         });
     });
 
-
-
-
-    
-
-
 };
 
 exports.updateAction = function (req, res) {
-
-    var id_user = req.session.user[0].id_user;
+ 
     var id_subdit = req.body.id_subdit;
     var tahun_data_produk_intelijen = req.body.tahun_data_produk_intelijen;
     var bulan_data_produk_intelijen = req.body.bulan_data_produk_intelijen;
     var jenis_produk_intelijen = req.body.jenis_produk_intelijen;
     var jumlah_data_produk_intelijen = req.body.jumlah_data_produk_intelijen;
 
-    model.edit([id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
+    model.edit([req.session.user.id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add(["Mengedit Data Intelijen"], function (error, rows, fields) { });
+            uamodel.add([req.session.user.id_user,"Mengedit Data Intelijen"], function (error, rows, fields) { });
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/dataprodukintel');
@@ -173,7 +161,6 @@ exports.updateAction = function (req, res) {
     });
 };
 exports.delete = function (req, res) {
-    var id_user = req.session.user[0].id_user;
     var id_produk_keluar = req.params.id_produk_keluar;
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
     refprodukkeluar.deleteAll([id_produk_keluar],
@@ -186,7 +173,7 @@ exports.delete = function (req, res) {
                         if (error) {
                             console.log(error)
                         } else {
-                            uamodel.add([id_user, "Menghapus Data Produk Keluar Intelijen"], function (error, rows, fields) {
+                            uamodel.add([req.session.user.id_user, "Menghapus Data Produk Keluar Intelijen"], function (error, rows, fields) {
                                 if (error) {
                                     console.log(error)
                                 }
@@ -200,15 +187,11 @@ exports.delete = function (req, res) {
 
             }
         });
-
-
 };
 exports.indexpengiriman = function (req, res) {
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
-    var title = "";
-    var id_user = req.session.user[0].id_user;
-
-    pengirimanproduk.getAll([id_user], function (error, rows, fields) {
+    var title = ""; 
+    pengirimanproduk.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
@@ -217,12 +200,9 @@ exports.indexpengiriman = function (req, res) {
     });
 };
 exports.pengiriman = function (req, res) {
-     
-    var id_produk_keluar = req.params.id_produk_keluar;
-    var id_user = req.session.user[0].id_user;
-     
+    var id_produk_keluar = req.params.id_produk_keluar; 
     global.helper.getRefference(produkintelmodel, function (error, reffs) {
-        pengirimanproduk.getData([id_produk_keluar, id_user], function (error, rows, fields) {
+        pengirimanproduk.getData([id_produk_keluar, req.session.user.id_user], function (error, rows, fields) {
             if (error) {
                 console.log(error);
     
@@ -239,16 +219,14 @@ exports.pengiriman = function (req, res) {
 
     
 };
-exports.deletepengiriman = function (req, res) {
-    var id_user = req.session.user[0].id_user;
-    var id_produk_keluar = req.params.id_produk_keluar;
-
+exports.deletepengiriman = function (req, res) { 
+    var id_produk_keluar = req.params.id_produk_keluar; 
     pengirimanproduk.delete([id_produk_keluar],
         function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([id_user, "Menghapus Data Pengiriman Produk Keluar"], function (error, rows, fields) {
+                uamodel.add([req.session.user.id_user, "Menghapus Data Pengiriman Produk Keluar"], function (error, rows, fields) {
                     if (error) {
                         console.log(error)
                     }
@@ -262,8 +240,7 @@ exports.deletepengiriman = function (req, res) {
 
 };
 
-exports.pengirimanAction = function (req, res) {
-    var id_user = req.session.user[0].id_user;
+exports.pengirimanAction = function (req, res) { 
     var jenis_produk_intelijen = req.body.jenis_produk_intelijen;
     var nomor_produk_keluar = req.body.nomor_produk_keluar;
     var tanggal_produk_keluar = req.body.tanggal_produk_keluar;
@@ -276,11 +253,11 @@ exports.pengirimanAction = function (req, res) {
         });
     } else {
         //console.log(req.body);
-        pengirimanproduk.add([id_user, tanggal_produk_keluar, perihal_produk_keluar, jenis_produk_intelijen, nomor_produk_keluar,], function (error, rows, fields) {
+        pengirimanproduk.add([req.session.user.id_user, tanggal_produk_keluar, perihal_produk_keluar, jenis_produk_intelijen, nomor_produk_keluar,], function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([id_user, "Mengisi Data Produk Intelijen Keluar"], function (error, rows, fields) {
+                uamodel.add([req.session.user.id_user, "Mengisi Data Produk Intelijen Keluar"], function (error, rows, fields) {
                     if (error) {
                         console.log(error)
                     }
