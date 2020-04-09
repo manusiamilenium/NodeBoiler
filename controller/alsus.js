@@ -15,7 +15,7 @@ exports.indexAlsus = function (req, res) {
     });
 };
 exports.indexRealisasi = function (req, res) {
-    var title = ""; 
+    var title = "";  
     rmodel.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)

@@ -10,7 +10,7 @@ exports.index = function (req, res) {
 
 };
 exports.changep = function (req, res) {
-    global.helper.render('userchangepassword',req,res);
+    global.helper.render('userchangepassword',req,res,{data: {},});
 };
 exports.changepaction = function (req, res) {
     var password_old = req.body.password,
@@ -20,7 +20,7 @@ exports.changepaction = function (req, res) {
          
             model.getUser([req.session.user.username], function (error, rows, fields) {
                 if (error) {
-                    global.helper.render('userchangepassword',req,res);
+                    global.helper.render('userchangepassword',req,res,{data: req.body,});
                     //res.render('userchangepassword');
                 } else {
                     if ((rows.length > 0) && (password_old == rows[0].password)) {
@@ -29,12 +29,12 @@ exports.changepaction = function (req, res) {
                             if (error) {
                                 req.session.notification = "Penggantian password tidak berhasil ";
                                 req.session.notificationtype = "error";
-                                global.helper.render('userchangepassword',req,res);
+                                global.helper.render('userchangepassword',req,res,{data: {},});
                             } else {
                                 console.log('this.sql', this.sql); 
                                 req.session.notification = "Penggantian password berhasil ";
                                 req.session.notificationtype = "success";
-                                global.helper.render('userchangepassword',req,res);
+                                global.helper.render('userchangepassword',req,res,{data: {},});
                             }
                         });
                         
@@ -42,7 +42,7 @@ exports.changepaction = function (req, res) {
                     } else {
                         req.session.notification = "Password lama tidak cocok";
                         req.session.notificationtype = "error";
-                        global.helper.render('userchangepassword',req,res);
+                        global.helper.render('userchangepassword',req,res,{data: req.body,});
                     }
                 }
             });
@@ -50,7 +50,7 @@ exports.changepaction = function (req, res) {
     }else{
         req.session.notification = error.message;
         req.session.notificationtype = "error";
-        global.helper.render('userchangepassword',req,res);
+        global.helper.render('userchangepassword',req,res,{data: req.body,});
     }
 };
 exports.login = function (req, res) {
@@ -67,7 +67,7 @@ exports.login = function (req, res) {
             } else {
                 if ((rows.length > 0) && (password == rows[0].password)) {
                     let user = rows[0];
-                    user.password = "nothing2seehere"
+                    user.password = "--------nothing2seehere--------"
                     req.session.user = user;
                     if (req.session.user.role == 1) {
                         res.redirect('/');
@@ -84,7 +84,7 @@ exports.login = function (req, res) {
         });
     }
     else {
-        req.session.notification = "Silakan isi dengan Username dan Password yang telah disediakan ";
+        req.session.notification = error.message;
         req.session.notificationtype = "error";
         global.helper.render('login',req,res);
     }
