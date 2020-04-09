@@ -1,7 +1,6 @@
 const Joi = require('@hapi/joi')
 const schemaLogin = Joi.object({
-    username: Joi.string()
-                .alphanum() 
+    username: Joi.string() 
                 .required()
                 .messages({ 
                     "string.empty": "Username harus diisi",
@@ -9,8 +8,7 @@ const schemaLogin = Joi.object({
                     //"string.max": `"username" should have a maximum length of {#limit}`,
                     "any.required": "Username harus diisi"
                   }),
-    password: Joi.string()
-                .alphanum() 
+    password: Joi.string() 
                 .required()
                 .messages({ 
                     "string.empty": "Password harus diisi", 
