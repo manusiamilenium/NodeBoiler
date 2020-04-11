@@ -24,21 +24,19 @@ block content
 
                 .card-body
                     .table-responsive
-                        table#datatable.table
+                        table#datatable.table.table-hover
                             thead.text-primary
                                 th
                                     | No
                                 th
                                     | Satwil / Satker
                                 th
-                                    | Dir / Subdir 
+                                    | Dir / Subdir  
                                 th
-                                    | Tahun
-                                th
-                                    | Bulan
+                                    | Bulan - Tahun
                                 th
                                     | Jumlah
-                                th
+                                th(style="width: 30%")
                                     | Uraian
                                 th
                                     | Action
@@ -48,9 +46,8 @@ block content
                                     tr
                                         td= index+1 
                                         td= val["nama_satwil"]
-                                        td= val["nama_subdit"] 
-                                        td= val["tahun_kejadian_menonjol"]
-                                        td= val["bulan_kejadian_menonjol"]
+                                        td= val["nama_subdit"]  
+                                        td= val["bulan_kejadian_menonjol"] + "-" + val["tahun_kejadian_menonjol"]
                                         td= val["jumlah_kejadian_menonjol"]
                                         td= val["uraian_kejadian_menonjol"]
                                         td

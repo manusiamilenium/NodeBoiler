@@ -3,7 +3,12 @@
 var connection = require('../connection');
 
 exports.getAll = async function (fields,callback) {
-    await connection.query('SELECT * FROM kegiatan_intelijen INNER JOIN jenis_kegiatan_intelijen ON kegiatan_intelijen.jenis_kegiatan_intelijen = jenis_kegiatan_intelijen.id_jenis INNER JOIN user on kegiatan_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE user.id_user = ? ',fields, callback);
+    if(fields[0] == 1){
+        await connection.query('SELECT * FROM kegiatan_intelijen INNER JOIN jenis_kegiatan_intelijen ON kegiatan_intelijen.jenis_kegiatan_intelijen = jenis_kegiatan_intelijen.id_jenis INNER JOIN user on kegiatan_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  ',fields, callback);
+    }else{
+        await connection.query('SELECT * FROM kegiatan_intelijen INNER JOIN jenis_kegiatan_intelijen ON kegiatan_intelijen.jenis_kegiatan_intelijen = jenis_kegiatan_intelijen.id_jenis INNER JOIN user on kegiatan_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE user.id_user = ? ',fields, callback);
+    }
+    
 };
 exports.getData = async function(fields,callback) {
     await connection.query('SELECT * FROM kegiatan_intelijen INNER JOIN jenis_kegiatan_intelijen ON kegiatan_intelijen.jenis_kegiatan_intelijen = jenis_kegiatan_intelijen.id_jenis INNER JOIN user on kegiatan_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE kegiatan_intelijen.id_kegiatan_intelijen = ? AND  user.id_user = ? ',fields, callback);

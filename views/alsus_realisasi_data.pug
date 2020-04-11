@@ -11,17 +11,6 @@ block content
                     a.btn.btn-info.btn-round.card-title(href='/alsus/realisasiadd' role='button')
                         i.now-ui-icons.ui-1_simple-add
                         |  Tambah      
-                    // Example single danger button
-                    //.btn-group
-                        button.btn.btn-info.btn-round.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                            |    Pilih Filter Satwil
-                        .dropdown-menu
-                            a.dropdown-item(href='#') Action
-                            a.dropdown-item(href='#') Another action
-                            a.dropdown-item(href='#') Something else here
-                            .dropdown-divider
-                            a.dropdown-item(href='#') Separated link
-
                 .card-body
                     .table-responsive
                         table#datatable.table
@@ -31,8 +20,10 @@ block content
                                 th
                                     | Bulan / Tahun
                                 th
-                                    | Jumlah Realisasi Alsus
+                                    | Satwil
                                 th
+                                    | Jumlah Realisasi Alsus
+                                th(style="width: 30%")
                                     | Uraian
                                 th
                                     | Action
@@ -42,6 +33,7 @@ block content
                                     tr
                                         td= index+1 
                                         td= val["bulan_realisasi_alsus"]+"/"+val["tahun_realisasi_alsus"]
+                                        td= val["nama_satwil"] 
                                         td= val["jumlah_realisasi_alsus"] 
                                         td= val["uraian_realisasi_alsus"]
                                         td

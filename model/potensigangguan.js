@@ -3,9 +3,17 @@
 var connection = require('../connection');
  
 exports.getAll = async function (fields,callback) {
-    await connection.query('SELECT id_potensi_gangguan,nama_satwil,jumlah_potensi_gangguan,tahun_potensi_gangguan FROM potensi_gangguan '+ 
+    if(fields[0] == 1){
+        await connection.query('SELECT id_potensi_gangguan,nama_satwil,jumlah_potensi_gangguan,tahun_potensi_gangguan FROM potensi_gangguan '+ 
+                            'INNER JOIN user on potensi_gangguan.id_user = user.id_user '+
+                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ',fields, callback);
+    }else{
+        await connection.query('SELECT id_potensi_gangguan,nama_satwil,jumlah_potensi_gangguan,tahun_potensi_gangguan FROM potensi_gangguan '+ 
                             'INNER JOIN user on potensi_gangguan.id_user = user.id_user '+
                             'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil WHERE user.id_user = ? ',fields, callback);
+
+    }
+    
 };
 exports.getData = async function(fields,callback) {
     

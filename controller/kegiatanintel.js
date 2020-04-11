@@ -8,7 +8,6 @@ var moment = require('moment');
 exports.index = function (req, res) {
     var title = ""; 
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
-        console.log(rows);
         if (error) {
             console.log(error)
         } else {   

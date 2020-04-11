@@ -20,6 +20,8 @@ block content
                                 th
                                     | No
                                 th
+                                    | Satwil
+                                th
                                     | Tahun
                                 th
                                     | Jumlah Alsus
@@ -30,6 +32,7 @@ block content
                                 each val, index in data
                                     tr
                                         td= index+1 
+                                        td= val["nama_satwil"] 
                                         td= val["tahun_penggunaan_alsus"]
                                         td= val["jumlah_penggunaan_alsus"] 
                                         td

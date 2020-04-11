@@ -29,6 +29,8 @@ block content
                                 th
                                     | No
                                 th
+                                    | Satwil
+                                th
                                     | Nomor
                                 th
                                     | Tanggal 
@@ -41,6 +43,7 @@ block content
                                 each val, index in data
                                     tr
                                         td= index+1 
+                                        td= val["nama_satwil"] 
                                         td= val["nomor_produk_keluar"]
                                         td= moment(val["tanggal_pengiriman_produk_intelijen"]).format('DD/MM/YYYY') 
                                         td= val["perihal_pengiriman_produk_keluar"] 
