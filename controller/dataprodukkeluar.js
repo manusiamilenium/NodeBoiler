@@ -39,6 +39,7 @@ exports.createAction = function (req, res) {
     upload(req, res, function (err) {
         var id_jenis_produk_keluar = req.body.id_jenis_produk_keluar;
         var title = req.body.title;
+        /*
         if (!global.helper.multerValidate(req, multer, err)) {
             req.session.notification = 'Mohon lengkapi upload dokumen ';
             req.session.notificationtype = "error";
@@ -46,7 +47,7 @@ exports.createAction = function (req, res) {
                 global.helper.render('dataprodukkeluaradd', req, res, { jenis: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title, data: req.body });
             });
         }
-        else {
+        else {*/
            
             var nomor_produk_keluar = req.body.nomor_produk_keluar;
             var tanggal_produk_keluar = req.body.tanggal_produk_keluar;
@@ -67,36 +68,55 @@ exports.createAction = function (req, res) {
                     } else {
 
                         var insertid = rows.insertId;
-                        for (let index = 0; index < req.files.length; index++) {
-                            const file = req.files[index];
-                            var nomor_ref_produk_keluar = req.body.input[index].nomor_ref_produk_keluar;
-                            var jenis_ref_produk_keluar = req.body.input[index].jenis_produk_intelijen;
-                            const fs = require('fs');
-                            var img = fs.readFileSync(file.path);
-                            var encode_image = img.toString('base64');
-                            var buff = new Buffer(encode_image, 'base64')
-                            refprodukkeluar.add([insertid, nomor_ref_produk_keluar, jenis_ref_produk_keluar, buff], function (error, rows, fields) {
-                                if (error) {
-                                    console.log(error)
-                                } else {
-                                    if (index == req.files.length - 1) {
-                                        uamodel.add([req.session.user.id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
-                                            if (error) {
-                                                console.log(error)
-                                            }
+                        if (req.files.length < 1) {
+                            model.delete([insertid],
+                                function (error, rows, fields) {
+                                    if (error) {
+                                        console.log(error)
+                                    } else {
+                                        req.session.notification = 'Mohon lengkapi upload dokumen ';
+                                        req.session.notificationtype = "error";
+                                        global.helper.getRefference(produkintelmodel, function (error, rows) {
+                                            global.helper.render('dataprodukkeluaradd', req, res, { jenis: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, edit: "", title: title, data: req.body });
                                         });
-                                        req.session.notification = "Berhasil Ditambah";
-                                        req.session.notificationtype = "success";
-                                        res.redirect('/dataprodukkeluar/' + id_jenis_produk_keluar);
+            
                                     }
-                                }
-                            });
+                                });
+                           
+                        } else {
+
+
+                            for (let index = 0; index < req.files.length; index++) {
+                                const file = req.files[index];
+                                var nomor_ref_produk_keluar = req.body.input[index].nomor_ref_produk_keluar;
+                                var jenis_ref_produk_keluar = req.body.input[index].jenis_produk_intelijen;
+                                const fs = require('fs');
+                                var img = fs.readFileSync(file.path);
+                                var encode_image = img.toString('base64');
+                                var buff = new Buffer(encode_image, 'base64')
+                                refprodukkeluar.add([insertid, nomor_ref_produk_keluar, jenis_ref_produk_keluar, buff], function (error, rows, fields) {
+                                    if (error) {
+                                        console.log(error)
+                                    } else {
+                                        if (index == req.files.length - 1) {
+                                            uamodel.add([req.session.user.id_user, "Mengisi Data Produk Keluar"], function (error, rows, fields) {
+                                                if (error) {
+                                                    console.log(error)
+                                                }
+                                            });
+                                            req.session.notification = "Berhasil Ditambah";
+                                            req.session.notificationtype = "success";
+                                            res.redirect('/dataprodukkeluar/' + id_jenis_produk_keluar);
+                                        }
+                                    }
+                                });
+                            }
                         }
 
                     }
                 });
             }
-        }
+        //}
 
 
 
