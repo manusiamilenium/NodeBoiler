@@ -35,6 +35,8 @@ block content
                                 th
                                     | Tanggal 
                                 th
+                                    | Produk
+                                th
                                     | Perihal
                                 th
                                     | Action
@@ -46,7 +48,8 @@ block content
                                         td= val["nama_satwil"] 
                                         td= val["nomor_produk_keluar"]
                                         td= moment(val["tanggal_pengiriman_produk_intelijen"]).format('DD/MM/YYYY') 
-                                        td= val["perihal_pengiriman_produk_keluar"] 
+                                        td= val["nama_produk_intelijen"] 
+                                        td= val["perihal_pengiriman_produk_intelijen"] 
                                         td
                                              
                                             a.btn.btn-danger.btn-round(href='/pengirimanprodukdelete/'+ val["id_pengiriman_produk_intelijen"] role='button')

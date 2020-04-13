@@ -4,9 +4,9 @@ var connection = require('../connection');
  
 exports.getAll = async function (fields,callback) {
     if(fields[0] == 1){
-        await connection.query('SELECT * FROM pengiriman_produk_intelijen INNER JOIN jenis_produk_keluar on jenis_produk_keluar.id_jenis_produk_keluar = pengiriman_produk_intelijen.jenis_pengiriman_produk_intelijen INNER JOIN user on pengiriman_produk_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ',fields, callback);
+        await connection.query('SELECT * FROM pengiriman_produk_intelijen INNER JOIN produk_intelijen on produk_intelijen.id_produk_intelijen = pengiriman_produk_intelijen.jenis_pengiriman_produk_intelijen INNER JOIN user on pengiriman_produk_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ',fields, callback);
     }else{
-        await connection.query('SELECT * FROM pengiriman_produk_intelijen INNER JOIN jenis_produk_keluar on jenis_produk_keluar.id_jenis_produk_keluar = pengiriman_produk_intelijen.jenis_pengiriman_produk_intelijen INNER JOIN user on pengiriman_produk_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil WHERE user.id_user = ? ',fields, callback);
+        await connection.query('SELECT * FROM pengiriman_produk_intelijen INNER JOIN produk_intelijen on produk_intelijen.id_produk_intelijen = pengiriman_produk_intelijen.jenis_pengiriman_produk_intelijen INNER JOIN user on pengiriman_produk_intelijen.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil WHERE user.id_user = ? ',fields, callback);
     }
     
 };
