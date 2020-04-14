@@ -6,6 +6,7 @@ var rmodel = require('../model/alsusrealisasi');
 var validation = require('../validator/alsus.js');
 exports.indexAlsus = function (req, res) {
     var title = ""; 
+    req.session.menuactive = 5;
     model.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)

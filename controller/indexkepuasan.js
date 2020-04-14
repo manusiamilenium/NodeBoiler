@@ -4,6 +4,7 @@ var response = require('../result');
 var model = require('../model/indexkepuasan');
 var uamodel = require('../model/useractivity');
 exports.index = function (req, res) { 
+    req.session.menuactive = 1;
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
@@ -21,31 +22,11 @@ exports.createAction = function (req, res) {
         // req.file contains information of uploaded file
         // req.body contains information of text fields, if there were any
         //console.log(req.file);
-
-        if (req.fileValidationError) {
-            req.session.notification = req.fileValidationError;
+        if(!global.helper.multerValidate(req,multer,err)){
+            req.session.notification = 'Mohon lengkapi upload dokumen ';
             req.session.notificationtype = "error";
-            res.redirect('/indexkepuasan/add');
-            //return res.send(req.fileValidationError);
-        }
-        else if (!req.file) {
-            req.session.notification = 'Please select an file to upload';
-            req.session.notificationtype = "error";
-            res.redirect('/indexkepuasan/add');
-            //return res.send('Please select an file to upload');
-        }
-        else if (err instanceof multer.MulterError) {
-            req.session.notification = 'Please select an file to upload';
-            req.session.notificationtype = "error";
-            res.redirect('/indexkepuasan/add');
-            // return res.send(err);
-        }
-        else if (err) {
-            req.session.notification = 'Please select an file to upload';
-            req.session.notificationtype = "error";
-            res.redirect('/indexkepuasan/add');
-            //return res.send(err);
-        } else {
+            global.helper.render('indexkepuasanadd', req, res, { edit: "", data: req.body }); 
+        }  else {
             const fs = require('fs');
             var img = fs.readFileSync(req.file.path);
             var encode_image = img.toString('base64');

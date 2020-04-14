@@ -15,23 +15,23 @@ block sidebar
                             i.now-ui-icons.business_globe
                             p Master Data
                  
-                li
+                li(class=(session.menuactive == 1 ? "active":"") )
                     a(href='/indexkepuasan')
-                        i.now-ui-icons.business_briefcase-24
+                        i.now-ui-icons.emoticons_satisfied
                         p Index Kepuasan
-                li
+                li(class=(session.menuactive == 2 ? "active":"") )
                     a(href='/potensigangguan')
-                        i.now-ui-icons.business_briefcase-24
+                        i.now-ui-icons.education_atom
                         p Potensi Gangguan
-                li
+                li(class=(session.menuactive == 3 ? "active":"") )
                     a(href='/dataprodukintel')
-                        i.now-ui-icons.business_briefcase-24
+                        i.now-ui-icons.education_paper
                         p Data Produk Intelijen
-                li
+                li(class=(session.menuactive == 4 ? "active":"") )
                     a(href='/kegiatanintel')
-                        i.now-ui-icons.business_briefcase-24
+                        i.now-ui-icons.sport_user-run
                         p Kegiatan Intelijen
-                li
+                li(class=(session.menuactive == 5 ? "active":"") )
                     a(href='/alsus')
-                        i.now-ui-icons.business_briefcase-24
+                        i.now-ui-icons.ui-2_settings-90
                         p Alsus Intelijen

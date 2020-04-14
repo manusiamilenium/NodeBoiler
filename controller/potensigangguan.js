@@ -5,6 +5,7 @@ var model = require('../model/potensigangguan');
 var kjmodel = require('../model/kejadianmenonjol');
 var uamodel = require('../model/useractivity');
 exports.index = function (req, res) { 
+    req.session.menuactive = 2;
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)

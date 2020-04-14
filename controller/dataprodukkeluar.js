@@ -9,6 +9,7 @@ var refprodukkeluar = require('../model/refprodukkeluar');
 var pengirimanproduk = require('../model/pengirimanproduk');
 var moment = require('moment');
 exports.index = function (req, res) {
+    req.session.menuactive = 3;
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
     var title = ""; 
     pmodel.getData([id_jenis_produk_keluar], function (error, rows, fields) {

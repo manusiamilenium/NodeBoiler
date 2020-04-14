@@ -6,6 +6,7 @@ var uamodel = require('../model/useractivity');
 var subditmodel = require('../model/subditmodel');
 var produkintelmodel = require('../model/produkintel');
 exports.index = function (req, res) {
+    req.session.menuactive = 3;
     model.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)

@@ -7,6 +7,7 @@ var moment = require('moment');
 
 exports.index = function (req, res) {
     var title = ""; 
+    req.session.menuactive = 4;
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
