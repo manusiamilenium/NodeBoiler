@@ -38,12 +38,18 @@ block content
                   .form-group
                     label Jumlah
                     input.form-control(type='text' name="jumlah_kejadian_menonjol" placeholder='Masukkan Jumlah' value=''+ (data['jumlah_kejadian_menonjol']=== undefined ?'': data['jumlah_kejadian_menonjol']))
-              .row
+              //.row
                 .col-md-6.pr-1
                   .form-group
                     label Uraian
                     input.form-control(type='text' name="uraian_kejadian_menonjol" placeholder='Masukkan Uraian' value=''+ (data['uraian_kejadian_menonjol']=== undefined ?'': data['uraian_kejadian_menonjol']))
-               
+              .row
+                .col-md-6.pr-1     
+                  .form-group
+                    label Uraian
+                    textarea.form-control(aria-label='With textarea' name="uraian_kejadian_menonjol" placeholder='Masukkan Uraian singkat, padat dan jelas maksimal 50 kata' )
+                      | #{''+ (data['uraian_kejadian_menonjol']=== undefined ?'': data['uraian_kejadian_menonjol'])}
+
               .row
                 .col-md-6.pr-1
                   .form-group

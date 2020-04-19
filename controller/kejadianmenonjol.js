@@ -4,6 +4,8 @@ var response = require('../result');
 var model = require('../model/kejadianmenonjol');
 var uamodel = require('../model/useractivity');
 var subditmodel = require('../model/subditmodel'); 
+var validation = require('../validator/kejadianmenonjol.js');
+
 exports.index = function (req, res) { 
     req.session.menuactive = 2;
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
@@ -20,13 +22,21 @@ exports.createAction = function (req, res) {
     var bulan_kejadian_menonjol = req.body.bulan;
     var uraian_kejadian_menonjol = req.body.uraian_kejadian_menonjol;
     var jumlah_kejadian_menonjol = req.body.jumlah_kejadian_menonjol;
+    const error = validation(req.body).error;
+    if (error) {
+        req.session.notification = error.message;
+        req.session.notificationtype = "error";
+        global.helper.getRefference(subditmodel,function (error, rows) {
+            global.helper.render('kejadianmenonjoladd', req, res,{data:req.body,subdit:rows});
+        });
+    }/*
     if (tahun_kejadian_menonjol == "" || bulan_kejadian_menonjol == "" || uraian_kejadian_menonjol == "" || jumlah_kejadian_menonjol == "" ) {
         req.session.notification = 'Mohon lengkapi isian';
         req.session.notificationtype = "error";
         global.helper.getRefference(subditmodel,function (error, rows) {
             global.helper.render('kejadianmenonjoladd', req, res,{data:req.body,subdit:rows});
         }); 
-    } else {
+    } */else {
         model.add([req.session.user.id_user, id_subdit, tahun_kejadian_menonjol, bulan_kejadian_menonjol, jumlah_kejadian_menonjol, uraian_kejadian_menonjol], function (error, rows, fields) {
             if (error) {
                 console.log(error)
