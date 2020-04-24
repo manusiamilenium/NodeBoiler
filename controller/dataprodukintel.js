@@ -5,6 +5,7 @@ var model = require('../model/dataprodukintel');
 var uamodel = require('../model/useractivity');
 var subditmodel = require('../model/subditmodel');
 var produkintelmodel = require('../model/produkintel');
+var validation = require('../validator/dataprodukintel.js');
 exports.index = function (req, res) {
     req.session.menuactive = 3;
     model.getAll([req.session.user.id_user], function (error, rows, fields) {
@@ -24,6 +25,20 @@ exports.createAction = function (req, res) {
     var jumlah_data_produk_intelijen = req.body.jumlah_data_produk_intelijen;
     var subdits = [];
     var jenis = [];
+    const error = validation(req.body).error;
+    if (error) {
+        console.log(error);
+        req.session.notification = error.message;
+        req.session.notificationtype = "error";
+        global.helper.getRefference(subditmodel,function (error, rows) {
+            subdits = rows;
+            global.helper.getRefference(produkintelmodel,function (error, rows) {
+                jenis = rows;
+                global.helper.render('dataprodukinteladd', req, res, { subdit: subdits, jenis: jenis, edit: "", data: req.body});
+            });
+        });
+    }
+    /*
     if (id_subdit == "" || tahun_data_produk_intelijen == "" || bulan_data_produk_intelijen == "" || jenis_produk_intelijen == "" || jumlah_data_produk_intelijen == "") {
         req.session.notification = 'Mohon lengkapi isian';
         req.session.notificationtype = "error";
@@ -36,7 +51,7 @@ exports.createAction = function (req, res) {
         });
         
         //res.render('dataprodukinteladd', { data: rows[0], subdit: subdits, jenis: jenis, edit: "edit" });
-    } else {
+    } */else {
         model.add([req.session.user.id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
             if (error) {
                 console.log(error)

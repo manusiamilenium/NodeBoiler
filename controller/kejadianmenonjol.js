@@ -29,14 +29,7 @@ exports.createAction = function (req, res) {
         global.helper.getRefference(subditmodel,function (error, rows) {
             global.helper.render('kejadianmenonjoladd', req, res,{data:req.body,subdit:rows});
         });
-    }/*
-    if (tahun_kejadian_menonjol == "" || bulan_kejadian_menonjol == "" || uraian_kejadian_menonjol == "" || jumlah_kejadian_menonjol == "" ) {
-        req.session.notification = 'Mohon lengkapi isian';
-        req.session.notificationtype = "error";
-        global.helper.getRefference(subditmodel,function (error, rows) {
-            global.helper.render('kejadianmenonjoladd', req, res,{data:req.body,subdit:rows});
-        }); 
-    } */else {
+    }else {
         model.add([req.session.user.id_user, id_subdit, tahun_kejadian_menonjol, bulan_kejadian_menonjol, jumlah_kejadian_menonjol, uraian_kejadian_menonjol], function (error, rows, fields) {
             if (error) {
                 console.log(error)
