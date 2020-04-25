@@ -27,7 +27,7 @@ exports.createAction = function (req, res) {
     var jenis = [];
     const error = validation(req.body).error;
     if (error) {
-        console.log(error);
+        
         req.session.notification = error.message;
         req.session.notificationtype = "error";
         global.helper.getRefference(subditmodel,function (error, rows) {

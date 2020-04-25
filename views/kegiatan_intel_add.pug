@@ -50,8 +50,9 @@ block content
               .row
                 .col-md-6.pr-1
                   .form-group
-                    label Uraian
-                    input.form-control(type='text' name="uraian_kegiatan_intelijen" placeholder='Masukkan uraian' value=''+ (data['uraian_kegiatan_intelijen']=== undefined ?'': data['uraian_kegiatan_intelijen']))            
+                    label Uraian 
+                    textarea.form-control(aria-label='With textarea' name="uraian_kegiatan_intelijen" placeholder='Masukkan Uraian singkat, padat dan jelas maksimal 50 kata' )
+                      | #{''+ (data['uraian_kegiatan_intelijen']=== undefined ?'': data['uraian_kegiatan_intelijen'])}
                             
               .row
                 .col-md-6.pr-1

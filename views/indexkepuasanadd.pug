@@ -14,12 +14,11 @@ block content
                 .col-md-6.pr-1
                   .form-group
                     label Index Kepuasan
-                    input.form-control(type='text' name="value_index_kepuasan" placeholder='Masukkan Index Kepuasan' value='')
+                    input.form-control(type='text' name="value_index_kepuasan" placeholder='Masukkan Index Kepuasan' value=''+ (data['value_index_kepuasan']=== undefined ?'': data['value_index_kepuasan']))
               .row
-                .col-md-12
-                  .form-group
+                .col-md-6.pr-1 
                     label Upload Dokumen
-                    input.btn.btn-info.btn-round(type='file' name="attachment" placeholder='Dokumen' value='Potensi.doc') 
+                    input.form-control(type='file' name="attachment" placeholder='Dokumen' value='Potensi.doc') 
               .row
                 .col-md-6.pr-1
                   .form-group

@@ -3,6 +3,8 @@
 var response = require('../result');
 var model = require('../model/indexkepuasan');
 var uamodel = require('../model/useractivity');
+var validation = require('../validator/indexkepuasan.js');
+
 exports.index = function (req, res) { 
     req.session.menuactive = 1;
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
@@ -22,7 +24,13 @@ exports.createAction = function (req, res) {
         // req.file contains information of uploaded file
         // req.body contains information of text fields, if there were any
         //console.log(req.file);
-        if(!global.helper.multerValidate(req,multer,err)){
+        const error = validation(req.body).error; 
+        if(error){
+            req.session.notification = error.message;
+            req.session.notificationtype = "error";
+            global.helper.render('indexkepuasanadd', req, res, { edit: "", data: req.body }); 
+        }
+        else if(error||!global.helper.multerValidate(req,multer,err)){
             req.session.notification = 'Mohon lengkapi upload dokumen ';
             req.session.notificationtype = "error";
             global.helper.render('indexkepuasanadd', req, res, { edit: "", data: req.body }); 
@@ -30,7 +38,7 @@ exports.createAction = function (req, res) {
             const fs = require('fs');
             var img = fs.readFileSync(req.file.path);
             var encode_image = img.toString('base64');
-            var buff = new Buffer(encode_image, 'base64') 
+            var buff = Buffer.from(encode_image, 'base64') 
             var value_index_kepuasan = req.body.value_index_kepuasan;
             var attachment_index_kepuasan = buff;
             model.add([req.session.user.id_user, value_index_kepuasan, attachment_index_kepuasan], function (error, rows, fields) {

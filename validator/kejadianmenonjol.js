@@ -29,7 +29,7 @@ const schema = Joi.object({
   uraian_kejadian_menonjol: Joi.string().custom(wordValidation, 'uraian 100 kata').required()
     .messages({
       "any.invalid": "Kalimat terlalu panjang, maksimal 50 kata",
-      "any.required": "Jumlah harus diisi"
+      "any.required": "Uraian harus diisi"
     }),
   id_subdit: Joi.number().required()
     .messages({

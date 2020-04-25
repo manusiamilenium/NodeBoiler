@@ -4,7 +4,7 @@ var model = require('../model/kegiatanintel');
 var uamodel = require('../model/useractivity');  
 var jmodel = require('../model/jenisintelmodel');
 var moment = require('moment');
-
+var validation = require('../validator/kegiatanintel.js');
 exports.index = function (req, res) {
     var title = ""; 
     req.session.menuactive = 4;
@@ -44,13 +44,21 @@ exports.createAction = function (req, res) {
     var jumlah_kegiatan_intelijen = req.body.jumlah_kegiatan_intelijen;
     var reduksi_kegiatan_intelijen = req.body.reduksi_kegiatan_intelijen;
     var uraian_kegiatan_intelijen = req.body.uraian_kegiatan_intelijen;
+    const error = validation(req.body).error;
+    if (error) {
+        req.session.notification = error.message;
+        req.session.notificationtype = "error";
+        global.helper.getRefference(jmodel, function (error, rows) {
+            global.helper.render('kegiatan_intel_add', req, res, { data: req.body, jenis: rows, edit: "" });
+        });
+    }/*
     if (bulan_kegiatan_intelijen == "" || tahun_kegiatan_intelijen == "" || jenis_kegiatan_intelijen == "" || jumlah_kegiatan_intelijen == "" || reduksi_kegiatan_intelijen == "" || uraian_kegiatan_intelijen == "") {
         req.session.notification = 'Mohon lengkapi isian';
         req.session.notificationtype = "error";
         global.helper.getRefference(jmodel, function (error, rows) {
             global.helper.render('kegiatan_intel_add', req, res, { data: req.body, jenis: rows, edit: "" });
         });
-    } else {
+    } */else {
         model.add([req.session.user.id_user, tahun_kegiatan_intelijen, bulan_kegiatan_intelijen, jenis_kegiatan_intelijen, jumlah_kegiatan_intelijen, reduksi_kegiatan_intelijen, uraian_kegiatan_intelijen], function (error, rows, fields) {
             if (error) {
                 console.log(error)
