@@ -37,21 +37,7 @@ exports.createAction = function (req, res) {
                 global.helper.render('dataprodukinteladd', req, res, { subdit: subdits, jenis: jenis, edit: "", data: req.body});
             });
         });
-    }
-    /*
-    if (id_subdit == "" || tahun_data_produk_intelijen == "" || bulan_data_produk_intelijen == "" || jenis_produk_intelijen == "" || jumlah_data_produk_intelijen == "") {
-        req.session.notification = 'Mohon lengkapi isian';
-        req.session.notificationtype = "error";
-        global.helper.getRefference(subditmodel,function (error, rows) {
-            subdits = rows;
-            global.helper.getRefference(produkintelmodel,function (error, rows) {
-                jenis = rows;
-                global.helper.render('dataprodukinteladd', req, res, { subdit: subdits, jenis: jenis, edit: "", data: req.body});
-            });
-        });
-        
-        //res.render('dataprodukinteladd', { data: rows[0], subdit: subdits, jenis: jenis, edit: "edit" });
-    } */else {
+    } else {
         model.add([req.session.user.id_user, id_subdit, tahun_data_produk_intelijen, bulan_data_produk_intelijen, jenis_produk_intelijen, jumlah_data_produk_intelijen], function (error, rows, fields) {
             if (error) {
                 console.log(error)

@@ -35,16 +35,16 @@ block content
               .row
                   .col-md-9.pr-1
                     .form-group
-                      label Dasar Surat
+                      label Dasar Surat ( *minimum 1 produk intelijen wajib diupload)
               - var n = 0;
               while n < 5
                 .row
-                  .col-md-4.pr-1
-                    .form-group
-                      br
-                      .btn-group.dropright
+                  .col-md-2.pr-1
+                    .form-group 
+                      label Pilih jenis produk 
+                      .btn-group.dropright(style="margin-top:-10px")
                         button.btn.btn-secondary.btn-round.dropdown-toggle(type='button' name='jenisproduk[' + n +']' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-                            |    Jenis Produk
+                            |    Jenis
                         .dropdown-menu
                             each val, index in jenis
                                 a.dropdown-item( 
@@ -56,7 +56,6 @@ block content
                       label Nomor Dokumen 
                       input.form-control(type='text' name='input[' + n + '][nomor_ref_produk_keluar]' placeholder='Nomor' value='')
                   .col-md-4.pl-1
-                    .form-group
                       label Upload
                       input.form-control(type='file' placeholder='' name='input[' + n + '][attachment]'  value='')  
                 - n++;
