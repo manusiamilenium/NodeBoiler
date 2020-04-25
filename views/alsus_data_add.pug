@@ -21,10 +21,9 @@ block content
                     label Jumlah Alsus
                     input.form-control(type='text' name="jumlah_penggunaan_alsus" placeholder='Masukkan Jumlah Alsus' value=''+ (data['jumlah_penggunaan_alsus']=== undefined ?'': data['jumlah_penggunaan_alsus']))
               .row
-                .col-md-12
-                  .form-group
+                .col-md-6.pr-1 
                     label Upload Dokumen
-                    input.btn.btn-info(type='file' name="attachment" placeholder='Dokumen Pendukung' value='') 
+                    input.form-control(type='file' name="attachment" placeholder='Dokumen Pendukung' value='') 
               .row
                 .col-md-6.pr-1
                   .form-group
