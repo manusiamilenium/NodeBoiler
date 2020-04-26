@@ -38,7 +38,7 @@ exports.addpprodukkeluar= async function(fields,callback) {
 };
 
 exports.getTotal = async function (fields,callback,role=2) {
-    const baseQ = 'SELECT COUNT(*) as TOTAL FROM produk_keluar INNER JOIN user on produk_keluar.id_user = user.id_user INNER JOIN satwil ON satwil.id_satwil = user.id_satwil WHERE produk_keluar.id_jenis_produk_keluar = ? '
+    const baseQ = 'SELECT COUNT(*) as TOTAL FROM produk_keluar INNER JOIN user on produk_keluar.id_user = user.id_user WHERE produk_keluar.id_jenis_produk_keluar = ? '
     if(role == 1){
         await connection.query(baseQ,fields, callback);
     }else if(role == 2){

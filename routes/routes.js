@@ -98,4 +98,6 @@ module.exports = function (app) {
     app.use('/api/dataprodukintel',sessionChecker,  dataprodukintel);
     var dataprodukkeluar = require('./api/dataprodukkeluar');
     app.use('/api/dataprodukkeluar',sessionChecker,  dataprodukkeluar);
+    var datapengirimanproduk = require('./api/pengirimanproduk');
+    app.use('/api/pengirimanproduk',sessionChecker,  datapengirimanproduk);
 };
