@@ -21,14 +21,15 @@ exports.index = function (req, res) {
         } else {
             title += " Terdistribusi ke Satuan Kepolisian lain (IKU4)";
         }
-
+        global.helper.render('dataprodukkeluar', req, res, { moment: moment, data: {}, id_jenis_produk_keluar: id_jenis_produk_keluar, title: title });
+        /*
         model.getAll([id_jenis_produk_keluar, req.session.user.id_user], function (error, rows, fields) {
             if (error) {
                 console.log(error)
             } else {
                 global.helper.render('dataprodukkeluar', req, res, { moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, title: title });
             }
-        });
+        });*/
     });
 };
 exports.createAction = function (req, res) {
