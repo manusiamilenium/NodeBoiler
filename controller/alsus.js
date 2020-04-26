@@ -7,13 +7,7 @@ var validation = require('../validator/alsus.js');
 exports.indexAlsus = function (req, res) {
     var title = ""; 
     req.session.menuactive = 5;
-    model.getAll([req.session.user.id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else {
-            global.helper.render('alsus_data', req, res, { data: rows, title: title });
-        }
-    });
+    global.helper.render('alsus_data', req, res, { data: {}, title: title });
 };
 exports.indexRealisasi = function (req, res) {
     var title = "";  
@@ -127,6 +121,7 @@ exports.fileAlsus = function (req, res) {
                     console.log(error)
                 }
             });
+            console.log(rows)
             var buffer = rows[0].attachment_penggunaan_alsus
             const fs = require('fs');
             fs.writeFile('attachment_penggunaan_alsus.pdf', buffer, 'binary', function (err) {
@@ -205,3 +200,4 @@ exports.deleteAlsusRealisasi = function (req, res) {
         }
     });
 };
+

@@ -89,8 +89,10 @@ module.exports = function (app) {
     kejadianmenonjol(app, sessionChecker);
     dataprodukkeluar(app, sessionChecker);
     kegiatanintel(app, sessionChecker);
-    
     alsus(app, sessionChecker);
-
+    
+    //api
+    var alsusapi = require('./api/alsus');
+    app.use('/api/alsus',sessionChecker,  alsusapi);
 
 };

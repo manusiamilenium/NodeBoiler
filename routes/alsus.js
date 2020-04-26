@@ -19,5 +19,7 @@ module.exports = function (app, sessionChecker) {
         .post(sessionChecker, alsus.createAlsusRealisasiAction);
     app.route('/alsus/realisasidelete/:id_realisasi_alsus')
         .get(sessionChecker, alsus.deleteAlsusRealisasi);
+
+    
      
 };

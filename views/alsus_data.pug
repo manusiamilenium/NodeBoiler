@@ -2,7 +2,7 @@ extends topmenu/alsus_menu.pug
 block content-header
     .panel-header.panel-header-sm 
 block content
-      .row
+    .row
         .col-md-12
             .card
                 .card-header
@@ -15,7 +15,7 @@ block content
 
                 .card-body
                     .table-responsive
-                        table#datatable.table
+                        table#datatables.table
                             thead.text-primary
                                 th
                                     | No
@@ -43,3 +43,82 @@ block content
                                             a.btn.btn-danger.btn-round(href='/alsus/delete/'+ val["id_penggunaan_alsus"] role='button')
                                                 i.now-ui-icons.ui-1_simple-remove
                                                 |  Delete
+    script.
+        $(document).ready( function () {
+            var t = $('#datatables').DataTable({
+                "order": [[ 1, "asc" ]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": "/api/alsus/data", 
+                "columnDefs": [ {
+                                    "targets": -1,
+                                    "data": null,
+                                    "render": function ( data, type, row ) {
+                                                    return  "<a class='btn btn-primary btn-round' href='/alsus/file/ "+ data[0] + "' role='button'>"+
+                                                            "<i class='now-ui-icons files_paper'></i> Lihat File</a> "+
+                                                            "<a class='btn btn-danger btn-round' href='/alsus/delete/"+ data[0] +"' role='button'>"+
+                                                            "<i class='now-ui-icons ui-1_simple-remove'></i> Delete</a></td>";
+                                                },
+                                } ],
+                dom: 'Bfrtip',
+                buttons: [
+                            {
+                                extend: 'print',
+                                text: 'Print',
+                                className: 'btn btn-primary btn-sm',
+                                action: serverSideButtonAction
+                            },
+                            {
+                                extend: 'copy',
+                                text: 'Copy',
+                                className: 'btn btn-warning btn-sm',
+                                action: serverSideButtonAction
+                            },
+                            {
+                                extend: 'excel',
+                                text: 'Excel',
+                                className: 'btn btn-success btn-sm',
+                                action: serverSideButtonAction
+                            },
+                            {
+                                extend: 'pdf',
+                                text: 'pdf',
+                                className: 'btn btn-info btn-sm',
+                                action: serverSideButtonAction
+                            }
+                        ]
+            });
+              t.on( 'draw.dt', function () {
+                var PageInfo = $('#datatables').DataTable().page.info();
+                    t.column(0, { page: 'current' }).nodes().each( function (cell, i) {
+                        cell.innerHTML = i + 1 + PageInfo.start;
+                        t.cell(cell).invalidate('dom');
+                    } );
+                } );
+
+            function serverSideButtonAction(e, dt, node, config) {
+ 
+                var me = this;
+                var button = config.text.toLowerCase();
+                if (typeof $.fn.dataTable.ext.buttons[button] === "function") {
+                    button = $.fn.dataTable.ext.buttons[button]();
+                }
+                var len = dt.page.len();
+                var start = dt.page();
+                dt.page(0);
+        
+                dt.context[0].aoDrawCallback.push({
+                    "sName": "ssb",
+                    "fn": function () {
+                        $.fn.dataTable.ext.buttons[button].action.call(me, e, dt, node, config);
+                        dt.context[0].aoDrawCallback = dt.context[0].aoDrawCallback.filter(function (e) { return e.sName !== "ssb" });
+                    }
+                });
+                dt.page.len(999999999).draw();
+                setTimeout(function () {
+                    dt.page(start);
+                    dt.page.len(len).draw();
+                }, 500);
+            }
+
+        } );
