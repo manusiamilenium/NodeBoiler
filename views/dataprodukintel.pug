@@ -67,6 +67,9 @@ block content
                                                 |  Delete
     script.
         $(document).ready( function () {
+            var months = [ "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
+           "Juli", "Augustus", "September", "Oktober", "November", "Desember" ];
+
             var t = $('#datatables').DataTable({
                 "order": [[ 1, "asc" ]],
                 "processing": true,
@@ -78,6 +81,13 @@ block content
                                     "render": function ( data, type, row ) {
                                                     return  "<a class='btn btn-danger btn-sm btn-round' href='/dataprodukintel/delete/"+ data[0] +"' role='button'>"+
                                                             "<i class='now-ui-icons ui-1_simple-remove'></i> Delete</a></td>";
+                                                },
+                                },
+                                {
+                                    "targets": 5,
+                                    "data": null,
+                                    "render": function ( data, type, row ) {
+                                                    return  months[data[5]];
                                                 },
                                 } ],
                 dom: 'Bfrtip',
