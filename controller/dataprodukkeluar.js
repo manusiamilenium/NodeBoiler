@@ -218,13 +218,15 @@ exports.delete = function (req, res) {
 exports.indexpengiriman = function (req, res) {
     var id_jenis_produk_keluar = req.params.id_jenis_produk_keluar;
     var title = "";
+    global.helper.render('pengirimanproduk', req, res, { moment: moment, data: {}, id_jenis_produk_keluar: id_jenis_produk_keluar, });
+    /*
     pengirimanproduk.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
             global.helper.render('pengirimanproduk', req, res, { moment: moment, data: rows, id_jenis_produk_keluar: id_jenis_produk_keluar, });
         }
-    });
+    });*/
 };
 exports.pengiriman = function (req, res) {
     var id_produk_keluar = req.params.id_produk_keluar;
