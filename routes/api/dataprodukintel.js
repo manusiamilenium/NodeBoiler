@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var alsus = require('../../api/dataprodukintel');
+var dataprodukintel = require('../../api/dataprodukintel');
 
-router.get('/data', alsus.fetchData);
+router.get('/data', dataprodukintel.fetchDatatables);
 
 module.exports = router;
