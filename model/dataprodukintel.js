@@ -88,7 +88,7 @@ exports.fetchData = async function (fields,callback,role=2,start=0,pagelength=10
                 orderQ += " jumlah_data_produk_intelijen "
                 break;
             default:
-                orderQ += " id_data_produk_intelijen "
+                orderQ += " id_data_produk_intelijen " 
                 break;
         }
         orderQ += " "+order.dir+" "
