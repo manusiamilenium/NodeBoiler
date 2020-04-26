@@ -8,13 +8,15 @@ var validation = require('../validator/kejadianmenonjol.js');
 
 exports.index = function (req, res) { 
     req.session.menuactive = 2;
+    global.helper.render('kejadianmenonjol', req, res,{data:{}});
+    /*
     model.getAll([req.session.user.id_user],function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {  
             global.helper.render('kejadianmenonjol', req, res,{data:rows});
         }
-    });
+    });*/
 };
 exports.createAction = function (req, res) { 
     var id_subdit = req.body.id_subdit;

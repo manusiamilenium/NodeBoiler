@@ -45,3 +45,52 @@ exports.getTotalsend = async function (callback) {
     'INNER JOIN user on potensi_gangguan.id_user = user.id_user '+
     'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ', callback);
 };
+
+exports.getTotal = async function (fields,callback,role=2) {
+    const baseQ = 'SELECT COUNT(*) as TOTAL FROM potensi_gangguan INNER JOIN user on potensi_gangguan.id_user = user.id_user '
+    let Q = baseQ;
+    
+    if(role == 2){
+        Q = baseQ + ' AND user.id_user = ? ';
+    }
+    
+    await connection.query(Q,fields, callback);
+};
+exports.fetchData = async function (fields,callback,role=2,start=0,pagelength=10,search='',order={}) {
+    const baseQ = 'SELECT id_potensi_gangguan,nama_satwil,tahun_potensi_gangguan,jumlah_potensi_gangguan FROM potensi_gangguan '+ 
+                    'INNER JOIN user on potensi_gangguan.id_user = user.id_user '+
+                    'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil '
+
+    const searchQ = "( nama_satwil LIKE '%"+search+
+                        "%' OR jumlah_potensi_gangguan LIKE '%"+search+ 
+                        "%' OR tahun_potensi_gangguan LIKE '%"+search+"%' )"; 
+    const pageString = ' LIMIT '+pagelength+' OFFSET '+start+' ';
+    let orderQ = ' ';
+    if(order){
+        orderQ += " ORDER BY "
+        switch (order.column) {
+            case 1:
+                orderQ += " nama_satwil "
+                break;
+            case 3:
+                orderQ += " jumlah_potensi_gangguan "
+                break;
+            case 2:
+                orderQ += " tahun_potensi_gangguan "
+                break;
+            default:
+                orderQ += " id_potensi_gangguan " 
+                break;
+        }
+        orderQ += " "+order.dir+" "
+    }
+    let query = baseQ;
+    if(role == 1){
+        query += " WHERE " + searchQ + orderQ + pageString;
+    }else if(role == 2){
+        query += " WHERE user.id_user = ? AND " + searchQ + orderQ + pageString;
+    }
+    console.log(fields);
+   //console.log(query);
+    await connection.query(query,fields, callback);
+};

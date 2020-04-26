@@ -100,4 +100,8 @@ module.exports = function (app) {
     app.use('/api/dataprodukkeluar',sessionChecker,  dataprodukkeluar);
     var datapengirimanproduk = require('./api/pengirimanproduk');
     app.use('/api/pengirimanproduk',sessionChecker,  datapengirimanproduk);
+    var datapotensigangguan= require('./api/potensigangguan');
+    app.use('/api/potensigangguan',sessionChecker,  datapotensigangguan);
+    var datakejadianmenonjol= require('./api/kejadianmenonjol');
+    app.use('/api/kejadianmenonjol',sessionChecker,  datakejadianmenonjol);
 };
