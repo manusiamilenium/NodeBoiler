@@ -94,5 +94,6 @@ module.exports = function (app) {
     //api
     var alsusapi = require('./api/alsus');
     app.use('/api/alsus',sessionChecker,  alsusapi);
-
+    var dataprodukintel = require('./api/dataprodukintel');
+    app.use('/api/dataprodukintel',sessionChecker,  dataprodukintel);
 };

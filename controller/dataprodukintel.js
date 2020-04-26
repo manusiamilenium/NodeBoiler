@@ -8,6 +8,8 @@ var produkintelmodel = require('../model/produkintel');
 var validation = require('../validator/dataprodukintel.js');
 exports.index = function (req, res) {
     req.session.menuactive = 3;
+    global.helper.render('dataprodukintel', req, res, { data: {} });
+    /*
     model.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
@@ -15,7 +17,7 @@ exports.index = function (req, res) {
             global.helper.render('dataprodukintel', req, res, { data: rows });
 
         }
-    });
+    });*/
 };
 exports.createAction = function (req, res) { 
     var id_subdit = req.body.id_subdit;
