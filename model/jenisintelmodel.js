@@ -1,6 +1,7 @@
 "use strict";
 
 var connection = require('../connection');
+var helper = require('./helper');
 
 exports.getAll = async function (callback) {
     await connection.query('SELECT * FROM jenis_kegiatan_intelijen', callback);
@@ -16,4 +17,12 @@ exports.edit = async function(fields,callback) {
 };
 exports.delete  = async function(fields,callback) {
     await connection.query('DELETE FROM jenis_kegiatan_intelijen WHERE id_jenis = ?',fields,callback);
+};
+
+//decluttering
+
+exports.getAlldata = async function (onSuccess,onError) {
+   return  await connection.query('SELECT * FROM jenis_kegiatan_intelijen', (error, rows, fields) => {
+         helper.handleResult (error, rows, fields,onSuccess,onError)
+    });
 };

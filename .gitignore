@@ -1,2 +1,7 @@
 *.pdf
+<<<<<<< HEAD
 launch.json
+=======
+.vscode/launch.json
+.vscode/settings.json
+>>>>>>> e3be260451843731d39f656063cfd74ae60933e4

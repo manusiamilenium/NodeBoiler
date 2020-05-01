@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var pengirimanproduk = require('../../api/pengirimanproduk');
+var pengirimanproduk = require('../../controller/api/pengirimanproduk');
 
 router.get('/data', pengirimanproduk.fetchDatatables);
 

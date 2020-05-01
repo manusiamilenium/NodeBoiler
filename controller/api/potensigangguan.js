@@ -1,6 +1,6 @@
 'use strict';
 
-var model = require('../model/kejadianmenonjol');
+var model = require('../../model/potensigangguan');
 var helper = require('./helper');
 //api
 exports.fetchDatatables = async (req, res) =>  { 
