@@ -18,6 +18,9 @@ module.exports = {
             }
         });
     },
+    getRefferences:  (model,onSuccess,onError) => {
+        return model.getAlldata(onSuccess,onError);
+    },
 
     getUploadStorage: (multer,path) => {
         return multer.diskStorage({
@@ -54,8 +57,5 @@ module.exports = {
         } 
         return valid;
     },
-   
-
-
-
+ 
 }

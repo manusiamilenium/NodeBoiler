@@ -1,6 +1,6 @@
 'use strict';
 
-var model = require('../model/dataprodukintel');
+var model = require('../../model/alsus');
 var helper = require('./helper');
 //api
 exports.fetchDatatables = async (req, res) =>  {

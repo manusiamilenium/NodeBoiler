@@ -1,6 +1,6 @@
 'use strict';
 
-var model = require('../model/dataprodukkeluar');
+var model = require('../../model/dataprodukkeluar');
 var helper = require('./helper');
 //api
 exports.fetchDatatables = async (req, res) =>  {

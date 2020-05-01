@@ -104,4 +104,6 @@ module.exports = function (app) {
     app.use('/api/potensigangguan',sessionChecker,  datapotensigangguan);
     var datakejadianmenonjol= require('./api/kejadianmenonjol');
     app.use('/api/kejadianmenonjol',sessionChecker,  datakejadianmenonjol);
+    var datakegiatanintel= require('./api/kegiatanintel');
+    app.use('/api/kegiatanintel',sessionChecker,  datakegiatanintel);
 };
