@@ -84,25 +84,25 @@ block content
                                 extend: 'print',
                                 text: 'Print',
                                 className: 'btn btn-primary btn-sm',
-                                action: serverSideButtonAction
+                                action: $(document).serverSideButtonAction
                             },
                             {
                                 extend: 'copy',
                                 text: 'Copy',
                                 className: 'btn btn-warning btn-sm',
-                                action: serverSideButtonAction
+                                action: $(document).serverSideButtonAction
                             },
                             {
                                 extend: 'excel',
                                 text: 'Excel',
                                 className: 'btn btn-success btn-sm',
-                                action: serverSideButtonAction
+                                action: $(document).serverSideButtonAction
                             },
                             {
                                 extend: 'pdf',
                                 text: 'pdf',
                                 className: 'btn btn-info btn-sm',
-                                action: serverSideButtonAction
+                                action: $(document).serverSideButtonAction
                             }
                         ]
             });
@@ -113,30 +113,4 @@ block content
                         t.cell(cell).invalidate('dom');
                     } );
                 } );
-
-            function serverSideButtonAction(e, dt, node, config) {
- 
-                var me = this;
-                var button = config.text.toLowerCase();
-                if (typeof $.fn.dataTable.ext.buttons[button] === "function") {
-                    button = $.fn.dataTable.ext.buttons[button]();
-                }
-                var len = dt.page.len();
-                var start = dt.page();
-                dt.page(0);
-        
-                dt.context[0].aoDrawCallback.push({
-                    "sName": "ssb",
-                    "fn": function () {
-                        $.fn.dataTable.ext.buttons[button].action.call(me, e, dt, node, config);
-                        dt.context[0].aoDrawCallback = dt.context[0].aoDrawCallback.filter(function (e) { return e.sName !== "ssb" });
-                    }
-                });
-                dt.page.len(999999999).draw();
-                setTimeout(function () {
-                    dt.page(start);
-                    dt.page.len(len).draw();
-                }, 500);
-            }
-
         } );
