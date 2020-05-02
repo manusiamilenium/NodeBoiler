@@ -11,13 +11,15 @@ exports.indexAlsus = function (req, res) {
 };
 exports.indexRealisasi = function (req, res) {
     var title = "";  
+    global.helper.render('alsus_realisasi_data', req, res, { data: {}, title: title });
+    /*
     rmodel.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
         } else {
             global.helper.render('alsus_realisasi_data', req, res, { data: rows, title: title });
         }
-    });
+    });*/
 };
 
 exports.createAlsus = function (req, res) {
