@@ -5,12 +5,12 @@ var uamodel = require('../model/useractivity');
 var rmodel = require('../model/alsusrealisasi');
 var validation = require('../validator/alsus.js');
 exports.indexAlsus = function (req, res) {
-    var title = ""; 
+    var title = "";
     req.session.menuactive = 5;
     global.helper.render('alsus_data', req, res, { data: {}, title: title });
 };
 exports.indexRealisasi = function (req, res) {
-    var title = "";  
+    var title = "";
     rmodel.getAll([req.session.user.id_user], function (error, rows, fields) {
         if (error) {
             console.log(error)
@@ -22,18 +22,19 @@ exports.indexRealisasi = function (req, res) {
 
 exports.createAlsus = function (req, res) {
     var id_penggunaan_alsus = "";
-    id_penggunaan_alsus = req.params.id_penggunaan_alsus; 
-    model.getData([id_penggunaan_alsus, req.session.user.id_user], function (error, rows, fields) {
-        if (error) {
-            global.helper.render('alsus_data_add', req, res, { edit: "", data: {} });
+    id_penggunaan_alsus = req.params.id_penggunaan_alsus;
+    const onError = (error) => {
+        global.helper.render('alsus_data_add', req, res, { edit: "", data: {} });
+    }
+    const onSuccess = async (results) => {
+        if (results[0]) {
+            global.helper.render('alsus_data_add', req, res, { data: results[0], edit: "edit" });
         } else {
-            if (rows[0]) {
-                global.helper.render('alsus_data_add', req, res, { data: rows[0], edit: "edit" });
-            } else {
-                global.helper.render('alsus_data_add', req, res, { edit: "", data: {} });
-            }
+            global.helper.render('alsus_data_add', req, res, { edit: "", data: {} });
         }
-    });
+    }
+
+    model.getData([id_penggunaan_alsus, req.session.user.id_user], onSuccess, onError, req.session.user.role);
 };
 
 exports.createAlsusAction = function (req, res) {
@@ -41,7 +42,7 @@ exports.createAlsusAction = function (req, res) {
     var multer = require('multer');
     var path = require('path');
 
-    let upload = multer({ storage: global.helper.getUploadStorage(multer,path), fileFilter: global.helper.getFileFilter}).single('attachment');
+    let upload = multer({ storage: global.helper.getUploadStorage(multer, path), fileFilter: global.helper.getFileFilter }).single('attachment');
 
     upload(req, res, function (err) {
         // req.file contains information of uploaded file
@@ -52,10 +53,10 @@ exports.createAlsusAction = function (req, res) {
             req.session.notification = error.message;
             req.session.notificationtype = "error";
             global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
-             
+
         } else {
-             
-            if(!global.helper.multerValidate(req,multer,err)){
+
+            if (!global.helper.multerValidate(req, multer, err)) {
                 req.session.notification = 'Mohon lengkapi upload dokumen ';
                 req.session.notificationtype = "error";
                 global.helper.render('alsus_data_add', req, res, { edit: "", data: req.body });
@@ -67,20 +68,17 @@ exports.createAlsusAction = function (req, res) {
                 var buff = new Buffer(encode_image, 'base64')
                 var tahun_penggunaan_alsus = req.body.tahun_penggunaan_alsus;
                 var jumlah_penggunaan_alsus = req.body.jumlah_penggunaan_alsus;
-                model.add([req.session.user.id_user, tahun_penggunaan_alsus, jumlah_penggunaan_alsus, buff], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    } else {
-                        uamodel.add([req.session.user.id_user, "Mengisi Data alsus"], function (error, rows, fields) {
-                            if (error) {
-                                console.log(error)
-                            }
-                        });
-                        req.session.notification = "Berhasil Ditambah";
-                        req.session.notificationtype = "success";
-                        res.redirect('/alsus/');
-                    }
-                });
+                const onError = async (error) => {
+
+                }
+                const onSuccess = async (results) => {
+                    uamodel.loguser([req.session.user.id_user, "Mengisi Data alsus"], (r) => { });
+                    req.session.notification = "Berhasil Ditambah";
+                    req.session.notificationtype = "success";
+                    res.redirect('/alsus/');
+                }
+
+                model.add([req.session.user.id_user, tahun_penggunaan_alsus, jumlah_penggunaan_alsus, buff], onSuccess, onError);
             }
         }
 
@@ -89,26 +87,23 @@ exports.createAlsusAction = function (req, res) {
 
 
 };
-exports.deleteAlsus = function (req, res) { 
+exports.deleteAlsus = function (req, res) {
     var id_penggunaan_alsus = req.params.id_penggunaan_alsus;
-    model.delete([id_penggunaan_alsus], function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else {
-            uamodel.add([req.session.user.id_user, "Menghapus Data Alsus"], function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                }
-            });
-            req.session.notification = "Berhasil Dihapus";
-            req.session.notificationtype = "success";
-            res.redirect('/alsus/');
-        }
-    });
+    const onError = async (error) => {
+
+    }
+    const onSuccess = async (results) => {
+        uamodel.loguser([req.session.user.id_user, "Menghapus Data Alsus"], (r) => { });
+        req.session.notification = "Berhasil Dihapus";
+        req.session.notificationtype = "success";
+        res.redirect('/alsus/');
+    }
+
+    model.delete([id_penggunaan_alsus], onSuccess, onError);
 };
 
 exports.fileAlsus = function (req, res) {
-     
+
     var id_penggunaan_alsus = req.params.id_penggunaan_alsus;
 
 
@@ -146,26 +141,26 @@ exports.createAlsusRealisasi = function (req, res) {
     rmodel.getData([id_realisasi_alsus], function (error, rows, fields) {
         if (error) {
             console.log(error);
-            global.helper.render('alsus_realisasi_add', req, res, { edit: "",data: {} });
+            global.helper.render('alsus_realisasi_add', req, res, { edit: "", data: {} });
         } else {
             if (rows[0]) {
                 global.helper.render('alsus_realisasi_add', req, res, { data: rows[0], edit: "edit" });
             } else {
-                global.helper.render('alsus_realisasi_add', req, res, { edit: "",data: {} });
+                global.helper.render('alsus_realisasi_add', req, res, { edit: "", data: {} });
             }
         }
     });
 };
-exports.createAlsusRealisasiAction = function (req, res) { 
+exports.createAlsusRealisasiAction = function (req, res) {
     var tahun_realisasi_alsus = req.body.tahun_realisasi_alsus;
     var bulan_realisasi_alsus = req.body.bulan;
     var jumlah_realisasi_alsus = req.body.jumlah_realisasi_alsus;
     var uraian_realisasi_alsus = req.body.uraian_realisasi_alsus;
-    if(tahun_realisasi_alsus==""||bulan_realisasi_alsus==""||jumlah_realisasi_alsus==""||uraian_realisasi_alsus==""){
+    if (tahun_realisasi_alsus == "" || bulan_realisasi_alsus == "" || jumlah_realisasi_alsus == "" || uraian_realisasi_alsus == "") {
         req.session.notification = 'Mohon lengkapi isian form';
         req.session.notificationtype = "error";
         global.helper.render('alsus_realisasi_add', req, res, { edit: "", data: req.body });
-    }else{
+    } else {
         rmodel.add([req.session.user.id_user, tahun_realisasi_alsus, bulan_realisasi_alsus, jumlah_realisasi_alsus, uraian_realisasi_alsus], function (error, rows, fields) {
             if (error) {
                 console.log(error)
