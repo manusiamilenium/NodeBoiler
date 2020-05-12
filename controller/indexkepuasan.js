@@ -4,16 +4,18 @@ var response = require('../result');
 var model = require('../model/indexkepuasan');
 var uamodel = require('../model/useractivity');
 var validation = require('../validator/indexkepuasan.js');
+var helper = require('./helper');
 
 exports.index = function (req, res) { 
     req.session.menuactive = 1;
-    model.getAll([req.session.user.id_user],function (error, rows, fields) {
-        if (error) {
-            console.log(error)
-        } else { 
-            global.helper.render('indexkepuasan', req, res, { data: rows }); 
-        }
-    });
+    const onError = (error) => {
+         
+    }
+    const onSuccess = async (results) => {
+        helper.render('indexkepuasan', req, res, { data: results }); 
+    }
+
+    model.getAll([req.session.user.id_user],req.session.user.role,onSuccess,onError);
 };
 exports.createAction = function (req, res) {
     var multer = require('multer');
@@ -45,11 +47,7 @@ exports.createAction = function (req, res) {
                 if (error) {
                     console.log(error)
                 } else {
-                    uamodel.add([req.session.user.id_user, "Mengisi Index Kepuasan"], function (error, rows, fields) {
-                        if (error) {
-                            console.log(error)
-                        }
-                    });
+                    uamodel.loguser([req.session.user.id_user,  "Mengisi Index Kepuasan"],(r) => { });
                     req.session.notification = "Berhasil Ditambah";
                     req.session.notificationtype = "success";
                     res.redirect('/indexkepuasan');
@@ -60,45 +58,44 @@ exports.createAction = function (req, res) {
 };
 exports.fileDownload = function (req, res) { 
     var id_index_kepuasan = req.params.id_index_kepuasan;
-    model.getData([id_index_kepuasan,req.session.user.id_user],
-        function (error, rows, fields) {
-            if (error) {
-                console.log(error)
-            } else {
-                uamodel.add([req.session.user.id_user, "Download File Index Kepuasan"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
-                var buffer = rows[0].attachment_index_kepuasan
-                const fs = require('fs');
-                fs.writeFile('attachment_index_kepuasan.pdf', buffer, 'binary', function(err) {
-                    if(err) {
-                        console.log(err);
-                    }else{
-                        console.log('file saved');
-                        fs.readFile('attachment_index_kepuasan.pdf', (err, data) => {
-                            res.contentType("application/pdf");
-                            res.send(data);//
-                        });
-                    }
+    const onError = (error) => {
+         
+    }
+    const onSuccess = async (rows) => {
+         
+        uamodel.loguser([req.session.user.id_user, "Download File Index Kepuasan"],(r) => { });
+        var buffer = rows[0].attachment_index_kepuasan
+        const fs = require('fs');
+        fs.writeFile('attachment_index_kepuasan.pdf', buffer, 'binary', function(err) {
+            if(err) {
+                console.log(err);
+            }else{
+                console.log('file saved');
+                fs.readFile('attachment_index_kepuasan.pdf', (err, data) => {
+                    res.contentType("application/pdf");
+                    res.send(data);//
                 });
             }
         });
+    }
+
+    model.getData([id_index_kepuasan,req.session.user.id_user],req.session.user.role,onSuccess,onError);
 };
 exports.create = function (req, res) { 
     var id_index_kepuasan = req.params.id_index_kepuasan;
-    model.getData([id_index_kepuasan,req.session.user.id_user], function (error, rows, fields) {
-        if (error) {
-            console.log(error);
+    const onError = (error) => {
+         
+    }
+    const onSuccess = async (rows) => {
+        console.log(rows);
+        if (rows[0]) {
+            res.render('indexkepuasanadd', { data: rows[0], edit: "edit" });
         } else {
-            if (rows[0]) {
-                res.render('indexkepuasanadd', { data: rows[0], edit: "edit" });
-            } else {
-                res.render('indexkepuasanadd', { edit: "" });
-            }
+            res.render('indexkepuasanadd', { edit: "",data:{} });
         }
-    });
+    }
+
+    model.getData([id_index_kepuasan,req.session.user.id_user],req.session.user.role,onSuccess,onError);
 };
 
 exports.updateAction = function (req, res) { 

@@ -57,14 +57,15 @@ exports.getTotal = async function (fields, onSuccess, onError, role = 2) {
     });
 };
 exports.fetchData = async function (fields, onSuccess, onError, role = 2, start = 0, pagelength = 10, search = '', order = {}) {
-    const baseQ = 'SELECT id_kegiatan_intelijen,nama_satwil,bulan_kegiatan_intelijen,tahun_kegiatan_intelijen,jenis_kegiatan_intelijen,jumlah_kegiatan_intelijen,reduksi_kegiatan_intelijen,uraian_kegiatan_intelijen FROM kegiatan_intelijen ' +
+    const baseQ = 'SELECT id_kegiatan_intelijen,nama_satwil,bulan_kegiatan_intelijen,tahun_kegiatan_intelijen,nama_jenis,jumlah_kegiatan_intelijen,reduksi_kegiatan_intelijen,uraian_kegiatan_intelijen FROM kegiatan_intelijen ' +
+    ' INNER JOIN jenis_kegiatan_intelijen ON kegiatan_intelijen.jenis_kegiatan_intelijen = jenis_kegiatan_intelijen.id_jenis ' +
         'INNER JOIN user on kegiatan_intelijen.id_user = user.id_user ' +
         'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil '
 
     const searchQ = "( nama_satwil LIKE '%" + search +
         "%' OR bulan_kegiatan_intelijen LIKE '%" + search +
         "%' OR tahun_kegiatan_intelijen LIKE '%" + search +
-        "%' OR jenis_kegiatan_intelijen LIKE '%" + search +
+        "%' OR nama_jenis LIKE '%" + search +
         "%' OR jumlah_kegiatan_intelijen LIKE '%" + search +
         "%' OR reduksi_kegiatan_intelijen LIKE '%" + search +
         "%' OR uraian_kegiatan_intelijen LIKE '%" + search + "%' )";
@@ -83,7 +84,7 @@ exports.fetchData = async function (fields, onSuccess, onError, role = 2, start 
                 orderQ += " tahun_kegiatan_intelijen "
                 break;
             case 4:
-                orderQ += " jenis_kegiatan_intelijen "
+                orderQ += " nama_jenis "
                 break;
             case 5:
                 orderQ += " jumlah_kegiatan_intelijen "

@@ -2,7 +2,7 @@ extends topmenu/alsus_menu.pug
 block content-header
     .panel-header.panel-header-sm 
 block content
-      .row
+    .row
         .col-md-12
             .card
                 .card-header
@@ -13,14 +13,16 @@ block content
                         |  Tambah      
                 .card-body
                     .table-responsive
-                        table#datatable.table
+                        table#datatables.table
                             thead.text-primary
                                 th
                                     | No
                                 th
-                                    | Bulan / Tahun
-                                th
                                     | Satwil
+                                th
+                                    | Tahun
+                                th
+                                    | Bulan 
                                 th
                                     | Jumlah Realisasi Alsus
                                 th(style="width: 30%")
@@ -44,3 +46,65 @@ block content
                                             a.btn.btn-danger.btn-round(href='/alsus/realisasidelete/'+ val["id_realisasi_alsus"] role='button')
                                                 i.now-ui-icons.ui-1_simple-remove
                                                 |  Delete
+    script.
+        $(document).ready( function () {
+            var months = [ "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
+           "Juli", "Augustus", "September", "Oktober", "November", "Desember" ];
+            var t = $('#datatables').DataTable({
+                "order": [[ 1, "asc" ]],
+                "processing": true,
+                "language": {
+                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '},
+                "serverSide": true,
+                "ajax": "/api/alsus/rdata", 
+                "columnDefs": [ {
+                                    "targets": -1,
+                                    "data": null,
+                                    "render": function ( data, type, row ) {
+                                                    return  "<a class='btn btn-sm btn-danger btn-round' href='/alsus/realisasidelete/"+ data[0] +"' role='button'>"+
+                                                            "<i class='now-ui-icons ui-1_simple-remove'></i> Delete</a></td>";
+                                                },
+                                },
+                                {
+                                    "targets": 3,
+                                    "data": null,
+                                    "render": function ( data, type, row ) {
+                                                    return  months[data[3]];
+                                                },
+                                } ],
+                dom: 'Bfrtip',
+                buttons: [
+                            {
+                                extend: 'print',
+                                text: 'Print',
+                                className: 'btn btn-primary btn-sm',
+                                action:  $(document).serverSideButtonAction
+                            },
+                            {
+                                extend: 'copy',
+                                text: 'Copy',
+                                className: 'btn btn-warning btn-sm',
+                                action:  $(document).serverSideButtonAction
+                            },
+                            {
+                                extend: 'excel',
+                                text: 'Excel',
+                                className: 'btn btn-success btn-sm',
+                                action:  $(document).serverSideButtonAction
+                            },
+                            {
+                                extend: 'pdf',
+                                text: 'pdf',
+                                className: 'btn btn-info btn-sm',
+                                action:  $(document).serverSideButtonAction
+                            }
+                        ]
+            });
+              t.on( 'draw.dt', function () {
+                var PageInfo = $('#datatables').DataTable().page.info();
+                    t.column(0, { page: 'current' }).nodes().each( function (cell, i) {
+                        cell.innerHTML = i + 1 + PageInfo.start;
+                        t.cell(cell).invalidate('dom');
+                    } );
+                } );
+        } );
