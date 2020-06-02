@@ -1,24 +1,34 @@
 "use strict";
 
 var connection = require('../connection');
+var helper = require('./helper');
  
-exports.getAll = async function (fields,callback) {
-    if(fields[0] == 1){
-        await connection.query('SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan FROM index_kepuasan '+ 
-                            'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil   ',fields, callback);
+exports.getAll = async function (fields,role, onSuccess, onError) {
+    let Q = ' SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan FROM index_kepuasan '+ 
+                'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
+                'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil ';
+    if(role == 1){
+       Q +='';
     }else{
-    await connection.query('SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan FROM index_kepuasan '+ 
-                            'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil  WHERE user.id_user = ? ',fields, callback);
+        Q+='  WHERE user.id_user = ? ';
     }
+    await connection.query(Q,fields, (error, rows, fields) => {
+                                helper.handleResult(error, rows, fields, onSuccess, onError)
+                            });
 };
 
-exports.getData = async function(fields,callback) {
-    
-    await connection.query('SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan,attachment_index_kepuasan FROM index_kepuasan '+ 
-                            'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
-                            'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil where id_index_kepuasan = ? AND user.id_user = ? ',fields, callback);
+exports.getData = async function(fields,role, onSuccess, onError) {
+    let Q = ' SELECT id_index_kepuasan,nama_satwil,index_kepuasan.value_index_kepuasan,attachment_index_kepuasan FROM index_kepuasan '+ 
+             'INNER JOIN user on index_kepuasan.id_user = user.id_user '+
+             'INNER JOIN satwil ON satwil.id_satwil = user.id_satwil where id_index_kepuasan = ? ';
+    if(role == 1){
+       Q +='';
+    }else{
+        Q+='  AND user.id_user = ? ';
+    }
+    await connection.query(Q,fields, (error, rows, fields) => {
+                                helper.handleResult(error, rows, fields, onSuccess, onError)
+                            }); 
 };
 exports.add= async function(fields,callback) {
     await connection.query('INSERT INTO  index_kepuasan (id_user,value_index_kepuasan,attachment_index_kepuasan) values (?,?,?)',fields,callback);
