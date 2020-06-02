@@ -8,7 +8,7 @@ global.config = require('./config');
 global.helper = require('./controller/helper');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(compression())
+//app.use(compression())
 global.tokenList = {} 
 
 app.set('views', path.join(__dirname, 'views'));
