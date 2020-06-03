@@ -3,6 +3,7 @@ var tokenize = require('../services/TokenValidator'),
     refresh = require('../services/RefreshToken'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    redis = require("redis"),
     MySQLStore = require('express-mysql-session')(session);
 
 var options = {
@@ -11,6 +12,31 @@ var options = {
     password: config.mysql.password,
     database: config.mysql.database
 };
+const redis_client = redis.createClient(6379);
+
+let cacheMiddleware = (duration) => {
+    return (req, res, next) => {
+        let key =  '__express__' + req.originalUrl || req.url
+        redis_client.get(key, (err, data) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send(err);
+            }
+            //if no match found
+            if (data != null) {
+                //send cache
+              res.send(data);
+            } else {
+                res.sendResponse = res.send
+                res.send = (body) => {
+                    redis_client.setex(key, duration*1000, JSON.stringify(body));
+                    res.sendResponse(body)
+                }
+                next()
+            }
+          });
+    }
+}
 
 var sessionStore = new MySQLStore(options);
 module.exports = function (app) {
@@ -95,7 +121,7 @@ module.exports = function (app) {
     var alsusapi = require('./api/alsus');
     app.use('/api/alsus',sessionChecker,  alsusapi);
     var dataprodukintel = require('./api/dataprodukintel');
-    app.use('/api/dataprodukintel',sessionChecker,  dataprodukintel);
+    app.use('/api/dataprodukintel',sessionChecker,cacheMiddleware(30),  dataprodukintel);
     var dataprodukkeluar = require('./api/dataprodukkeluar');
     app.use('/api/dataprodukkeluar',sessionChecker,  dataprodukkeluar);
     var datapengirimanproduk = require('./api/pengirimanproduk');
