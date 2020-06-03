@@ -111,7 +111,7 @@ module.exports = function (app) {
     produkkeluar(app, sessionChecker);
     indexkepuasan(app, sessionChecker);
     potensigangguan(app, sessionChecker);
-    dataprodukintel(app, sessionChecker,cacheMiddleware(30));
+    dataprodukintel(app, sessionChecker);
     kejadianmenonjol(app, sessionChecker);
     dataprodukkeluar(app, sessionChecker);
     kegiatanintel(app, sessionChecker);

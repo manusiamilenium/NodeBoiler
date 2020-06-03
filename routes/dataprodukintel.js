@@ -1,10 +1,10 @@
 'use strict';
  
-module.exports = function (app, sessionChecker,cacheCheck) {
+module.exports = function (app, sessionChecker) {
     var dataprodukintel = require('../controller/dataprodukintel');
 
     app.route('/dataprodukintel')
-        .get(sessionChecker,cacheCheck, dataprodukintel.index);
+        .get(sessionChecker, dataprodukintel.index);
     app.route('/dataprodukintel/:id_data_produk_intelijen')
         .get(sessionChecker, dataprodukintel.create);
     app.route('/dataprodukintel/add')
