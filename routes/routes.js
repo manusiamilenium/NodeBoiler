@@ -119,17 +119,17 @@ module.exports = function (app) {
     
     //api
     var alsusapi = require('./api/alsus');
-    app.use('/api/alsus',sessionChecker,  alsusapi);
+    app.use('/api/alsus',sessionChecker,cacheMiddleware(30),  alsusapi);
     var dataprodukintel = require('./api/dataprodukintel');
     app.use('/api/dataprodukintel',sessionChecker,cacheMiddleware(30),  dataprodukintel);
     var dataprodukkeluar = require('./api/dataprodukkeluar');
-    app.use('/api/dataprodukkeluar',sessionChecker,  dataprodukkeluar);
+    app.use('/api/dataprodukkeluar',sessionChecker,cacheMiddleware(30),  dataprodukkeluar);
     var datapengirimanproduk = require('./api/pengirimanproduk');
-    app.use('/api/pengirimanproduk',sessionChecker,  datapengirimanproduk);
+    app.use('/api/pengirimanproduk',sessionChecker,cacheMiddleware(30),  datapengirimanproduk);
     var datapotensigangguan= require('./api/potensigangguan');
-    app.use('/api/potensigangguan',sessionChecker,  datapotensigangguan);
+    app.use('/api/potensigangguan',sessionChecker,cacheMiddleware(30),  datapotensigangguan);
     var datakejadianmenonjol= require('./api/kejadianmenonjol');
-    app.use('/api/kejadianmenonjol',sessionChecker,  datakejadianmenonjol);
+    app.use('/api/kejadianmenonjol',sessionChecker,cacheMiddleware(30),  datakejadianmenonjol);
     var datakegiatanintel= require('./api/kegiatanintel');
-    app.use('/api/kegiatanintel',sessionChecker,  datakegiatanintel);
+    app.use('/api/kegiatanintel',sessionChecker,cacheMiddleware(30),  datakegiatanintel);
 };
