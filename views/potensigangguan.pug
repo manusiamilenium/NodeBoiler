@@ -76,40 +76,12 @@ block content
                               ],
                                  
                 dom: 'Bfrtip',
-                buttons: [
-                            {
-                                extend: 'print',
-                                text: 'Print',
-                                className: 'btn btn-primary btn-sm',
-                                action: $(document).serverSideButtonAction
-                            },
-                            {
-                                extend: 'copy',
-                                text: 'Copy',
-                                className: 'btn btn-warning btn-sm',
-                                action: $(document).serverSideButtonAction
-                            },
-                            {
-                                extend: 'excel',
-                                text: 'Excel',
-                                className: 'btn btn-success btn-sm',
-                                action: $(document).serverSideButtonAction
-                            },
-                            {
-                                extend: 'pdf',
-                                text: 'pdf',
-                                className: 'btn btn-info btn-sm',
-                                action: $(document).serverSideButtonAction
-                            }
-                        ]
+                buttons: generateButton()
             });
-              t.on( 'draw.dt', function () {
+            t.on( 'draw.dt', function () {
                 var PageInfo = $('#datatables').DataTable().page.info();
-                    t.column(0, { page: 'current' }).nodes().each( function (cell, i) {
-                        cell.innerHTML = i + 1 + PageInfo.start;
-                        t.cell(cell).invalidate('dom');
-                    } );
-                } );
+                createIndex(t,PageInfo);
+            });
  
 
         } );
