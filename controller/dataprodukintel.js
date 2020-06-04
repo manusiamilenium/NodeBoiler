@@ -29,7 +29,6 @@ exports.createAction = function (req, res) {
     var jenis = [];
     const error = validation(req.body).error;
     if (error) {
-        
         req.session.notification = error.message;
         req.session.notificationtype = "error";
         global.helper.getRefference(subditmodel,function (error, rows) {
@@ -44,11 +43,7 @@ exports.createAction = function (req, res) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([req.session.user.id_user, "Mengisi Data Produk Intelijen"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
+                uamodel.loguser([req.session.user.id_user, "Mengisi Data Produk Intelijen"],(r) => { }); 
                 req.session.notification = "Berhasil Ditambah";
                 req.session.notificationtype = "success";
                 res.redirect('/dataprodukintel');
@@ -73,7 +68,7 @@ exports.create = async function (req, res) {
                     if (rows[0]) {
                         res.render('dataprodukinteladd', { data: rows[0], subdit: subdits, jenis: jenis, edit: "edit" });
                     } else {
-                        //console.log(getData(subditmodel));
+                         
                         global.helper.render('dataprodukinteladd', req, res, { subdit: subdits, jenis: jenis, edit: "", data: {} });
                     }
                 }
@@ -98,11 +93,10 @@ exports.updateAction = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add([req.session.user.id_user,"Mengedit Data Intelijen"], function (error, rows, fields) { });
+            uamodel.loguser([req.session.user.id_user, "Mengedit Data Intelijen"],(r) => { });  
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/dataprodukintel');
-
         }
     });
 };
@@ -114,11 +108,7 @@ exports.delete = function (req, res) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([req.session.user.id_user, "Menghapus Data Produk Intelijen"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
+                uamodel.loguser([req.session.user.id_user, "Menghapus Data Produk Intelijen"],(r) => { });  
                 req.session.notification = "Berhasil Dihapus";
                 req.session.notificationtype = "success";
                 res.redirect('/dataprodukintel');

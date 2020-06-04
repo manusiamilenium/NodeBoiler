@@ -108,8 +108,7 @@ exports.fetchData = async function (fields, onSuccess, onError, role = 2, start 
     } else if (role == 2) {
         query += " WHERE user.id_user = ? AND " + searchQ + orderQ + pageString;
     }
-    //console.log(fields);
-    //console.log(query);
+    
     await connection.query(query, fields, (error, rows, fields) => {
         helper.handleResult(error, rows, fields, onSuccess, onError)
     });

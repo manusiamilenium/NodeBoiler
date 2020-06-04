@@ -31,7 +31,7 @@ exports.changepaction = function (req, res) {
                                 req.session.notificationtype = "error";
                                 global.helper.render('userchangepassword',req,res,{data: {},});
                             } else {
-                                console.log('this.sql', this.sql); 
+                                 
                                 req.session.notification = "Penggantian password berhasil ";
                                 req.session.notificationtype = "success";
                                 global.helper.render('userchangepassword',req,res,{data: {},});

@@ -27,7 +27,7 @@ module.exports = {
                         console.log(error)
                     } else {
                         data['data'] = results.map((item) => Object.values(item))
-                        //console.log("data : ",data);
+                         
                         response.ok(data, res);
 
                     }
