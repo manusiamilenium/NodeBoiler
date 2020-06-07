@@ -74,7 +74,6 @@ exports.fetchData = async function (fields,callback,role=2,start=0,pagelength=10
     }else if(role == 2){
         query += " WHERE user.id_user = ? AND " + searchQ + orderQ + pageString;
     }
-    console.log(fields);
-   //console.log(query);
+     
     await connection.query(query,fields, callback);
 };

@@ -25,7 +25,7 @@ exports.createAction = function (req, res) {
     upload(req, res, function (err) {
         // req.file contains information of uploaded file
         // req.body contains information of text fields, if there were any
-        //console.log(req.file);
+         
         const error = validation(req.body).error; 
         if(error){
             req.session.notification = error.message;
@@ -70,7 +70,7 @@ exports.fileDownload = function (req, res) {
             if(err) {
                 console.log(err);
             }else{
-                console.log('file saved');
+                 
                 fs.readFile('attachment_index_kepuasan.pdf', (err, data) => {
                     res.contentType("application/pdf");
                     res.send(data);//
@@ -105,7 +105,7 @@ exports.updateAction = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add([req.session.user.id_user,"Mengedit Index Kepuasan"], function (error, rows, fields) { });
+            uamodel.loguser([req.session.user.id_user, "Mengedit Index Kepuasan"],(r) => { }); 
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/indexkepuasan');
@@ -120,11 +120,7 @@ exports.delete = function (req, res) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([req.session.user.id_user, "Menghapus Index Kepuasan"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
+                uamodel.loguser([req.session.user.id_user, "Menghapus Index Kepuasan"],(r) => { }); 
                 req.session.notification = "Berhasil Dihapus";
                 req.session.notificationtype = "success";
                 res.redirect('/indexkepuasan');

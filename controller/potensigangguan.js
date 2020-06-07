@@ -50,11 +50,8 @@ exports.createAction = function (req, res) {
                 if (error) {
                     console.log(error)
                 } else {
-                    uamodel.add([req.session.user.id_user, "Mengisi Potensi Gangguan"], function (error, rows, fields) {
-                        if (error) {
-                            console.log(error)
-                        }
-                    });
+                     
+                    uamodel.loguser([req.session.user.id_user, "Mengisi Potensi Gangguan"],(r) => { }); 
                     req.session.notification = "Berhasil Ditambah";
                     req.session.notificationtype = "success";
                     res.redirect('/potensigangguan');
@@ -86,27 +83,21 @@ exports.fileDownload = function (req, res) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([req.session.user.id_user, "Mendownload file Potensi Gangguan"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
+                uamodel.loguser([req.session.user.id_user, "Mendownload file Potensi Gangguan"],(r) => { }); 
                 var buffer = rows[0].attachment_potensi_gangguan
                 const fs = require('fs');
                 fs.writeFile('attachment_potensi_gangguan.pdf', buffer, 'binary', function (err) {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log('file saved');
+                         
                         fs.readFile('attachment_potensi_gangguan.pdf', (err, data) => {
                             res.contentType("application/pdf");
                             res.send(data);//
                         });
                     }
                 });
-                //req.session.notification = "Berhasil Dihapus";
-                //req.session.notificationtype = "success";
-                //res.redirect('/potensigangguan');
+                 
             }
         });
 };
@@ -121,7 +112,7 @@ exports.updateAction = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add([req.session.user.id_user,"Mengedit Potensi Gangguan"], function (error, rows, fields) { });
+            uamodel.loguser([req.session.user.id_user, "Mengedit Potensi Gangguan"],(r) => { }); 
             req.session.notification = "Berhasil Ditambah";
             req.session.notificationtype = "success";
             res.redirect('/potensigangguan');
@@ -136,11 +127,7 @@ exports.delete = function (req, res) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([req.session.user.id_user, "Menghapus Potensi Gangguan"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
+                uamodel.loguser([req.session.user.id_user, "Menghapus Potensi Gangguan"],(r) => { }); 
                 req.session.notification = "Berhasil Dihapus";
                 req.session.notificationtype = "success";
                 res.redirect('/potensigangguan');

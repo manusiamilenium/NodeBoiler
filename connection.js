@@ -6,10 +6,10 @@ var option ={
   password: config.mysql.password,
   database: config.mysql.database
 };
-var con = mysql.createConnection(option);
+/*var con = mysql.createConnection(option);
 con.option = option;
 con.connect(function (err){
     if(err) throw err;
-});
-
-module.exports = con;
+});*/
+var pool      =    mysql.createPool(option);
+module.exports = pool;

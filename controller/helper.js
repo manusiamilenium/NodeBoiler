@@ -13,7 +13,7 @@ module.exports = {
             if (error) {
                 callback(error);
             } else {
-                //console.log(rows);
+                 
                 callback(null, rows);
             }
         });

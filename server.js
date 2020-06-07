@@ -1,14 +1,16 @@
 //var routes = require('./routes/index');
-var express = require('express'),
+const express = require('express'),
     app = express(), 
-    bodyParser = require('body-parser'), 
+    bodyParser = require('body-parser'),
+    
     compression = require('compression');
 const path = require('path');
 global.config = require('./config');
 global.helper = require('./controller/helper');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(compression())
+//app.use(compression())
 global.tokenList = {} 
 
 app.set('views', path.join(__dirname, 'views'));

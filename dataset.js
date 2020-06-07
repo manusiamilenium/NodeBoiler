@@ -8,7 +8,7 @@ exports.ok = function (values, res) {
         "recordsFiltered": values["recordsFiltered"],
         'data': values["data"],
     };
-    //console.log(data);
+     
     res.json(data);
     res.end();
 };

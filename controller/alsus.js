@@ -52,6 +52,7 @@ exports.createAlsusAction = function (req, res) {
         // req.file contains information of uploaded file
         // req.body contains information of text fields, if there were any
         //console.log(req.file);
+         
         const error = validation(req.body).error;
         if (error) {
             req.session.notification = error.message;
@@ -72,6 +73,7 @@ exports.createAlsusAction = function (req, res) {
                 var buff = new Buffer(encode_image, 'base64')
                 var tahun_penggunaan_alsus = req.body.tahun_penggunaan_alsus;
                 var jumlah_penggunaan_alsus = req.body.jumlah_penggunaan_alsus;
+<<<<<<< HEAD
                 const onError = async (error) => {
 
                 }
@@ -83,6 +85,18 @@ exports.createAlsusAction = function (req, res) {
                 }
 
                 model.add([req.session.user.id_user, tahun_penggunaan_alsus, jumlah_penggunaan_alsus, buff], onSuccess, onError);
+=======
+                model.add([req.session.user.id_user, tahun_penggunaan_alsus, jumlah_penggunaan_alsus, buff], function (error, rows, fields) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        uamodel.loguser([req.session.user.id_user, "Mengisi Data alsus"],(r) => { });
+                        req.session.notification = "Berhasil Ditambah";
+                        req.session.notificationtype = "success";
+                        res.redirect('/alsus/');
+                    }
+                });
+>>>>>>> a863b256809fb780b4ae8917b2dca09f58b49bb9
             }
         }
 
@@ -93,6 +107,7 @@ exports.createAlsusAction = function (req, res) {
 };
 exports.deleteAlsus = function (req, res) {
     var id_penggunaan_alsus = req.params.id_penggunaan_alsus;
+<<<<<<< HEAD
     const onError = async (error) => {
 
     }
@@ -104,6 +119,18 @@ exports.deleteAlsus = function (req, res) {
     }
 
     model.delete([id_penggunaan_alsus], onSuccess, onError);
+=======
+    model.delete([id_penggunaan_alsus], function (error, rows, fields) {
+        if (error) {
+            console.log(error)
+        } else {
+            uamodel.loguser([req.session.user.id_user, "Menghapus Data alsus"],(r) => { });
+            req.session.notification = "Berhasil Dihapus";
+            req.session.notificationtype = "success";
+            res.redirect('/alsus/');
+        }
+    });
+>>>>>>> a863b256809fb780b4ae8917b2dca09f58b49bb9
 };
 
 exports.fileAlsus = function (req, res) {
@@ -115,12 +142,7 @@ exports.fileAlsus = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add([req.session.user.id_user, "Download File Alsus"], function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                }
-            });
-            console.log(rows)
+            uamodel.loguser([req.session.user.id_user, "Download File alsus"],(r) => { });
             var buffer = rows[0].attachment_penggunaan_alsus
             const fs = require('fs');
             fs.writeFile('attachment_penggunaan_alsus.pdf', buffer, 'binary', function (err) {
@@ -169,11 +191,7 @@ exports.createAlsusRealisasiAction = function (req, res) {
             if (error) {
                 console.log(error)
             } else {
-                uamodel.add([req.session.user.id_user, "Mengisi Data realisasi alsus"], function (error, rows, fields) {
-                    if (error) {
-                        console.log(error)
-                    }
-                });
+                uamodel.loguser([req.session.user.id_user, "Mengisi Data realisasi alsus"],(r) => { }); 
                 req.session.notification = "Berhasil Ditambah";
                 req.session.notificationtype = "success";
                 res.redirect('/alsus/realisasi');
@@ -188,11 +206,7 @@ exports.deleteAlsusRealisasi = function (req, res) {
         if (error) {
             console.log(error)
         } else {
-            uamodel.add([req.session.user.id_user, "Menghapus Data Realisasi Alsus"], function (error, rows, fields) {
-                if (error) {
-                    console.log(error)
-                }
-            });
+            uamodel.loguser([req.session.user.id_user, "Menghapus Data Realisasi Alsus"],(r) => { }); 
             req.session.notification = "Berhasil Dihapus";
             req.session.notificationtype = "success";
             res.redirect('/alsus/realisasi');
